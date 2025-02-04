@@ -4,7 +4,6 @@ import viteLogo from '/vite.svg'
 import './App.css'
 
 export function TextBox({question}) {
-
     return(
         <div>
             <label>{question}</label>
@@ -12,15 +11,8 @@ export function TextBox({question}) {
                 <input type="text" />
             </div>
         </div>
-
-
-
     )
-
-
 }
-
-
 
 export function DropDown({question, options}) {
     return(
@@ -37,7 +29,6 @@ export function DropDown({question, options}) {
     )
 }
 
-
 export function MultipleAnswerQuestions({question,answers, type}){
     return (
         <div>
@@ -51,9 +42,3 @@ export function MultipleAnswerQuestions({question,answers, type}){
         </div>
     )
 }
-
-
-
-
-
-

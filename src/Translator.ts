@@ -16,13 +16,3 @@ export async function Translator(language: string, text:string) {
 
     return data;
 }
-
-
-export function languageMapper(){
-
-{
-
-
-}
-
-}
