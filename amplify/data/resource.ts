@@ -6,12 +6,37 @@ adding a new "isDone" field as a boolean. The authorization rule below
 specifies that any unauthenticated user can "create", "read", "update", 
 and "delete" any "Todo" records.
 =========================================================================*/
+// const schema = a.schema({
+//   Todo: a
+//     .model({
+//       content: a.string(),
+//     })
+//     .authorization((allow) => [allow.guest()]),
+// });
+
+// export type Schema = ClientSchema<typeof schema>;
+
+// export const data = defineData({
+//   schema,
+//   authorizationModes: {
+//     defaultAuthorizationMode: 'iam',
+//   },
+// });
+
+
 const schema = a.schema({
-  Todo: a
-    .model({
-      content: a.string(),
+  translate: a.query()
+    .arguments({
+      sourceLanguage: a.string().required(),
+      targetLanguage: a.string().required(),
+      text: a.string().required()
     })
-    .authorization((allow) => [allow.guest()]),
+    .returns(a.string())
+    .authorization(allow => [allow.publicApiKey()])
+    .handler(a.handler.custom({
+      dataSource: "TranslateDataSource",
+      entry: './translate.js'
+    }))
 });
 
 export type Schema = ClientSchema<typeof schema>;
@@ -19,9 +44,13 @@ export type Schema = ClientSchema<typeof schema>;
 export const data = defineData({
   schema,
   authorizationModes: {
-    defaultAuthorizationMode: 'iam',
+    defaultAuthorizationMode: 'apiKey',
+    apiKeyAuthorizationMode: {
+      expiresInDays: 30,
+    },
   },
 });
+
 
 /*== STEP 2 ===============================================================
 Go to your frontend source code. From your client-side code, generate a

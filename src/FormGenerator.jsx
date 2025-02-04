@@ -28,8 +28,8 @@ export function DropDown({question, options}) {
             <label>{question}</label>
             <div>
                 <select>
-                    {options.map((option) => {
-                        return <option value={option}>{option}</option>
+                    {options.map((option,index) => {
+                        return <option key={option.id || index} value={option}>{option}</option>
                     })}
                 </select>
             </div>
@@ -42,14 +42,12 @@ export function MultipleAnswerQuestions({question,answers, type}){
     return (
         <div>
             <label>{question}</label>
-            {answers.map((answer) => {
-                return(
-                    <div>
-                        <input type={type} id={answer} name={answer} value={answer} />
-                        <label for={answer}>{answer}</label>
-                    </div>
-                )
-            })}
+            {answers.map((answer, index) => (
+                <div key={answer.id || index}>
+                    <input type={type} id={answer} name={answer} value={answer} />
+                    <label htmlFor={answer}>{answer}</label>
+                </div>
+                ))}
         </div>
     )
 }

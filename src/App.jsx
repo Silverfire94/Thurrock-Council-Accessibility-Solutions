@@ -3,6 +3,8 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import { TextBox, DropDown, MultipleAnswerQuestions } from './FormGenerator'
 import './App.css'
+import { GetLanguages } from './LanguagesDropDown'
+
 
 function App() {
   const [count, setCount] = useState(0)
@@ -31,15 +33,15 @@ function App() {
       </p>
 
       <form>
-      
+        {}
         <TextBox question="What is your name?" />
         <DropDown question="What is your favorite color?" options={["Red", "Blue", "Green", "Yellow"]} /> 
         <MultipleAnswerQuestions question="What is your favorite color?" answers={["Red", "Blue", "Green", "Yellow"]} type="radio" />
 
-      <input type = "submit"/>
+        <input type = "submit"/>
       </form>
-
-
+      
+      <GetLanguages />
     </>
   )
 }
