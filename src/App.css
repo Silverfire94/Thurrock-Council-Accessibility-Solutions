@@ -1,4 +1,4 @@
-#root {
+/* #root {
   max-width: 1280px;
   padding: 2rem;
   text-align: left;
@@ -13,16 +13,9 @@
 }
 
 .custom-checkbox {
-  width: 25px; /* Increase width */
-  height: 25px; /* Increase height */
-  border: 20px solid #000; /* Thicker border */
-  border-radius: 4px; /* Optional: rounded corners */
+  width: 25px; 
+  height: 25px;
+  border: 20px solid #000; 
+  border-radius: 4px;
   cursor: pointer;
-}
-
-/* 
-.custom-checkbox:checked {
-  background-color: #007bff; /* Bootstrap primary color */
-  /* border: 3px solid #0056b3
-
-} */ 
+} */

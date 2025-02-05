@@ -6,8 +6,9 @@ import { Amplify } from "aws-amplify";
 import outputs from "../amplify_outputs.json";
 Amplify.configure(outputs);
 
+
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
+    <StrictMode>
+      <App />
+    </StrictMode>
 )

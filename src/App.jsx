@@ -7,13 +7,17 @@ import { GetLanguages } from './LanguagesDropDown'
 import  {questions} from "./SampleForm.json"
 import {FormParser} from "./FormParser"
 
+import '@mantine/core/styles.css';
+
+import { MantineProvider } from '@mantine/core';
+
 function App() {
   const [count, setCount] = useState(0)
   
   return (
-    <>
+    <MantineProvider>
       <FormParser/>
-    </>
+    </MantineProvider>
   )
 }
 
