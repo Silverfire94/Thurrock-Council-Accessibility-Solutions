@@ -7,7 +7,7 @@ export function TextBox({question}) {
     return(
         <div>
             <label className="form-prompt">{question}</label>
-            <input type="text" class="form-control" className="form-control border border-1 border-dark" />
+            <input type="text" class="form-control" />
         </div>
     )
 }
@@ -31,7 +31,7 @@ export function MultipleAnswerQuestions({question,answers, type}){
             <label className="header-question">{question}</label>
             {answers.map((answer, index) => (
                 <div key={answer.id || index}>
-                    <input type={type} id={answer} name={answer} value={answer} className ={"custom-checkbox"}/>
+                    <input type={type} id={answer} name={answer} value={answer} className ="custom-checkbox"/>
                     <label htmlFor={answer}>{answer}</label>
                 </div>
                 ))}
