@@ -5,7 +5,6 @@ import { TextBox, DropDown, MultipleAnswerQuestions } from './FormGenerator'
 import './App.css'
 import { GetLanguages } from './LanguagesDropDown'
 import {questions} from "./SampleForm.json"
-import Container from 'react-bootstrap/Container'
 
 export function FormParser() {
     const [items, setItems] = useState([])
@@ -15,7 +14,7 @@ export function FormParser() {
     },[])
 
   return (
-    <>
+    <form>
     {
        items.map((item, index) => {
             if(item.type === "textbox"){
@@ -35,6 +34,6 @@ export function FormParser() {
             }
        })
     }
-    </>
+    </form>
   )
 }
