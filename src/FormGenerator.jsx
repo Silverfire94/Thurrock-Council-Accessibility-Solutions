@@ -9,7 +9,7 @@ export function TextBox({question}) {
         <div  className = "container mt-4">
             <label className = "header-question" >{question}</label>
             <div>
-                <input type="text" className="form-control border border-3 border-dark" />
+                <input type="text" className="form-control border border-1 border-dark" />
             </div>
         </div>
     )
@@ -36,7 +36,7 @@ export function MultipleAnswerQuestions({question,answers, type}){
             <label className = "header-question">{question}</label>
             {answers.map((answer, index) => (
                 <div key={answer.id || index}>
-                    <input type={type} id={answer} name={answer} value={answer} />
+                    <input type={type} id={answer} name={answer} value={answer} className ={"custom-checkbox"}/>
                     <label htmlFor={answer}>{answer}</label>
                 </div>
                 ))}
