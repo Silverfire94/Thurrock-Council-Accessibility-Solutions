@@ -5,12 +5,12 @@
 
 
 }
+
 .header-question {
   font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 1rem;
 }
-
 
 .custom-checkbox {
   width: 25px; /* Increase width */
@@ -19,9 +19,10 @@
   border-radius: 4px; /* Optional: rounded corners */
   cursor: pointer;
 }
+
 /* 
 .custom-checkbox:checked {
   background-color: #007bff; /* Bootstrap primary color */
   /* border: 3px solid #0056b3
 
-} */ */
+} */ 

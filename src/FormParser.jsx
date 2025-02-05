@@ -7,17 +7,15 @@ import { GetLanguages } from './LanguagesDropDown'
 import {questions} from "./SampleForm.json"
 import Container from 'react-bootstrap/Container'
 
-
 export function FormParser() {
     const [items, setItems] = useState([])
-
 
     useEffect(()=>{
       setItems(questions)
     },[])
 
   return (
-    <Container className = "p-3">
+    <>
     {
        items.map((item, index) => {
             if(item.type === "textbox"){
@@ -37,6 +35,6 @@ export function FormParser() {
             }
        })
     }
-    </Container>
+    </>
   )
 }
