@@ -6,6 +6,9 @@ import './App.css'
 import { GetLanguages } from './LanguagesDropDown'
 import  {questions} from "./SampleForm.json"
 import {FormParser} from "./FormParser"
+// import "bootstrap/dist/css/bootstrap.min.css";
+import Container from 'react-bootstrap/Container'
+
 
 function App() {
   const [count, setCount] = useState(0)
@@ -15,37 +18,11 @@ function App() {
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-{/* 
-      <form>
-        {}
-        <TextBox question="What is your name?" />
-        <DropDown question="What is your favorite color?" options={["Red", "Blue", "Green", "Yellow"]} /> 
-        <MultipleAnswerQuestions question="What is your favorite color?" answers={["Red", "Blue", "Green", "Yellow"]} type="radio" />
+    {/* <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" integrity="sha256-2TnSHycBDAm2wpZmgdi0z81kykGPJAkiUY+Wf97RbvY=" crossorigin="anonymous"></link>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha256-gOQJIa9+K/XdfAuBkg2ONAdw5EnQbokw/s2b8BqsRFg=" crossorigin="anonymous"></script> */}
 
-        <input type = "submit"/>
-      </form>
-
-      <GetLanguages /> */}
+   
+     
 
       <FormParser/>
     </>
