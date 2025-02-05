@@ -4,8 +4,6 @@ import viteLogo from '/vite.svg'
 import { TextBox, DropDown, MultipleAnswerQuestions } from './FormGenerator'
 import './App.css'
 import { GetLanguages } from './LanguagesDropDown'
-import  {questions} from "./SampleForm.json"
-import {FormParser} from "./FormParser"
 
 function App() {
   const [count, setCount] = useState(0)
@@ -47,7 +45,7 @@ function App() {
 
       <GetLanguages /> */}
 
-      <FormParser/>
+      <GetLanguages/>
     </>
   )
 }

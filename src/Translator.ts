@@ -2,17 +2,30 @@ import { generateClient } from 'aws-amplify/data';
 import { type Schema } from '../amplify/data/resource';
 
 export async function Translator(language: string, text:string) {
-    console.log(language["code"]);
     const client = generateClient<Schema>();
-
 
     const { data } = await client.queries.translate({
         sourceLanguage: "en",
-        targetLanguage: language["code"],
-        text: "Hello World!",
+        targetLanguage: language,
+        text: text,
     });
 
-    console.log(data);
-
     return data;
+}
+
+interface Questions {
+    question: string, 
+    type:string, 
+    answers: string[]
+}
+
+export async function handleClick(code: string, oldItems:Questions[]){
+    for (let i = 0; i < oldItems.length; i++) {
+        oldItems[i].question = await Translator(code, oldItems[i].question) ?? "err"
+        if(oldItems[i].type === "checkbox" || oldItems[i].type === "radio" || oldItems[i].type === "radio"){
+            for (let j = 0; j < oldItems[i].answers.length; j++) {
+                oldItems[i].answers[j] = await Translator(code, oldItems[i].answers[j]) ?? "err"
+            }
+        }
+    }
 }
