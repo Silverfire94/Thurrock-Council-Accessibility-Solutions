@@ -23,11 +23,7 @@ export function FormParser() {
 
     return (
         <Container size="xs" pt={30}>
-            <Stack 
-                justify='flex-start'
-                align='stretch'
-                gap="xl"
-                >
+            <Stack justify='flex-start' align='stretch' gap="xl">
                 {
                 items.map((item, index) => {
                         if(item.type === "textbox"){
