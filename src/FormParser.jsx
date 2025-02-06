@@ -5,7 +5,7 @@ import { TextBox, DropDown, MultipleAnswerQuestions } from './FormGenerator'
 import './App.css'
 import { GetLanguages } from './LanguagesDropDown'
 import {questions} from "./SampleForm.json"
-import { TextInput, Checkbox, Radio, Stack, Group, Container } from '@mantine/core'
+import { TextInput, Checkbox, Radio, Stack, Group, Container, Button, Text, Code } from '@mantine/core'
 import { useForm } from '@mantine/form'
 
 export function FormParser() {
@@ -21,23 +21,26 @@ export function FormParser() {
 
     const [submittedValues, setSubmittedValues] = useState([]);
 
+    const [checkboxValues, setCheckboxValues] = useState([]);
+
     return (
-        <Container size="xs" pt={30}>
-            <Stack justify='flex-start' align='stretch' gap="xl">
+        <Container size="xs" pt={30} pb={60}>
+            <Stack justify='flex-start' align='stretch' gap="lg">
+                <form onSubmit={form.onSubmit(setSubmittedValues)}>
                 {
                 items.map((item, index) => {
                         if(item.type === "textbox"){
                             return (
                                 // <TextBox key={item.id || index} question={item.question}/>
 
-                                <TextInput key={item.id || index} label={item.question} />
+                                <TextInput {...form.getInputProps({index})} key={item.id || index} label={item.question} />
                             )
                         }
                         if(item.type === "checkbox"){
                             return (
                                 // <MultipleAnswerQuestions key={item.id || index}  question={item.question} answers={item.answers} type="checkbox"/>
 
-                                <Checkbox.Group key={item.id || index} label={item.question} >
+                                <Checkbox.Group value={checkboxValues} onChange={setCheckboxValues} key={item.id || index} label={item.question} >
                                     <Stack gap="xs">
                                     {item.answers.map( (answer, index) => (
                                         <Checkbox key={item.id || index} value={answer} label={answer}/>
@@ -61,6 +64,11 @@ export function FormParser() {
                         }
                 })
                 }
+                <Button type="submit" mt="md">Submit</Button>
+
+                <Text mt="md">Submitted values:</Text>
+                <Code block>{checkboxValues ? JSON.stringify(checkboxValues, null, 2) : '–'}</Code>
+                </form>
             </Stack>
         </Container>
     )
