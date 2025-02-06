@@ -3,7 +3,7 @@ import { TextBox, DropDown, Radio, CheckBox } from './FormGenerator'
 import './App.css'
 import { GetLanguages } from './LanguagesDropDown'
 import {questions} from "./SampleForm.json"
-import { TextInput, Checkbox, Radio, Stack, Group, Container, Button, Text, Code } from '@mantine/core'
+import { TextInput, Checkbox, Radio as Radio2, Stack, Group, Container, Button, Text, Code } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { Environment } from 'aws-cdk-lib/aws-appconfig'
 
@@ -72,7 +72,7 @@ export function FormParser({items}) {
                 </form>
             </Stack>
         </Container> */
-        
+
     const handleSubmit = (event) => {
         console.log(event.target.value)
     }
