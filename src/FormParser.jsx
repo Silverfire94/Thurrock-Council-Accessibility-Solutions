@@ -1,17 +1,18 @@
-import { useState, useEffect } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import { TextBox, DropDown, MultipleAnswerQuestions } from './FormGenerator'
+import { useState } from 'react'
+import { TextBox, DropDown, Radio, CheckBox } from './FormGenerator'
 import './App.css'
 import { GetLanguages } from './LanguagesDropDown'
 import {questions} from "./SampleForm.json"
 import { TextInput, Checkbox, Radio, Stack, Group, Container, Button, Text, Code } from '@mantine/core'
 import { useForm } from '@mantine/form'
+import { Environment } from 'aws-cdk-lib/aws-appconfig'
 
-export function FormParser() {
-    const [items, setItems] = useState([])
 
-    useEffect(()=>{
+export function FormParser({items}) {
+    const [name, setName] = useState("")
+    const [radioQuestions, setRadioQuestions] = useState({})
+
+    /* useEffect(()=>{
       setItems(questions)
     },[])
 
@@ -70,6 +71,43 @@ export function FormParser() {
                 <Code block>{checkboxValues ? JSON.stringify(checkboxValues, null, 2) : '–'}</Code>
                 </form>
             </Stack>
-        </Container>
+        </Container> */
+        
+    const handleSubmit = (event) => {
+        console.log(event.target.value)
+    }
+
+    function handleForm(formData) {
+        console.log(formData);
+      }
+
+    return (
+        <>
+            <form onSubmit={handleSubmit}>
+                {items.map((item, index) => {
+                    if(item.type === "textbox"){
+                        return (
+                            <TextBox key={item.id || index} question={item.question}/>
+                        )
+                    }
+                    if(item.type === "checkbox"){
+                        return (
+                            <CheckBox key={item.id || index}  question={item.question} answers={item.answers}/>
+                        )
+                    }
+                    if(item.type === "radio"){
+                        return (
+                            <Radio key={item.id || index}  question={item.question} answers={item.answers}/>
+                        )
+                    }
+                    if(item.type === "dropdown"){
+                        return (
+                            <DropDown key={item.id || index}  question={item.question} answers={item.answers}/>
+                        )
+                    }
+                })}
+                <input type="submit" />
+            </form>
+        </>
     )
 }
