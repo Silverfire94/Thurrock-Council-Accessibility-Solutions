@@ -1,16 +1,7 @@
 import { TextInput, Checkbox, Radio, Stack, Group, Container, Button, Text, Code, NumberInput, Select } from '@mantine/core'
 import { useForm } from '@mantine/form'
-import { useState } from 'react'
 
-const formSchema = [
-    { name: "name", label: "Name", type: "text" },
-    { name: "age", label: "Age", type: "number" },
-    { name: "gender", label: "Gender", type: "select", data: ["Male", "Female", "Other"] },
-    { name: "food", label:"Food", type:"checkbox", options: ["Pizza", "Pasta", "Burger"] },
-    { name: "country", label:"Country", type:"radio", options: ["USA", "UK", "Germany"] }
-]
-
-export function FormGenerator() {
+const FormGenerator2 = ({ formSchema }) => {
     const form = useForm({
         initialValues: formSchema.reduce((acc, field) => {
             acc[field.name] = field.type === "checkbox" ? [] : "";
@@ -99,3 +90,5 @@ export function FormGenerator() {
         </Container>
     )
 }
+
+export default FormGenerator2
