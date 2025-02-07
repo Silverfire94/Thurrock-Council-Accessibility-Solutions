@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Select, Loader } from "@mantine/core";
-import FormGenerator2 from "./FormGenerator2";
 import TranslateForm from "./TranslateForm";
 
 const FormSelector = () => {
@@ -123,7 +122,6 @@ const FormSelector = () => {
             />
             
             {loading && <Loader mt="md" />}
-            {/*formSchema && !loading && <FormGenerator2 formSchema={formSchema} />*/}
             {formSchema && !loading && <TranslateForm formSchema={formSchema} targetLanguage={targetLanguage} />}
         </div>
     )
