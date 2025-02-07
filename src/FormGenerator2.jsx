@@ -1,4 +1,4 @@
-import { TextInput, Checkbox, Radio, Stack, Group, Container, Button, Text, Code, NumberInput, Select } from '@mantine/core'
+import { TextInput, Checkbox, Radio, Stack, Group, Button, NumberInput, Select } from '@mantine/core'
 import { useForm } from '@mantine/form'
 
 const FormGenerator2 = ({ formSchema }) => {
