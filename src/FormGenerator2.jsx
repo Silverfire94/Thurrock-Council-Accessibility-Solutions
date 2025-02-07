@@ -1,17 +1,19 @@
-import { TextInput, Checkbox, Radio as Radio2, Stack, Group, Container, Button, Text, Code, NumberInput, Select } from '@mantine/core'
+import { TextInput, Checkbox, Radio, Stack, Group, Container, Button, Text, Code, NumberInput, Select } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { useState } from 'react'
 
 const formSchema = [
     { name: "name", label: "Name", type: "text" },
     { name: "age", label: "Age", type: "number" },
-    { name: "gender", label: "Gender", type: "select", data: ["Male", "Female", "Other"] }
+    { name: "gender", label: "Gender", type: "select", data: ["Male", "Female", "Other"] },
+    { name: "food", label:"Food", type:"checkbox", options: ["Pizza", "Pasta", "Burger"] },
+    { name: "country", label:"Country", type:"radio", options: ["USA", "UK", "Germany"] }
 ]
 
 export function FormGenerator() {
     const form = useForm({
         initialValues: formSchema.reduce((acc, field) => {
-            acc[field.name] = "";
+            acc[field.name] = field.type === "checkbox" ? [] : "";
             return acc;
         }, {})
     })
@@ -51,6 +53,41 @@ export function FormGenerator() {
                                         data={field.data}
                                         {...form.getInputProps(field.name)}
                                     />
+                                )
+                            case "radio":
+                                return (
+                                    <div key={field.name}>
+                                        <label>{field.label}</label>
+                                        <Radio.Group {...form.getInputProps(field.name)}>
+                                            {field.options.map((option) => (
+                                                <Radio key={option} value={option} label={option} />
+                                            ))}
+                                        </Radio.Group>
+                                    </div>
+                                )
+                            case "checkbox":
+                                return (
+                                    <div key={field.name}>
+                                        <label>{field.label}</label>
+                                        <Group mt="xs">
+                                            {field.options.map((option) => (
+                                                <Checkbox
+                                                    key={option}
+                                                    label={option}
+                                                    checked={form.values[field.name].includes(option)}
+                                                    onChange={(event) => {
+                                                    const { checked } = event.target;
+                                                    form.setFieldValue(
+                                                        field.name,
+                                                        checked
+                                                        ? [...form.values[field.name], option]
+                                                        : form.values[field.name].filter((v) => v !== option)
+                                                    );
+                                                    }}
+                                                />
+                                            ))}
+                                        </Group>
+                                    </div>
                                 )
                             default:
                                 return null;
