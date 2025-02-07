@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Select, Loader } from "@mantine/core";
+import { Select, Loader, Space } from "@mantine/core";
 import TranslateForm from "./TranslateForm";
 
 const FormSelector = () => {
@@ -82,7 +82,7 @@ const FormSelector = () => {
       ]      
 
     const [selectedForm, setSelectedForm] = useState("form2")
-    const [targetLanguage, setTargetLanguage] = useState("es")
+    const [targetLanguage, setTargetLanguage] = useState("en")
     const [formSchema, setFormSchema] = useState(null)
     const [loading, setLoading] = useState(false)
 
@@ -120,7 +120,7 @@ const FormSelector = () => {
                 value={targetLanguage}
                 onChange={setTargetLanguage}
             />
-            
+            <Space h="xl"/>
             {loading && <Loader mt="md" />}
             {formSchema && !loading && <TranslateForm formSchema={formSchema} targetLanguage={targetLanguage} />}
         </div>

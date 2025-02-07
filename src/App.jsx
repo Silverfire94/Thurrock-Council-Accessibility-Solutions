@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import FormSelector from './FormSelector'
+import { Container } from '@mantine/core';
 
 import '@mantine/core/styles.css';
 
@@ -11,8 +12,9 @@ function App() {
   
   return (
     <MantineProvider>
-      {/* <GetLanguages/>  */}
-      <FormSelector />
+      <Container size="xs" pt={60} pb={60}>
+        <FormSelector />
+      </Container>
     </MantineProvider>
   )
 }

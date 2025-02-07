@@ -14,80 +14,77 @@ const FormGenerator2 = ({ formSchema }) => {
     }
 
     return (
-        <Container size="xs" pt={60} pb={60}>
-            <Stack justify='flex-start' align='stretch' gap="lg">
-
-                <form onSubmit={form.onSubmit(handleSubmit)}>
-                    {formSchema.map((field => {
-                        switch (field.type) {
-                            case "text":
-                                return (
-                                    <TextInput
-                                        key={field.name}
-                                        label={field.label}
-                                        {...form.getInputProps(field.name)} 
-                                    />
-                                )
-                            case "number":
-                                return (
-                                    <NumberInput
-                                        key={field.name}
-                                        label={field.label}
-                                        {...form.getInputProps(field.name)}
-                                    />
-                                )
-                            case "select":
-                                return (
-                                    <Select
-                                        key={field.name}
-                                        label={field.label}
-                                        data={field.data}
-                                        {...form.getInputProps(field.name)}
-                                    />
-                                )
-                            case "radio":
-                                return (
-                                    <div key={field.name}>
-                                        <label>{field.label}</label>
-                                        <Radio.Group {...form.getInputProps(field.name)}>
-                                            {field.options.map((option) => (
-                                                <Radio key={option} value={option} label={option} />
-                                            ))}
-                                        </Radio.Group>
-                                    </div>
-                                )
-                            case "checkbox":
-                                return (
-                                    <div key={field.name}>
-                                        <label>{field.label}</label>
-                                        <Group mt="xs">
-                                            {field.options.map((option) => (
-                                                <Checkbox
-                                                    key={option}
-                                                    label={option}
-                                                    checked={form.values[field.name].includes(option)}
-                                                    onChange={(event) => {
-                                                    const { checked } = event.target;
-                                                    form.setFieldValue(
-                                                        field.name,
-                                                        checked
-                                                        ? [...form.values[field.name], option]
-                                                        : form.values[field.name].filter((v) => v !== option)
-                                                    );
-                                                    }}
-                                                />
-                                            ))}
-                                        </Group>
-                                    </div>
-                                )
-                            default:
-                                return null;
-                        }
-                    }))}
-                    <Button type="submit" mt="md">Submit</Button>
-                </form>
-            </Stack>
-        </Container>
+        <Stack justify='flex-start' align='stretch' gap="lg">
+            <form onSubmit={form.onSubmit(handleSubmit)}>
+                {formSchema.map((field => {
+                    switch (field.type) {
+                        case "text":
+                            return (
+                                <TextInput
+                                    key={field.name}
+                                    label={field.label}
+                                    {...form.getInputProps(field.name)} 
+                                />
+                            )
+                        case "number":
+                            return (
+                                <NumberInput
+                                    key={field.name}
+                                    label={field.label}
+                                    {...form.getInputProps(field.name)}
+                                />
+                            )
+                        case "select":
+                            return (
+                                <Select
+                                    key={field.name}
+                                    label={field.label}
+                                    data={field.data}
+                                    {...form.getInputProps(field.name)}
+                                />
+                            )
+                        case "radio":
+                            return (
+                                <div key={field.name}>
+                                    <label>{field.label}</label>
+                                    <Radio.Group {...form.getInputProps(field.name)}>
+                                        {field.options.map((option) => (
+                                            <Radio key={option} value={option} label={option} />
+                                        ))}
+                                    </Radio.Group>
+                                </div>
+                            )
+                        case "checkbox":
+                            return (
+                                <div key={field.name}>
+                                    <label>{field.label}</label>
+                                    <Group mt="xs">
+                                        {field.options.map((option) => (
+                                            <Checkbox
+                                                key={option}
+                                                label={option}
+                                                checked={form.values[field.name].includes(option)}
+                                                onChange={(event) => {
+                                                const { checked } = event.target;
+                                                form.setFieldValue(
+                                                    field.name,
+                                                    checked
+                                                    ? [...form.values[field.name], option]
+                                                    : form.values[field.name].filter((v) => v !== option)
+                                                );
+                                                }}
+                                            />
+                                        ))}
+                                    </Group>
+                                </div>
+                            )
+                        default:
+                            return null;
+                    }
+                }))}
+                <Button type="submit" mt="md">Submit</Button>
+            </form>
+        </Stack>
     )
 }
 
