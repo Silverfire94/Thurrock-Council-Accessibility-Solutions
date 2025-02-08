@@ -1,0 +1,23 @@
+[
+    { "name": "name", "label": "Name", "type": "text" },
+    { "name": "age", "label": "Age", "type": "number" },
+    {
+      "name": "gender",
+      "label": "Gender",
+      "type": "radio",
+      "options": ["Male", "Female", "Other"]
+    },
+    {
+      "name": "hobbies",
+      "label": "Hobbies",
+      "type": "checkbox",
+      "options": ["Reading", "Gaming", "Traveling", "Cooking"]
+    },
+    {
+      "name": "country",
+      "label": "Country",
+      "type": "select",
+      "data": ["USA", "Canada", "UK", "Germany"]
+    }
+]
+  

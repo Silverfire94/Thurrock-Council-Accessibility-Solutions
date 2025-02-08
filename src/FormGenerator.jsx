@@ -6,10 +6,8 @@ import './App.css'
 export function TextBox({question}) {
     return(
         <div>
-            <label>{question}</label>
-            <div>
-                <input type="text" className=""/>
-            </div>
+            <label className="form-prompt">{question}</label>
+            <input type="text" class="form-control" />
         </div>
     )
 }
@@ -17,14 +15,12 @@ export function TextBox({question}) {
 export function DropDown({question, options}) {
     return(
         <div>
-            <label>{question}</label>
-            <div>
-                <select>
-                    {options.map((option,index) => {
-                        return <option key={option.id || index} value={option}>{option}</option>
-                    })}
-                </select>
-            </div>
+            <label className="form-prompt">{question}</label>
+            <select>
+                {options.map((option,index) => {
+                    return <option key={option.id || index} value={option}>{option}</option>
+                })}
+            </select>
         </div>
     )
 }
@@ -33,7 +29,7 @@ export function CheckBox({question,answers}){
 
     return (
         <div>
-            <label>{question}</label>
+            <label className="header-question">{question}</label>
             {answers.map((answer, index) => (
                 <div key={answer.id || index}>
                     <input 
