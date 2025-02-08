@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { Select, Loader, Space, Container, AppShell, Button, Grid } from "@mantine/core";
+import { Select, Loader, Space, Container, AppShell, Button, Grid, NavLink, Image, Group, Text } from "@mantine/core";
 import TranslateForm from "./TranslateForm";
+import logo from "./assets/logo.png"
 
 const FormSelector = () => {
     const languageOptions = [
@@ -113,13 +114,15 @@ const FormSelector = () => {
             padding="xl"
         >
             <AppShell.Header>
-                <p>Text</p>
+                <Group h="100%" px="md">
+                    <Image src={logo} alt="Logo" h={30} w="auto" fit="contain" />
+                    <Text c="white" size="xl">thurrock.gov.uk</Text>
+                </Group>
             </AppShell.Header>
 
             <AppShell.Navbar p="md">
-                <Button key="1" onClick={() => setSelectedForm("form1")}>Form 1</Button>
-                <Space h="md" />
-                <Button key="2" onClick={() => setSelectedForm("form2")}>Form 2</Button>
+                <NavLink key="1" active={ selectedForm === "form1" } label="Form 1" onClick={() => setSelectedForm("form1")} color="#3b943b" />
+                <NavLink key="2" active={ selectedForm === "form2" } label="Form 2" onClick={() => setSelectedForm("form2")} color="#3b943b" />
             </AppShell.Navbar>
 
             <AppShell.Main>
@@ -134,7 +137,7 @@ const FormSelector = () => {
                     </Grid.Col>
                     <Grid.Col span={9}></Grid.Col>
                     <Grid.Col span={12}>
-                        <Container size="xs" pt={60} pb={60}>
+                        <Container size="xs" pt={20} pb={60}>
                             {loading && <Loader mt="md" />}
                             {formSchema && !loading && <TranslateForm formSchema={formSchema} targetLanguage={targetLanguage} />}
                         </Container>

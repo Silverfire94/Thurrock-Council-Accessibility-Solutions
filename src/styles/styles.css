@@ -1,0 +1,23 @@
+.mantine-Button-root {
+    background-color: #3b943b !important;
+}
+
+.mantine-Button-root:hover {
+    background-color: #348a34 !important;
+}
+
+.mantine-AppShell-header {
+    background-color: #7a7479 !important;
+}
+
+.mantine-TextInput-input:focus {
+    border-color: #3b943b;
+}
+
+.mantine-NumberInput-input:focus {
+    border-color: #3b943b;
+}
+
+.mantine-Select-input:focus {
+    border-color: #3b943b;
+}

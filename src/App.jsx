@@ -1,17 +1,13 @@
-import { useState } from 'react'
-import './App.css'
 import FormSelector from './FormSelector'
-import { Container } from '@mantine/core';
-
+import "./styles/styles.css";
 import '@mantine/core/styles.css';
 
 import { MantineProvider } from '@mantine/core';
 
 function App() {
-  const [count, setCount] = useState(0)
   
   return (
-    <MantineProvider>
+    <MantineProvider withGlobalStyles withNormalizeCSS>
       <FormSelector />
     </MantineProvider>
   )

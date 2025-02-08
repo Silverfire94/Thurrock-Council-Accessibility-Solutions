@@ -51,7 +51,7 @@ const FormGenerator2 = ({ formSchema }) => {
                                         <Radio.Group {...form.getInputProps(field.name)}>
                                             <Stack gap={8}>
                                                 {field.options.map((option) => (
-                                                    <Radio key={option} value={option} label={option} />
+                                                    <Radio key={option} value={option} label={option} color="#3b943b" />
                                                 ))}
                                             </Stack>
                                         </Radio.Group>
@@ -65,6 +65,7 @@ const FormGenerator2 = ({ formSchema }) => {
                                             {field.options.map((option) => (
                                                 <Checkbox
                                                     key={option}
+                                                    color="#3b943b"
                                                     label={option}
                                                     checked={form.values[field.name].includes(option)}
                                                     onChange={(event) => {
