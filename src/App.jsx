@@ -12,9 +12,7 @@ function App() {
   
   return (
     <MantineProvider>
-      <Container size="xs" pt={60} pb={60}>
-        <FormSelector />
-      </Container>
+      <FormSelector />
     </MantineProvider>
   )
 }

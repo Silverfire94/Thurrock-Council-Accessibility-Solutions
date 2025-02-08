@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Select, Loader, Space } from "@mantine/core";
+import { Select, Loader, Space, Container, AppShell, Button } from "@mantine/core";
 import TranslateForm from "./TranslateForm";
 
 const FormSelector = () => {
@@ -104,26 +104,49 @@ const FormSelector = () => {
     }, [selectedForm])
 
     return (
-        <div>
-            <Select
-                label="Select a Form"
-                value={selectedForm}
-                onChange={setSelectedForm}
-                data={[
-                { value: "form1", label: "Form 1" },
-                { value: "form2", label: "Form 2" },
-                ]}
-            />
-            <Select
-                label="Select Language"
-                data={languageOptions}
-                value={targetLanguage}
-                onChange={setTargetLanguage}
-            />
-            <Space h="xl"/>
-            {loading && <Loader mt="md" />}
-            {formSchema && !loading && <TranslateForm formSchema={formSchema} targetLanguage={targetLanguage} />}
-        </div>
+        <AppShell
+            header={{ height: 60 }}
+            navbar={{
+                width: 200,
+                breakpoint: "sm"
+            }}
+            padding="xl"
+        >
+            <AppShell.Header>
+                <p>Text</p>
+            </AppShell.Header>
+
+            <AppShell.Navbar p="md">
+                <Button key="1" onClick={() => setSelectedForm("form1")}>Form 1</Button>
+                <Space h="md" />
+                <Button key="2" onClick={() => setSelectedForm("form2")}>Form 2</Button>
+            </AppShell.Navbar>
+
+            <AppShell.Main>
+                <Select
+                    label="Select Language"
+                    data={languageOptions}
+                    value={targetLanguage}
+                    onChange={setTargetLanguage}
+                />
+                <Container size="xs" pt={60} pb={60}>
+                    {/* <Select
+                        label="Select a Form"
+                        value={selectedForm}
+                        onChange={setSelectedForm}
+                        data={[
+                        { value: "form1", label: "Form 1" },
+                        { value: "form2", label: "Form 2" },
+                        ]}
+                    />
+                    <Space h="md" /> */}
+                    
+                    {loading && <Loader mt="md" />}
+                    {formSchema && !loading && <TranslateForm formSchema={formSchema} targetLanguage={targetLanguage} />}
+                </Container>
+            </AppShell.Main>
+            
+        </AppShell>
     )
 }
 
