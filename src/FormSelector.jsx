@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { Select, Loader, Space } from "@mantine/core";
+import { Select, Loader, Space, Container, AppShell, Button, Grid, NavLink, Image, Group, Text } from "@mantine/core";
 import TranslateForm from "./TranslateForm";
+import logo from "./assets/logo.png"
 
 const FormSelector = () => {
     const languageOptions = [
@@ -104,26 +105,58 @@ const FormSelector = () => {
     }, [selectedForm])
 
     return (
-        <div>
-            <Select
-                label="Select a Form"
-                value={selectedForm}
-                onChange={setSelectedForm}
-                data={[
-                { value: "form1", label: "Form 1" },
-                { value: "form2", label: "Form 2" },
-                ]}
-            />
-            <Select
-                label="Select Language"
-                data={languageOptions}
-                value={targetLanguage}
-                onChange={setTargetLanguage}
-            />
-            <Space h="xl"/>
-            {loading && <Loader mt="md" />}
-            {formSchema && !loading && <TranslateForm formSchema={formSchema} targetLanguage={targetLanguage} />}
-        </div>
+        <AppShell
+            header={{ height: 60 }}
+            navbar={{
+                width: 200,
+                breakpoint: "sm"
+            }}
+            padding="xl"
+        >
+            <AppShell.Header>
+                <Group h="100%" px="md">
+                    <Image src={logo} alt="Logo" h={30} w="auto" fit="contain" />
+                    <Text c="white" size="xl">thurrock.gov.uk</Text>
+                </Group>
+            </AppShell.Header>
+
+            <AppShell.Navbar p="md">
+                <NavLink key="1" active={ selectedForm === "form1" } label="Form 1" onClick={() => setSelectedForm("form1")} color="#3b943b" />
+                <NavLink key="2" active={ selectedForm === "form2" } label="Form 2" onClick={() => setSelectedForm("form2")} color="#3b943b" />
+            </AppShell.Navbar>
+
+            <AppShell.Main>
+                <Grid>
+                    <Grid.Col span={3}>
+                        <Select
+                            label="Select Language"
+                            data={languageOptions}
+                            value={targetLanguage}
+                            onChange={setTargetLanguage}
+                        />
+                    </Grid.Col>
+                    <Grid.Col span={9}></Grid.Col>
+                    <Grid.Col span={12}>
+                        <Container size="xs" pt={20} pb={60}>
+                            {loading && <Loader mt="md" />}
+                            {formSchema && !loading && <TranslateForm formSchema={formSchema} targetLanguage={targetLanguage} />}
+                        </Container>
+                    </Grid.Col>
+                </Grid>
+
+                {/* <Select
+                    label="Select a Form"
+                    value={selectedForm}
+                    onChange={setSelectedForm}
+                    data={[
+                    { value: "form1", label: "Form 1" },
+                    { value: "form2", label: "Form 2" },
+                    ]}
+                /> */}
+
+            </AppShell.Main>
+
+        </AppShell>
     )
 }
 
