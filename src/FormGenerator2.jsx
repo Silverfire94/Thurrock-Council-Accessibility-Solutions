@@ -1,6 +1,7 @@
 import { TextInput, Checkbox, Radio, Stack, Group, Button, NumberInput, Select, Box } from '@mantine/core'
 import { Form, useForm } from '@mantine/form'
 import { useState, useEffect } from "react"
+import { TranslateAnswers } from './Translator'
 
 
 const FormGenerator2 = ({ formSchema, targetLanguage }) => {
@@ -75,19 +76,19 @@ const FormGenerator2 = ({ formSchema, targetLanguage }) => {
                                     <div key={field.name}>
                                         <label>{field.label}</label>
                                         <Group mt="xs">
-                                            {field.options.map((option, index) => (
+                                            {field.options.map((option) => (
                                                 <Checkbox
-                                                    key={index}
+                                                    key={option}
                                                     color="#3b943b"
                                                     label={option}
-                                                    checked={form.values[field.name].includes(index)}
+                                                    checked={form.values[field.name].includes(option)}
                                                     onChange={(event) => {
                                                         const { checked } = event.target;
                                                         form.setFieldValue(
                                                             field.name,
                                                             checked
-                                                            ? [...form.values[field.name], index]
-                                                            : form.values[field.name].filter((v) => v !== index)
+                                                            ? [...form.values[field.name], option]
+                                                            : form.values[field.name].filter((v) => v !== option)
                                                         );
                                                     }}
                                                 />
