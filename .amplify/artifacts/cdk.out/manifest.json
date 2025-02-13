@@ -1,0 +1,592 @@
+{
+  "version": "39.0.0",
+  "artifacts": {
+    "amplify-profilesapp-alexrubio-sandbox-5f66e887bb.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "amplify-profilesapp-alexrubio-sandbox-5f66e887bb.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "amplify-profilesapp-alexrubio-sandbox-5f66e887bb": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "amplify-profilesapp-alexrubio-sandbox-5f66e887bb.template.json",
+        "terminationProtection": false,
+        "tags": {
+          "amplify:deployment-type": "sandbox",
+          "created-by": "amplify"
+        },
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/397dfd18498b979b518dc493301269dcd39905aaf427378411cb27de609a5aa0.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "amplify-profilesapp-alexrubio-sandbox-5f66e887bb.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "amplify-profilesapp-alexrubio-sandbox-5f66e887bb.assets"
+      ],
+      "metadata": {
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb": [
+          {
+            "type": "aws:cdk:stack-tags",
+            "data": [
+              {
+                "Key": "amplify:deployment-type",
+                "Value": "sandbox"
+              },
+              {
+                "Key": "created-by",
+                "Value": "amplify"
+              }
+            ]
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/deploymentType": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "deploymentType"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/region": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "region"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/auth/amplifyAuth/UserPool/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifyAuthUserPool4BA7F805"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/auth/amplifyAuth/UserPoolAppClient/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifyAuthUserPoolAppClient2626C6F8"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/auth/amplifyAuth/IdentityPool": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifyAuthIdentityPool3FDE84CC"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/auth/amplifyAuth/authenticatedUserRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifyAuthauthenticatedUserRoleD8DA3689"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/auth/amplifyAuth/unauthenticatedUserRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifyAuthunauthenticatedUserRole2B524D9E"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/auth/amplifyAuth/IdentityPoolRoleAttachment": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifyAuthIdentityPoolRoleAttachment045F17C8"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/auth/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/auth/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/auth/amplifyprofilesappalexrubiosandbox5f66e887bbauthamplifyAuthUserPool3AD8F0A5Ref": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifyprofilesappalexrubiosandbox5f66e887bbauthamplifyAuthUserPool3AD8F0A5Ref"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/auth/amplifyprofilesappalexrubiosandbox5f66e887bbauthamplifyAuthUserPoolAppClient3925D5FERef": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifyprofilesappalexrubiosandbox5f66e887bbauthamplifyAuthUserPoolAppClient3925D5FERef"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/auth/amplifyprofilesappalexrubiosandbox5f66e887bbauthamplifyAuthIdentityPool66ADCFADRef": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifyprofilesappalexrubiosandbox5f66e887bbauthamplifyAuthIdentityPool66ADCFADRef"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/auth.NestedStack/auth.NestedStackResource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "auth179371D7"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/userPoolId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "userPoolId"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/webClientId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "webClientId"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/identityPoolId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "identityPoolId"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/authRegion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "authRegion"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/allowUnauthenticatedIdentities": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "allowUnauthenticatedIdentities"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/signupAttributes": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "signupAttributes"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/usernameAttributes": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "usernameAttributes"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/verificationMechanisms": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "verificationMechanisms"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/passwordPolicyMinLength": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "passwordPolicyMinLength"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/passwordPolicyRequirements": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "passwordPolicyRequirements"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/mfaConfiguration": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "mfaConfiguration"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/mfaTypes": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "mfaTypes"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/socialProviders": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "socialProviders"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/oauthCognitoDomain": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "oauthCognitoDomain"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/oauthScope": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "oauthScope"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/oauthRedirectSignIn": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "oauthRedirectSignIn"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/oauthRedirectSignOut": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "oauthRedirectSignOut"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/oauthResponseType": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "oauthResponseType"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/oauthClientId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "oauthClientId"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/groups": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "groups"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/data/amplifyData/GraphQLAPI/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifyDataGraphQLAPI42A6FA33"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/data/amplifyData/GraphQLAPI/TransformerSchema": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifyDataGraphQLAPITransformerSchemaFF50A789"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/data/amplifyData/GraphQLAPI/DefaultApiKey": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifyDataGraphQLAPIDefaultApiKey1C8ED374"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/data/amplifyData/GraphQLAPI/NONE_DS": [
+          {
+            "type": "graphqltransformer:resourceName",
+            "data": "NONE_DS"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/data/amplifyData/GraphQLAPI/NONE_DS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifyDataGraphQLAPINONEDS684BF699"
+          },
+          {
+            "type": "graphqltransformer:resourceName",
+            "data": "NONE_DS"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/data/amplifyData/AmplifyCodegenAssets/AmplifyCodegenAssetsBucket/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifyDataAmplifyCodegenAssetsAmplifyCodegenAssetsBucket9CCB4ACA"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/data/amplifyData/AmplifyCodegenAssets/AmplifyCodegenAssetsBucket/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifyDataAmplifyCodegenAssetsAmplifyCodegenAssetsBucketPolicyF1C1C548"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/data/amplifyData/AmplifyCodegenAssets/AmplifyCodegenAssetsBucket/AutoDeleteObjectsCustomResource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifyDataAmplifyCodegenAssetsAmplifyCodegenAssetsBucketAutoDeleteObjectsCustomResource437F26F5"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/data/amplifyData/AmplifyCodegenAssets/AmplifyCodegenAssetsDeployment/AwsCliLayer/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifyDataAmplifyCodegenAssetsAmplifyCodegenAssetsDeploymentAwsCliLayerE322F905"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/data/amplifyData/AmplifyCodegenAssets/AmplifyCodegenAssetsDeployment/CustomResource-1536MiB/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifyDataAmplifyCodegenAssetsAmplifyCodegenAssetsDeploymentCustomResource1536MiB21775929"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/data/amplifyData/L2GraphqlApi/TranslateDataSource/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifyDataL2GraphqlApiTranslateDataSourceServiceRole92FF2A32"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/data/amplifyData/L2GraphqlApi/TranslateDataSource/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifyDataL2GraphqlApiTranslateDataSourceServiceRoleDefaultPolicyCF8FC9A7"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/data/amplifyData/L2GraphqlApi/TranslateDataSource/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifyDataL2GraphqlApiTranslateDataSource0AA3089E"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/data/LatestNodeRuntimeMap": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LatestNodeRuntimeMap"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/data/Custom::S3AutoDeleteObjectsCustomResourceProvider": [
+          {
+            "type": "aws:cdk:is-custom-resource-handler-customResourceProvider",
+            "data": true
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/data/Custom::S3AutoDeleteObjectsCustomResourceProvider/Role": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/data/Custom::S3AutoDeleteObjectsCustomResourceProvider/Handler": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/data/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C1536MiB": [
+          {
+            "type": "aws:cdk:is-custom-resource-handler-singleton",
+            "data": true
+          },
+          {
+            "type": "aws:cdk:is-custom-resource-handler-runtime-family",
+            "data": 2
+          },
+          {
+            "type": "aws:cdk:is-custom-resource-handler-singleton",
+            "data": true
+          },
+          {
+            "type": "aws:cdk:is-custom-resource-handler-runtime-family",
+            "data": 2
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/data/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C1536MiB/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C1536MiBServiceRoleA41FC8C2"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/data/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C1536MiB/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C1536MiBServiceRoleDefaultPolicyFF1C635B"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/data/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C1536MiB/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C1536MiBC5D8AB21"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/data/modelIntrospectionSchemaBucket/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "modelIntrospectionSchemaBucketF566B665"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/data/modelIntrospectionSchemaBucket/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "modelIntrospectionSchemaBucketPolicy4DAB0D15"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/data/modelIntrospectionSchemaBucket/AutoDeleteObjectsCustomResource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "modelIntrospectionSchemaBucketAutoDeleteObjectsCustomResourceFE57309F"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/data/modelIntrospectionSchemaBucketDeployment/AwsCliLayer/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "modelIntrospectionSchemaBucketDeploymentAwsCliLayer13C432F7"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/data/modelIntrospectionSchemaBucketDeployment/CustomResource-1536MiB/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "modelIntrospectionSchemaBucketDeploymentCustomResource1536MiB104B97EC"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/data/Fn_Query_translate_1": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FnQuerytranslate1"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/data/Resolver_Query_translate": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ResolverQuerytranslate"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/data/AMPLIFY_DATA_GRAPHQL_ENDPOINTParameter/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AMPLIFYDATAGRAPHQLENDPOINTParameter1C2CBB16"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/data/AMPLIFY_DATA_MODEL_INTROSPECTION_SCHEMA_BUCKET_NAMEParameter/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AMPLIFYDATAMODELINTROSPECTIONSCHEMABUCKETNAMEParameter47BF4F44"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/data/AMPLIFY_DATA_MODEL_INTROSPECTION_SCHEMA_KEYParameter/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AMPLIFYDATAMODELINTROSPECTIONSCHEMAKEYParameterB6AEAE8A"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/data/AMPLIFY_DATA_DEFAULT_NAMEParameter/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AMPLIFYDATADEFAULTNAMEParameterE7C23CC4"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/data/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/data/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/data/reference-to-amplifyprofilesappalexrubiosandbox5f66e887bbauthNestedStackauthNestedStackResourceBCE6B23BOutputs.amplifyprofilesappalexrubiosandbox5f66e887bbauthamplifyAuthUserPool3AD8F0A5Ref": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "referencetoamplifyprofilesappalexrubiosandbox5f66e887bbauthNestedStackauthNestedStackResourceBCE6B23BOutputsamplifyprofilesappalexrubiosandbox5f66e887bbauthamplifyAuthUserPool3AD8F0A5Ref"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/data/amplifyprofilesappalexrubiosandbox5f66e887bbdataamplifyDataGraphQLAPI0CD41A2CApiId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifyprofilesappalexrubiosandbox5f66e887bbdataamplifyDataGraphQLAPI0CD41A2CApiId"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/data/amplifyprofilesappalexrubiosandbox5f66e887bbdataamplifyDataGraphQLAPI0CD41A2CGraphQLUrl": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifyprofilesappalexrubiosandbox5f66e887bbdataamplifyDataGraphQLAPI0CD41A2CGraphQLUrl"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/data/amplifyprofilesappalexrubiosandbox5f66e887bbdataamplifyDataAmplifyCodegenAssetsAmplifyCodegenAssetsDeploymentCustomResource1536MiB768F9F34DestinationBucketArn": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifyprofilesappalexrubiosandbox5f66e887bbdataamplifyDataAmplifyCodegenAssetsAmplifyCodegenAssetsDeploymentCustomResource1536MiB768F9F34DestinationBucketArn"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/data/amplifyprofilesappalexrubiosandbox5f66e887bbdataamplifyDataGraphQLAPIDefaultApiKey40D0F197ApiKey": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifyprofilesappalexrubiosandbox5f66e887bbdataamplifyDataGraphQLAPIDefaultApiKey40D0F197ApiKey"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/data.NestedStack/data.NestedStackResource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "data7552DF31"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/awsAppsyncApiId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "awsAppsyncApiId"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/awsAppsyncApiEndpoint": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "awsAppsyncApiEndpoint"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/awsAppsyncAuthenticationType": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "awsAppsyncAuthenticationType"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/awsAppsyncRegion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "awsAppsyncRegion"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/amplifyApiModelSchemaS3Uri": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifyApiModelSchemaS3Uri"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/awsAppsyncApiKey": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "awsAppsyncApiKey"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/awsAppsyncAdditionalAuthenticationTypes": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "awsAppsyncAdditionalAuthenticationTypes"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/amplify-profilesapp-alexrubio-sandbox-5f66e887bb/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "amplify-profilesapp-alexrubio-sandbox-5f66e887bb"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  }
+}
