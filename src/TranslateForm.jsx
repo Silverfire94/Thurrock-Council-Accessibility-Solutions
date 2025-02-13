@@ -11,9 +11,9 @@ const TranslateForm = ({ formSchema, targetLanguage = "es" }) => {
         try {
           const translatedSchema = await Promise.all(
             formSchema.map(async (field, index) => {
-              const translatedLabel = await Translator(targetLanguage, field.label) ?? "err"
+              const translatedLabel = await Translator("en", targetLanguage, field.label) ?? "err"
               let translatedOptions = field.options
-                ? await Promise.all(field.options.map(async (option) => Translator(targetLanguage, option) ?? "err"))
+                ? await Promise.all(field.options.map(async (option) => Translator("en", targetLanguage, option) ?? "err"))
                 : field.options;
                 
               return { ...field, label: translatedLabel, options: translatedOptions };

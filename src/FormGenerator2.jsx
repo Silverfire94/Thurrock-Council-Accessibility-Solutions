@@ -1,13 +1,31 @@
 import { TextInput, Checkbox, Radio, Stack, Group, Button, NumberInput, Select, Box } from '@mantine/core'
-import { useForm } from '@mantine/form'
+import { Form, useForm } from '@mantine/form'
+import { useState, useEffect } from "react"
+
 
 const FormGenerator2 = ({ formSchema, targetLanguage }) => {
+    const [lang, setLang] = useState("")
+
     const form = useForm({
         initialValues: formSchema.reduce((acc, field) => {
             acc[field.name] = field.type === "checkbox" ? [] : "";
             return acc;
         }, {})
     })
+
+    useEffect(() => {
+        if (lang != targetLanguage) {
+            for(const val in form.values){
+                if(Array.isArray(form.values[val])){
+                    form.values[val] = []
+                }
+                else if (typeof(form.values[val]) == "string") {
+                    form.values[val] = ""
+                }
+            }
+            setLang(targetLanguage)
+        }
+    });
 
     const handleSubmit = (values) => {
         // for(const val in values){
@@ -23,11 +41,21 @@ const FormGenerator2 = ({ formSchema, targetLanguage }) => {
         //         })
         //     }
         // }
-        console.log(values)
+        let temp = form.values
+        console.log("Test", temp)
+        for(const val in values){
+            if(Array.isArray(values[val])){
+                values[val] = []
+            }
+            else if (typeof(values[val]) == "string") {
+                values[val] = ""
+            }
+        }
     }
 
     return (
         <Box mx="auto">
+            {console.log(form.values)}
             <form onSubmit={form.onSubmit(handleSubmit)}>
                 <Stack gap="md">
                     {formSchema.map((field => {
@@ -63,8 +91,8 @@ const FormGenerator2 = ({ formSchema, targetLanguage }) => {
                                         <label>{field.label}</label>
                                         <Radio.Group {...form.getInputProps(field.name)}>
                                             <Stack gap={8}>
-                                                {field.options.map((option) => (
-                                                    <Radio key={option} value={option} label={option} color="#3b943b" />
+                                                {field.options.map((option, index) => (
+                                                    <Radio key={index} value={option} label={option} color="#3b943b" />
                                                 ))}
                                             </Stack>
                                         </Radio.Group>
