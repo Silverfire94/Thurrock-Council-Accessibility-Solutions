@@ -1,7 +1,7 @@
 import { generateClient } from 'aws-amplify/data';
 import { type Schema } from '../amplify/data/resource';
 
-export async function Translator(slanguage: string, tLanguage, text:string) {
+export async function Translator(slanguage: string, tLanguage: string, text:string) {
     const client = generateClient<Schema>();
 
     const { data } = await client.queries.translate({
@@ -42,17 +42,17 @@ export async function TranslateAnswers(code: string, answers:any){
     let formAnswers = JSON.parse(JSON.stringify(answers))
     if (code === "en"){
         return formAnswers
-    }
-    formAnswers.map(async (k,e) => {
-        if (typeof(e) === "string") {
-            e = await Translator("en", code, e) ?? "err"
+    }   
+    for(let v in formAnswers){
+        if (typeof(formAnswers[v]) === "string") {
+            formAnswers[v] = await Translator(code, "en", formAnswers[v]) ?? "err"
         }
-        if (Array.isArray(e)) {
-            for (let item in e) {
-                item = await Translator("en", code, item) ?? "err"
+        if (Array.isArray(formAnswers[v])) {
+            for (let item in formAnswers[v]) {
+                formAnswers[v][item] = await Translator(code, "en", formAnswers[v][item]) ?? "err"
             }
         }
-    })
+    }
 
     return formAnswers
 }
