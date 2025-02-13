@@ -82,7 +82,7 @@ const FormSelector = () => {
         { value: "cy", label: "Welsh" },
       ]      
 
-    const [selectedForm, setSelectedForm] = useState("form2")
+    const [selectedForm, setSelectedForm] = useState("form1")
     const [targetLanguage, setTargetLanguage] = useState("en")
     const [formSchema, setFormSchema] = useState(null)
     const [loading, setLoading] = useState(false)

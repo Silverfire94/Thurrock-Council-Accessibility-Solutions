@@ -8,36 +8,22 @@ const FormGenerator2 = ({ formSchema, targetLanguage }) => {
 
     const form = useForm({
         initialValues: formSchema.reduce((acc, field) => {
-            acc[field.name] = field.type === "checkbox" ? [] : "";
+            acc[field.name] = field.type === "checkbox" ? [] : (field.type === "select" ? null : "");
             return acc;
         }, {})
     })
 
     useEffect(() => {
         if (lang != targetLanguage) {
-            for(const val in form.values){
-                if(Array.isArray(form.values[val])){
-                    form.values[val] = []
-                }
-                else if (typeof(form.values[val]) == "string") {
-                    form.values[val] = ""
-                }
-            }
+            form.reset()
             setLang(targetLanguage)
         }
     });
 
     const handleSubmit = (values) => {
-        let temp = {...form.values}
+        let temp = {...values}
         console.log("Test", temp)
-        for(const val in values){
-            if(Array.isArray(values[val])){
-                values[val] = []
-            }
-            else if (typeof(values[val]) == "string") {
-                values[val] = ""
-            }
-        }
+        form.reset()
     }
 
     return (
@@ -67,7 +53,7 @@ const FormGenerator2 = ({ formSchema, targetLanguage }) => {
                                     <Select
                                         key={field.name}
                                         label={field.label}
-                                        options={field.options}
+                                        data={field.options}
                                         {...form.getInputProps(field.name)}
                                     />
                                 )
