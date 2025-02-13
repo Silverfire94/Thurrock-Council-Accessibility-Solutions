@@ -33,20 +33,10 @@ const FormGenerator2 = ({ formSchema, targetLanguage }) => {
 
     const handleSubmit = (values) => {
 
-        let temp = form.values
-        let temp2 = TranslateAnswers(targetLanguage, temp)
-        console.log
-        // form.reset()
         let temp = {...form.values}
+        let temp2 = TranslateAnswers(targetLanguage, temp)
         console.log("Test", temp)
-        for(const val in values){
-            if(Array.isArray(values[val])){
-                values[val] = []
-            }
-            else if (typeof(values[val]) == "string") {
-                values[val] = ""
-            }
-        }
+        // form.reset()
     }
 
     return (
