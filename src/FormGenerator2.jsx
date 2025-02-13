@@ -9,32 +9,20 @@ const FormGenerator2 = ({ formSchema, targetLanguage }) => {
 
     const form = useForm({
         initialValues: formSchema.reduce((acc, field) => {
-            acc[field.name] = field.type === "checkbox" ? [] : "";
+            acc[field.name] = field.type === "checkbox" ? [] : (field.type === "select" ? null : "");
             return acc;
         }, {})
     })
 
     useEffect(() => {
         if (lang != targetLanguage) {
-            for(const val in form.values){
-                if(Array.isArray(form.values[val])){
-                    form.values[val] = []
-                }
-                else if (typeof(form.values[val]) == "string") {
-                    form.values[val] = ""
-                }
-                else if (typeof(form.values[val]) == "number") {
-                    form.values[val] = null
-                }
-            }
+            form.reset()
             setLang(targetLanguage)
         }
     });
 
     const handleSubmit = (values) => {
-
-        let temp = {...form.values}
-        let temp2 = TranslateAnswers(targetLanguage, temp)
+        let temp = {...values}
         console.log("Test", temp)
         console.log("Translated", temp2)
         // form.reset()
