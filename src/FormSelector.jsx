@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Select, Loader, Space, Container, AppShell, Button, Grid, NavLink, Image, Group, Text } from "@mantine/core";
+import { Select, Loader, Space, Container, AppShell, Button, Grid, NavLink, Image, Group, Text, Tooltip } from "@mantine/core";
 import TranslateForm from "./TranslateForm";
 import logo from "./assets/logo.png"
 
@@ -128,12 +128,14 @@ const FormSelector = () => {
             <AppShell.Main>
                 <Grid>
                     <Grid.Col span={3}>
-                        <Select
-                            label="Select Language"
-                            data={languageOptions}
-                            value={targetLanguage}
-                            onChange={setTargetLanguage}
-                        />
+                        <Tooltip position="bottom" label="Changing language will clear currently inputted data.">
+                            <Select
+                                label="Select Language"
+                                data={languageOptions}
+                                value={targetLanguage}
+                                onChange={setTargetLanguage}
+                            />
+                        </Tooltip>
                     </Grid.Col>
                     <Grid.Col span={9}></Grid.Col>
                     <Grid.Col span={12}>
@@ -143,17 +145,6 @@ const FormSelector = () => {
                         </Container>
                     </Grid.Col>
                 </Grid>
-
-                {/* <Select
-                    label="Select a Form"
-                    value={selectedForm}
-                    onChange={setSelectedForm}
-                    data={[
-                    { value: "form1", label: "Form 1" },
-                    { value: "form2", label: "Form 2" },
-                    ]}
-                /> */}
-
             </AppShell.Main>
 
         </AppShell>

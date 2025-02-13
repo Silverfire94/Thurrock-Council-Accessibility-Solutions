@@ -5,7 +5,7 @@ import { TranslateAnswers } from './Translator'
 
 
 const FormGenerator2 = ({ formSchema, targetLanguage }) => {
-    const [lang, setLang] = useState("")
+    const [lang, setLang] = useState(targetLanguage)
 
     const form = useForm({
         initialValues: formSchema.reduce((acc, field) => {
@@ -37,11 +37,20 @@ const FormGenerator2 = ({ formSchema, targetLanguage }) => {
         let temp2 = TranslateAnswers(targetLanguage, temp)
         console.log
         // form.reset()
+        let temp = {...form.values}
+        console.log("Test", temp)
+        for(const val in values){
+            if(Array.isArray(values[val])){
+                values[val] = []
+            }
+            else if (typeof(values[val]) == "string") {
+                values[val] = ""
+            }
+        }
     }
 
     return (
         <Box mx="auto">
-            {console.log(form.values)}
             <form onSubmit={form.onSubmit(handleSubmit)}>
                 <Stack gap="md">
                     {formSchema.map((field => {
