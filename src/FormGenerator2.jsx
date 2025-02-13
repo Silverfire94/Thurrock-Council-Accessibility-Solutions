@@ -1,7 +1,7 @@
 import { TextInput, Checkbox, Radio, Stack, Group, Button, NumberInput, Select, Box } from '@mantine/core'
 import { useForm } from '@mantine/form'
 
-const FormGenerator2 = ({ formSchema }) => {
+const FormGenerator2 = ({ formSchema, targetLanguage }) => {
     const form = useForm({
         initialValues: formSchema.reduce((acc, field) => {
             acc[field.name] = field.type === "checkbox" ? [] : "";
@@ -10,7 +10,20 @@ const FormGenerator2 = ({ formSchema }) => {
     })
 
     const handleSubmit = (values) => {
-        console.log("Form submitted: ", values)
+        // for(const val in values){
+        //     if(Array.isArray(values[val])){
+        //         formSchema.forEach((object) => {
+        //             if(object["name"] == val){
+        //                 let arr = [];
+        //                 values[val].forEach((index) => {
+        //                     arr.push(object["options"][index])
+        //                 })
+        //                 values[val] = arr;
+        //             }
+        //         })
+        //     }
+        // }
+        console.log(values)
     }
 
     return (
@@ -40,7 +53,7 @@ const FormGenerator2 = ({ formSchema }) => {
                                     <Select
                                         key={field.name}
                                         label={field.label}
-                                        data={field.data}
+                                        options={field.options}
                                         {...form.getInputProps(field.name)}
                                     />
                                 )
@@ -62,20 +75,20 @@ const FormGenerator2 = ({ formSchema }) => {
                                     <div key={field.name}>
                                         <label>{field.label}</label>
                                         <Group mt="xs">
-                                            {field.options.map((option) => (
+                                            {field.options.map((option, index) => (
                                                 <Checkbox
-                                                    key={option}
+                                                    key={index}
                                                     color="#3b943b"
                                                     label={option}
-                                                    checked={form.values[field.name].includes(option)}
+                                                    checked={form.values[field.name].includes(index)}
                                                     onChange={(event) => {
-                                                    const { checked } = event.target;
-                                                    form.setFieldValue(
-                                                        field.name,
-                                                        checked
-                                                        ? [...form.values[field.name], option]
-                                                        : form.values[field.name].filter((v) => v !== option)
-                                                    );
+                                                        const { checked } = event.target;
+                                                        form.setFieldValue(
+                                                            field.name,
+                                                            checked
+                                                            ? [...form.values[field.name], index]
+                                                            : form.values[field.name].filter((v) => v !== index)
+                                                        );
                                                     }}
                                                 />
                                             ))}
