@@ -1,6 +1,7 @@
 import { TextInput, Checkbox, Radio, Stack, Group, Button, NumberInput, Select, Box } from '@mantine/core'
 import { Form, useForm } from '@mantine/form'
 import { useState, useEffect } from "react"
+import { TranslateAnswers } from './Translator'
 
 
 const FormGenerator2 = ({ formSchema, targetLanguage }) => {
@@ -22,35 +23,20 @@ const FormGenerator2 = ({ formSchema, targetLanguage }) => {
                 else if (typeof(form.values[val]) == "string") {
                     form.values[val] = ""
                 }
+                else if (typeof(form.values[val]) == "number") {
+                    form.values[val] = null
+                }
             }
             setLang(targetLanguage)
         }
     });
 
     const handleSubmit = (values) => {
-        // for(const val in values){
-        //     if(Array.isArray(values[val])){
-        //         formSchema.forEach((object) => {
-        //             if(object["name"] == val){
-        //                 let arr = [];
-        //                 values[val].forEach((index) => {
-        //                     arr.push(object["options"][index])
-        //                 })
-        //                 values[val] = arr;
-        //             }
-        //         })
-        //     }
-        // }
+
         let temp = form.values
-        console.log("Test", temp)
-        for(const val in values){
-            if(Array.isArray(values[val])){
-                values[val] = []
-            }
-            else if (typeof(values[val]) == "string") {
-                values[val] = ""
-            }
-        }
+        let temp2 = TranslateAnswers(targetLanguage, temp)
+        console.log
+        // form.reset()
     }
 
     return (
@@ -81,7 +67,7 @@ const FormGenerator2 = ({ formSchema, targetLanguage }) => {
                                     <Select
                                         key={field.name}
                                         label={field.label}
-                                        options={field.options}
+                                        data={field.options}
                                         {...form.getInputProps(field.name)}
                                     />
                                 )
@@ -103,19 +89,19 @@ const FormGenerator2 = ({ formSchema, targetLanguage }) => {
                                     <div key={field.name}>
                                         <label>{field.label}</label>
                                         <Group mt="xs">
-                                            {field.options.map((option, index) => (
+                                            {field.options.map((option) => (
                                                 <Checkbox
-                                                    key={index}
+                                                    key={option}
                                                     color="#3b943b"
                                                     label={option}
-                                                    checked={form.values[field.name].includes(index)}
+                                                    checked={form.values[field.name].includes(option)}
                                                     onChange={(event) => {
                                                         const { checked } = event.target;
                                                         form.setFieldValue(
                                                             field.name,
                                                             checked
-                                                            ? [...form.values[field.name], index]
-                                                            : form.values[field.name].filter((v) => v !== index)
+                                                            ? [...form.values[field.name], option]
+                                                            : form.values[field.name].filter((v) => v !== option)
                                                         );
                                                     }}
                                                 />

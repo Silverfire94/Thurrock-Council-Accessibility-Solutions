@@ -38,13 +38,21 @@ interface Answers {
     data: string[]
 }
 
-// export async function translateForm(code: string, answers:Questions[]){
-//     for (let i = 0; i < oldItems.length; i++) {
-//         oldItems[i].question = await Translator(code, oldItems[i].question) ?? "err"
-//         if(oldItems[i].type === "checkbox" || oldItems[i].type === "radio" || oldItems[i].type === "radio"){
-//             for (let j = 0; j < oldItems[i].answers.length; j++) {
-//                 oldItems[i].answers[j] = await Translator(code, oldItems[i].answers[j]) ?? "err"
-//             }
-//         }
-//     }
-// }
+export async function TranslateAnswers(code: string, answers:any){
+    let formAnswers = JSON.parse(JSON.stringify(answers))
+    if (code === "en"){
+        return formAnswers
+    }
+    formAnswers.map(async (k,e) => {
+        if (typeof(e) === "string") {
+            e = await Translator("en", code, e) ?? "err"
+        }
+        if (Array.isArray(e)) {
+            for (let item in e) {
+                item = await Translator("en", code, item) ?? "err"
+            }
+        }
+    })
+
+    return formAnswers
+}
