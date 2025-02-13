@@ -36,6 +36,7 @@ const FormGenerator2 = ({ formSchema, targetLanguage }) => {
         let temp = {...form.values}
         let temp2 = TranslateAnswers(targetLanguage, temp)
         console.log("Test", temp)
+        console.log("Translated", temp2)
         // form.reset()
     }
 
