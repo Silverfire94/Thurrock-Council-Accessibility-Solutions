@@ -45,11 +45,11 @@ export async function TranslateAnswers(code: string, answers:any){
     }   
     for(let v in formAnswers){
         if (typeof(formAnswers[v]) === "string") {
-            formAnswers[v] = await Translator(code, "en", formAnswers[v]) ?? "err"
+            formAnswers[v] = await Translator(code, "en", formAnswers[v].toLowerCase()) ?? "err"
         }
         if (Array.isArray(formAnswers[v])) {
             for (let item in formAnswers[v]) {
-                formAnswers[v][item] = await Translator(code, "en", formAnswers[v][item]) ?? "err"
+                formAnswers[v][item] = await Translator(code, "en", formAnswers[v][item].toLowerCase()) ?? "err"
             }
         }
     }
