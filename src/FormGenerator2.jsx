@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 
 
 const FormGenerator2 = ({ formSchema, targetLanguage }) => {
-    const [lang, setLang] = useState("")
+    const [lang, setLang] = useState(targetLanguage)
 
     const form = useForm({
         initialValues: formSchema.reduce((acc, field) => {
@@ -28,20 +28,7 @@ const FormGenerator2 = ({ formSchema, targetLanguage }) => {
     });
 
     const handleSubmit = (values) => {
-        // for(const val in values){
-        //     if(Array.isArray(values[val])){
-        //         formSchema.forEach((object) => {
-        //             if(object["name"] == val){
-        //                 let arr = [];
-        //                 values[val].forEach((index) => {
-        //                     arr.push(object["options"][index])
-        //                 })
-        //                 values[val] = arr;
-        //             }
-        //         })
-        //     }
-        // }
-        let temp = form.values
+        let temp = {...form.values}
         console.log("Test", temp)
         for(const val in values){
             if(Array.isArray(values[val])){
@@ -55,7 +42,6 @@ const FormGenerator2 = ({ formSchema, targetLanguage }) => {
 
     return (
         <Box mx="auto">
-            {console.log(form.values)}
             <form onSubmit={form.onSubmit(handleSubmit)}>
                 <Stack gap="md">
                     {formSchema.map((field => {
