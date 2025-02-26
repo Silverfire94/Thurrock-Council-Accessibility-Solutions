@@ -1,7 +1,8 @@
 import { TextInput, Checkbox, Radio, Stack, Group, Button, NumberInput, Select, Box } from '@mantine/core'
 import { useForm } from '@mantine/form'
+import TextSimplificator from "./TextSimplificator"
 
-const FormGenerator2 = ({ formSchema }) => {
+const FormGenerator2 = ({ formSchema, targetLanguage }) => {
     const form = useForm({
         initialValues: formSchema.reduce((acc, field) => {
             acc[field.name] = field.type === "checkbox" ? [] : "";
@@ -18,40 +19,66 @@ const FormGenerator2 = ({ formSchema }) => {
             <form onSubmit={form.onSubmit(handleSubmit)}>
                 <Stack gap="md">
                     {formSchema.map((field => {
+                        // let label = field.label
                         switch (field.type) {
                             case "text":
                                 return (
+                                    <div key={field.name}>           
+                                    <TextSimplificator text = {field.label} targetLanguage={targetLanguage} />
+                                     
                                     <TextInput
-                                        key={field.name}
+
+                                
                                         label={field.label}
                                         {...form.getInputProps(field.name)} 
                                     />
+                                    </div>
+                                    
                                 )
                             case "number":
                                 return (
+
+                                    <div key={field.name}>               
+                                    <TextSimplificator text = {field.label} targetLanguage={targetLanguage} />
                                     <NumberInput
-                                        key={field.name}
+                                        // key={field.name}
                                         label={field.label}
                                         {...form.getInputProps(field.name)}
                                     />
+                                    </div> 
                                 )
                             case "select":
                                 return (
+                                    <div key={field.name}>              
+                                    <TextSimplificator text = {field.label} targetLanguage={targetLanguage} />
                                     <Select
-                                        key={field.name}
+                                        // key={field.name}
                                         label={field.label}
                                         data={field.data}
                                         {...form.getInputProps(field.name)}
                                     />
+
+                                    </div>
                                 )
                             case "radio":
                                 return (
                                     <div key={field.name}>
-                                        <label>{field.label}</label>
+                                        
+                                        <label id="label">{field.label}
+                                        <TextSimplificator text = {field.label} targetLanguage={targetLanguage} />
+
+
+                                    
+                                        </label>
+
                                         <Radio.Group {...form.getInputProps(field.name)}>
                                             <Stack gap={8}>
-                                                {field.options.map((option) => (
+                                                {field.options.map((option,index) => (
+                                                    <div key = {index}>
+                                                    <TextSimplificator text = {option} targetLanguage={targetLanguage} />
+                                                    
                                                     <Radio key={option} value={option} label={option} color="#3b943b" />
+                                                    </div>
                                                 ))}
                                             </Stack>
                                         </Radio.Group>
@@ -60,9 +87,13 @@ const FormGenerator2 = ({ formSchema }) => {
                             case "checkbox":
                                 return (
                                     <div key={field.name}>
+                                        <TextSimplificator text = {field.label} targetLanguage={targetLanguage} />
                                         <label>{field.label}</label>
                                         <Group mt="xs">
                                             {field.options.map((option) => (
+
+<div key = {option}>
+                                                    <TextSimplificator text = {option} targetLanguage={targetLanguage} />
                                                 <Checkbox
                                                     key={option}
                                                     color="#3b943b"
@@ -78,6 +109,7 @@ const FormGenerator2 = ({ formSchema }) => {
                                                     );
                                                     }}
                                                 />
+                                                 </div>
                                             ))}
                                         </Group>
                                     </div>
