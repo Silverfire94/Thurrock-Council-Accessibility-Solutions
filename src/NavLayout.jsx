@@ -134,8 +134,8 @@ const NavLayout = () => {
                     <Image src={logo} alt="Logo" h={30} w="auto" fit="contain" />
                     <Text c="white" size="xl">thurrock.gov.uk</Text>
                     <Space />
-                    <Anchor onClick={() => setSelectedPage("forms")}>Form</Anchor>
-                    <Anchor onClick={() => setSelectedPage("docs")}>Documents</Anchor>
+                    <Anchor c="white" onClick={() => setSelectedPage("forms")} style={{ fontWeight: selectedPage==="forms" ? "bold" : "normal" }}>Forms</Anchor>
+                    <Anchor c="white" onClick={() => setSelectedPage("docs")} style={{ fontWeight: selectedPage==="docs" ? "bold" : "normal" }}>Documents</Anchor>
                 </Group>
             </AppShell.Header>
 
