@@ -35,7 +35,7 @@ const TranslateForm = ({ formSchema, targetLanguage = "es" }) => {
       return <p>Loading form...</p>;
     }
   
-    return <FormGenerator2 formSchema={translatedSchema} />;
+    return <FormGenerator2 formSchema={translatedSchema} targetLanguage={targetLanguage}/>;
   };
   
   export default TranslateForm;
