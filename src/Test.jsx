@@ -1,4 +1,5 @@
 import { getSpeech } from "./TextToSpeech"
+import.meta.env.VITE_TEST
 
 function Test() {
 
@@ -9,9 +10,10 @@ function Test() {
   
     return (
         <>
+            <h1>{import.meta.env.VITE_TEST}</h1>
             <button onClick={(e) => handleClick()}>Speak</button>
         </>
     )
 }
 
-export default Test 
+export default Test
