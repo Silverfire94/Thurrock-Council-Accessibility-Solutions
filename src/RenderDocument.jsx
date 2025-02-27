@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { Text } from "@mantine/core"
 
 const RenderDocument = ({ text, targetLanguage="es" }) => {
 
-    return <pre>{text}</pre>
+    return <Text>{text}</Text>
 }
 
 export default RenderDocument

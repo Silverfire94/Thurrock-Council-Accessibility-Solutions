@@ -112,7 +112,7 @@ const NavLayout = () => {
         const fetchDocument = async () => {
             setLoading(true)
             try {
-                const response = await fetch(`/public/${selectedDoc}.txt`)
+                const response = await fetch(`/${selectedDoc}.txt`)
                 const text = await response.text()
                 setDocText(text)
             } catch(error) {
