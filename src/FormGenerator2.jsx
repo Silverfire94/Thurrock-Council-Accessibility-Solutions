@@ -1,6 +1,7 @@
 import { TextInput, Checkbox, Radio, Stack, Group, Button, NumberInput, Select, Box } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import TextSimplificator from "./TextSimplificator"
+import TTS from "./TTS"
 
 const FormGenerator2 = ({ formSchema, targetLanguage }) => {
     const form = useForm({
@@ -25,6 +26,8 @@ const FormGenerator2 = ({ formSchema, targetLanguage }) => {
                                 return (
                                     <div key={field.name}>           
                                     <TextSimplificator text = {field.label} targetLanguage={targetLanguage} />
+                                    <TTS  text = {field.label} targetLanguage={targetLanguage} />
+                                    
                                      
                                     <TextInput
 
@@ -40,6 +43,7 @@ const FormGenerator2 = ({ formSchema, targetLanguage }) => {
 
                                     <div key={field.name}>               
                                     <TextSimplificator text = {field.label} targetLanguage={targetLanguage} />
+                                    <TTS  text = {field.label} targetLanguage={targetLanguage} />
                                     <NumberInput
                                         // key={field.name}
                                         label={field.label}
@@ -51,6 +55,7 @@ const FormGenerator2 = ({ formSchema, targetLanguage }) => {
                                 return (
                                     <div key={field.name}>              
                                     <TextSimplificator text = {field.label} targetLanguage={targetLanguage} />
+                                    <TTS  text = {field.label} targetLanguage={targetLanguage} />
                                     <Select
                                         // key={field.name}
                                         label={field.label}
@@ -66,7 +71,7 @@ const FormGenerator2 = ({ formSchema, targetLanguage }) => {
                                         
                                         <label id="label">{field.label}
                                         <TextSimplificator text = {field.label} targetLanguage={targetLanguage} />
-
+                                        <TTS  text = {field.label} targetLanguage={targetLanguage} />
 
                                     
                                         </label>
@@ -76,7 +81,7 @@ const FormGenerator2 = ({ formSchema, targetLanguage }) => {
                                                 {field.options.map((option,index) => (
                                                     <div key = {index}>
                                                     <TextSimplificator text = {option} targetLanguage={targetLanguage} />
-                                                    
+                                                    <TTS  text = {option} targetLanguage={targetLanguage} />
                                                     <Radio key={option} value={option} label={option} color="#3b943b" />
                                                     </div>
                                                 ))}
@@ -88,12 +93,14 @@ const FormGenerator2 = ({ formSchema, targetLanguage }) => {
                                 return (
                                     <div key={field.name}>
                                         <TextSimplificator text = {field.label} targetLanguage={targetLanguage} />
+                                        <TTS  text = {field.label} targetLanguage={targetLanguage} />
                                         <label>{field.label}</label>
                                         <Group mt="xs">
                                             {field.options.map((option) => (
 
 <div key = {option}>
                                                     <TextSimplificator text = {option} targetLanguage={targetLanguage} />
+                                                    <TTS  text = {option} targetLanguage={targetLanguage} />
                                                 <Checkbox
                                                     key={option}
                                                     color="#3b943b"
