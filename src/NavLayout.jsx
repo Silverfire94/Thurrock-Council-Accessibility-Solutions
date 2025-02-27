@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Select, Loader, Space, Container, AppShell, Button, Grid, NavLink, Image, Group, Text, Anchor } from "@mantine/core";
 import TranslateForm from "./TranslateForm";
 import logo from "./assets/logo.png"
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from "react-router-dom";
 import RenderDocument from "./RenderDocument";
 
 const NavLayout = () => {
@@ -84,9 +83,16 @@ const NavLayout = () => {
         { value: "cy", label: "Welsh" },
       ]      
     
-    const [selectedForm, setSelectedForm] = useState("form2")
+    const [selectedPage, setSelectedPage] = useState("docs") // Current page loaded
+
+    const [selectedForm, setSelectedForm] = useState("form2") // Current form selected from navbar
+    const [selectedDoc, setSelectedDoc] = useState("doc1") // Current document selected from navbar
+
     const [targetLanguage, setTargetLanguage] = useState("en")
+
     const [formSchema, setFormSchema] = useState(null)
+    const [docText, setDocText] = useState(null)
+
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
@@ -103,61 +109,73 @@ const NavLayout = () => {
             setLoading(false)
         }
 
-        fetchSchema()
-    }, [selectedForm])
+        const fetchDocument = async () => {
+            setLoading(true)
+            try {
+                const response = await fetch(`/public/${selectedDoc}.txt`)
+                const text = await response.text()
+                setDocText(text)
+            } catch(error) {
+                console.error("Error loading document:", error)
+                setDocText(null)
+            }
+            setLoading(false)
+        }
+
+        if (selectedPage==="forms") fetchSchema()
+        if (selectedPage==="docs") fetchDocument()
+    }, [selectedForm, selectedDoc])
 
     return (
-        <Router>
-            <AppShell
-                header={{ height: 60 }}
-                navbar={{
-                    width: 200,
-                    breakpoint: "sm"
-                }}
-                padding="xl"
-            >
-                <AppShell.Header>
-                    <Group h="100%" px="md">
-                        <Image src={logo} alt="Logo" h={30} w="auto" fit="contain" />
-                        <Text c="white" size="xl">thurrock.gov.uk</Text>
-                        <Space />
-                        <Anchor component={Link} to="/forms" size="lg">Form</Anchor>
-                        <Anchor component={Link} to="/documents" size="lg">Documents</Anchor>
-                    </Group>
-                </AppShell.Header>
+        <AppShell header={{ height: 60 }} navbar={{width: 200, breakpoint: "sm"}} padding="xl">
 
-                <AppShell.Navbar p="md">
-                    <NavLink key="1" active={ selectedForm === "form1" } label="Form 1" onClick={() => setSelectedForm("form1")} color="#3b943b" />
-                    <NavLink key="2" active={ selectedForm === "form2" } label="Form 2" onClick={() => setSelectedForm("form2")} color="#3b943b" />
-                </AppShell.Navbar>
+            <AppShell.Header>
+                <Group h="100%" px="md">
+                    <Image src={logo} alt="Logo" h={30} w="auto" fit="contain" />
+                    <Text c="white" size="xl">thurrock.gov.uk</Text>
+                    <Space />
+                    <Anchor onClick={() => setSelectedPage("forms")}>Form</Anchor>
+                    <Anchor onClick={() => setSelectedPage("docs")}>Documents</Anchor>
+                </Group>
+            </AppShell.Header>
 
-                <AppShell.Main>
-                    <Grid>
-                        <Grid.Col span={3}>
-                            <Select
-                                label="Select Language"
-                                data={languageOptions}
-                                value={targetLanguage}
-                                onChange={setTargetLanguage}
-                            />
-                        </Grid.Col>
-                        <Grid.Col span={9}></Grid.Col>
-                        <Grid.Col span={12}>
-                            <Container size="xs" pt={20} pb={60}>
-                                {loading && <Loader mt="md" />}
-                                <Routes>
-                                    <Route path="/" element={formSchema && !loading && <TranslateForm formSchema={formSchema} targetLanguage={targetLanguage} />} />
-                                    <Route path="/forms" element={formSchema && !loading && <TranslateForm formSchema={formSchema} targetLanguage={targetLanguage} />} />
-                                    <Route path="/documents" element={<RenderDocument />} />
-                                </Routes>
-                            </Container>
-                        </Grid.Col>
-                    </Grid>
+            <AppShell.Navbar p="md">
+                {selectedPage==="forms" && 
+                    <>
+                        <NavLink key="1" active={ selectedForm === "form1" } label="Form 1" onClick={() => setSelectedForm("form1")} color="#3b943b" />
+                        <NavLink key="2" active={ selectedForm === "form2" } label="Form 2" onClick={() => setSelectedForm("form2")} color="#3b943b" />
+                    </>
+                }
+                {selectedPage==="docs" &&
+                    <>
+                        <NavLink key="1" active={ selectedDoc === "doc1" } label="Doc 1" onClick={() => setSelectedDoc("doc1")} color="#3b943b" />
+                        <NavLink key="2" active={ selectedDoc === "doc2" } label="Doc 2" onClick={() => setSelectedDoc("doc2")} color="#3b943b" />
+                    </>
+                }
+            </AppShell.Navbar>
 
-                </AppShell.Main>
+            <AppShell.Main>
+                <Grid>
+                    <Grid.Col span={3}>
+                        <Select
+                            label="Select Language"
+                            data={languageOptions}
+                            value={targetLanguage}
+                            onChange={setTargetLanguage}
+                        />
+                    </Grid.Col>
+                    <Grid.Col span={9}></Grid.Col>
+                    <Grid.Col span={12}>
+                        <Container size="xs" pt={20} pb={60}>
+                            {loading && <Loader mt="md" />}
+                            {selectedPage==="forms" && formSchema && !loading && <TranslateForm formSchema={formSchema} targetLanguage={targetLanguage} />}
+                            {selectedPage==="docs" && selectedDoc && !loading && <RenderDocument text={docText} targetLanguage={targetLanguage} />}
+                        </Container>
+                    </Grid.Col>
+                </Grid>
+            </AppShell.Main>
 
-            </AppShell>
-        </Router>
+        </AppShell>
     )
 }
 
