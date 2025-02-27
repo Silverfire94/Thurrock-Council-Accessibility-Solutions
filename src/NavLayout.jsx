@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Select, Loader, Space, Container, AppShell, Button, Grid, NavLink, Image, Group, Text, Anchor } from "@mantine/core";
 import TranslateForm from "./TranslateForm";
 import logo from "./assets/logo.png"
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from "react-router-dom";
 import RenderDocument from "./RenderDocument";
 
 const NavLayout = () => {
@@ -83,7 +83,7 @@ const NavLayout = () => {
         { value: "vi", label: "Vietnamese" },
         { value: "cy", label: "Welsh" },
       ]      
-
+    
     const [selectedForm, setSelectedForm] = useState("form2")
     const [targetLanguage, setTargetLanguage] = useState("en")
     const [formSchema, setFormSchema] = useState(null)
@@ -107,67 +107,57 @@ const NavLayout = () => {
     }, [selectedForm])
 
     return (
-        <BrowserRouter>
-        <AppShell
-            header={{ height: 60 }}
-            navbar={{
-                width: 200,
-                breakpoint: "sm"
-            }}
-            padding="xl"
-        >
-            <AppShell.Header>
-                <Group h="100%" px="md">
-                    <Image src={logo} alt="Logo" h={30} w="auto" fit="contain" />
-                    <Text c="white" size="xl">thurrock.gov.uk</Text>
-                    <Space />
-                    <Anchor component={Link} to="/forms" size="lg">Form</Anchor>
-                    <Anchor component={Link} to="/documents" size="lg">Documents</Anchor>
-                </Group>
-            </AppShell.Header>
+        <Router>
+            <AppShell
+                header={{ height: 60 }}
+                navbar={{
+                    width: 200,
+                    breakpoint: "sm"
+                }}
+                padding="xl"
+            >
+                <AppShell.Header>
+                    <Group h="100%" px="md">
+                        <Image src={logo} alt="Logo" h={30} w="auto" fit="contain" />
+                        <Text c="white" size="xl">thurrock.gov.uk</Text>
+                        <Space />
+                        <Anchor component={Link} to="/forms" size="lg">Form</Anchor>
+                        <Anchor component={Link} to="/documents" size="lg">Documents</Anchor>
+                    </Group>
+                </AppShell.Header>
 
-            <AppShell.Navbar p="md">
-                <NavLink key="1" active={ selectedForm === "form1" } label="Form 1" onClick={() => setSelectedForm("form1")} color="#3b943b" />
-                <NavLink key="2" active={ selectedForm === "form2" } label="Form 2" onClick={() => setSelectedForm("form2")} color="#3b943b" />
-            </AppShell.Navbar>
+                <AppShell.Navbar p="md">
+                    <NavLink key="1" active={ selectedForm === "form1" } label="Form 1" onClick={() => setSelectedForm("form1")} color="#3b943b" />
+                    <NavLink key="2" active={ selectedForm === "form2" } label="Form 2" onClick={() => setSelectedForm("form2")} color="#3b943b" />
+                </AppShell.Navbar>
 
-            <AppShell.Main>
-                <Grid>
-                    <Grid.Col span={3}>
-                        <Select
-                            label="Select Language"
-                            data={languageOptions}
-                            value={targetLanguage}
-                            onChange={setTargetLanguage}
-                        />
-                    </Grid.Col>
-                    <Grid.Col span={9}></Grid.Col>
-                    <Grid.Col span={12}>
-                        <Container size="xs" pt={20} pb={60}>
-                            {loading && <Loader mt="md" />}
-                            <Routes>
-                                <Route path="/" element={formSchema && !loading && <TranslateForm formSchema={formSchema} targetLanguage={targetLanguage} />} />
-                                <Route path="/forms" element={formSchema && !loading && <TranslateForm formSchema={formSchema} targetLanguage={targetLanguage} />} />
-                                <Route path="/documents" element={<RenderDocument />} />
-                            </Routes>
-                        </Container>
-                    </Grid.Col>
-                </Grid>
+                <AppShell.Main>
+                    <Grid>
+                        <Grid.Col span={3}>
+                            <Select
+                                label="Select Language"
+                                data={languageOptions}
+                                value={targetLanguage}
+                                onChange={setTargetLanguage}
+                            />
+                        </Grid.Col>
+                        <Grid.Col span={9}></Grid.Col>
+                        <Grid.Col span={12}>
+                            <Container size="xs" pt={20} pb={60}>
+                                {loading && <Loader mt="md" />}
+                                <Routes>
+                                    <Route path="/" element={formSchema && !loading && <TranslateForm formSchema={formSchema} targetLanguage={targetLanguage} />} />
+                                    <Route path="/forms" element={formSchema && !loading && <TranslateForm formSchema={formSchema} targetLanguage={targetLanguage} />} />
+                                    <Route path="/documents" element={<RenderDocument />} />
+                                </Routes>
+                            </Container>
+                        </Grid.Col>
+                    </Grid>
 
-                {/* <Select
-                    label="Select a Form"
-                    value={selectedForm}
-                    onChange={setSelectedForm}
-                    data={[
-                    { value: "form1", label: "Form 1" },
-                    { value: "form2", label: "Form 2" },
-                    ]}
-                /> */}
+                </AppShell.Main>
 
-            </AppShell.Main>
-
-        </AppShell>
-        </BrowserRouter>
+            </AppShell>
+        </Router>
     )
 }
 
