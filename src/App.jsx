@@ -1,4 +1,4 @@
-import FormSelector from './FormSelector'
+import NavLayout from './NavLayout'
 import "./styles/styles.css";
 import '@mantine/core/styles.css';
 
@@ -8,7 +8,7 @@ function App() {
   
   return (
     <MantineProvider withGlobalStyles withNormalizeCSS>
-      <FormSelector />
+      <NavLayout />
     </MantineProvider>
   )
 }

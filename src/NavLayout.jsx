@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
-import { Select, Loader, Space, Container, AppShell, Button, Grid, NavLink, Image, Group, Text } from "@mantine/core";
+import { Select, Loader, Space, Container, AppShell, Button, Grid, NavLink, Image, Group, Text, Anchor } from "@mantine/core";
 import TranslateForm from "./TranslateForm";
 import logo from "./assets/logo.png"
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import RenderDocument from "./RenderDocument";
 
-const FormSelector = () => {
+const NavLayout = () => {
     const languageOptions = [
         { value: "af", label: "Afrikaans" },
         { value: "sq", label: "Albanian" },
@@ -105,6 +107,7 @@ const FormSelector = () => {
     }, [selectedForm])
 
     return (
+        <BrowserRouter>
         <AppShell
             header={{ height: 60 }}
             navbar={{
@@ -117,6 +120,9 @@ const FormSelector = () => {
                 <Group h="100%" px="md">
                     <Image src={logo} alt="Logo" h={30} w="auto" fit="contain" />
                     <Text c="white" size="xl">thurrock.gov.uk</Text>
+                    <Space />
+                    <Anchor component={Link} to="/forms" size="lg">Form</Anchor>
+                    <Anchor component={Link} to="/documents" size="lg">Documents</Anchor>
                 </Group>
             </AppShell.Header>
 
@@ -139,7 +145,11 @@ const FormSelector = () => {
                     <Grid.Col span={12}>
                         <Container size="xs" pt={20} pb={60}>
                             {loading && <Loader mt="md" />}
-                            {formSchema && !loading && <TranslateForm formSchema={formSchema} targetLanguage={targetLanguage} />}
+                            <Routes>
+                                <Route path="/" element={formSchema && !loading && <TranslateForm formSchema={formSchema} targetLanguage={targetLanguage} />} />
+                                <Route path="/forms" element={formSchema && !loading && <TranslateForm formSchema={formSchema} targetLanguage={targetLanguage} />} />
+                                <Route path="/documents" element={<RenderDocument />} />
+                            </Routes>
                         </Container>
                     </Grid.Col>
                 </Grid>
@@ -157,7 +167,8 @@ const FormSelector = () => {
             </AppShell.Main>
 
         </AppShell>
+        </BrowserRouter>
     )
 }
 
-export default FormSelector
+export default NavLayout
