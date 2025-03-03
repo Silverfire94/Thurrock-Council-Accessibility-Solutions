@@ -1,6 +1,8 @@
 import { useState } from "react";
 // import { Translator } from "./Translator";
 
+
+
 let codes = {
   "af": "af-ZA",
   "sq": "sq-AL",
@@ -84,26 +86,28 @@ const TTS = ({ text, targetLanguage }) => {
   const [loading, setLoading] = useState(false); 
 
 
-  const handleSpeak = (text) => {
+  const handleSpeak = async () => {
     const utterance = new SpeechSynthesisUtterance(text);
     const voices = speechSynthesis.getVoices();
+ 
     if (!voices.length) {
       console.warn("Voices not available yet, retrying...");
       setTimeout(() => handleSpeak(text), 500);
       return;
     }
-    console.log(voices.length);
-    voices.forEach(voice => console.log(voice.name, voice.lang));
+
     //Set up  voice and language
-    utterance.voice = voices.find(v => v.lang.startsWith(codes[targetLanguage])) || voices[0];
-
-
+    console.log(text)
+    utterance.voice = voices.find(v => v.lang.startsWith("en")) || voices[0];
     speechSynthesis.speak(utterance);
+
   }
+
+
 
   return (
     <div>
-      <button onClick={() => handleSpeak(text)}>HEAR</button>
+      <button onClick={() => handleSpeak()}>HEAR</button>
     </div>
   );  
 };
