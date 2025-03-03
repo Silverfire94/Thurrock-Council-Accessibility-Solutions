@@ -82,7 +82,7 @@ let codes = {
 }
 
 const TTS = ({ text, targetLanguage }) => {
-  const [simplifiedText, setSimplifiedText] = useState(""); 
+  const [textToSpeak, settextToSpeak] = useState(""); 
   const [loading, setLoading] = useState(false); 
 
 
@@ -103,11 +103,44 @@ const TTS = ({ text, targetLanguage }) => {
 
   }
 
+  const callLambda = async () => {
+    const apiUrl = "https://cxx2cg4e8a.execute-api.eu-west-2.amazonaws.com/test/ttsLambda"; // Your API Gateway URL
+    const requestData = {
+        text: text,
+        language: "en"
+    };
+
+    try {
+        const response = await fetch(apiUrl, {
+            method: "POST",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+      
+            },
+            body: JSON.stringify(requestData),
+        });
+
+        const data = await response.json();
+        console.log("Lambda Response:", data);
+
+        if (data.audioBase64) {
+            const audio = new Audio(`data:audio/mp3;base64,${data.audioBase64}`);
+            audio.play();
+        } else {
+            console.error("No audio received:", data);
+        }
+    } catch (error) {
+        console.error("Error calling Lambda:", error);
+    }
+};
+
+
 
 
   return (
     <div>
-      <button onClick={() => handleSpeak()}>HEAR</button>
+      <button onClick={() => callLambda()}>HEAR</button>
     </div>
   );  
 };
