@@ -1,5 +1,5 @@
 import { useState } from "react";
-// import { Translator } from "./Translator";
+
 
 
 
@@ -82,32 +82,32 @@ let codes = {
 }
 
 const TTS = ({ text, targetLanguage }) => {
-  const [textToSpeak, settextToSpeak] = useState(""); 
-  const [loading, setLoading] = useState(false); 
+  // const [textToSpeak, settextToSpeak] = useState(""); 
+  // const [loading, setLoading] = useState(false); 
 
 
-  const handleSpeak = async () => {
-    const utterance = new SpeechSynthesisUtterance(text);
-    const voices = speechSynthesis.getVoices();
+  // const handleSpeak = async () => {
+  //   const utterance = new SpeechSynthesisUtterance(text);
+  //   const voices = speechSynthesis.getVoices();
  
-    if (!voices.length) {
-      console.warn("Voices not available yet, retrying...");
-      setTimeout(() => handleSpeak(text), 500);
-      return;
-    }
+  //   if (!voices.length) {
+  //     console.warn("Voices not available yet, retrying...");
+  //     setTimeout(() => handleSpeak(text), 500);
+  //     return;
+  //   }
 
-    //Set up  voice and language
-    console.log(text)
-    utterance.voice = voices.find(v => v.lang.startsWith("en")) || voices[0];
-    speechSynthesis.speak(utterance);
+  //   //Set up  voice and language
+  //   console.log(text)
+  //   utterance.voice = voices.find(v => v.lang.startsWith("en")) || voices[0];
+  //   speechSynthesis.speak(utterance);
 
-  }
+  // }
 
   const callLambda = async () => {
-    const apiUrl = "https://cxx2cg4e8a.execute-api.eu-west-2.amazonaws.com/test/ttsLambda"; // Your API Gateway URL
+    const apiUrl = "https://cxx2cg4e8a.execute-api.eu-west-2.amazonaws.com/test/ttsLambda"; 
     const requestData = {
         text: text,
-        language: "en"
+        language: targetLanguage,
     };
 
     try {
