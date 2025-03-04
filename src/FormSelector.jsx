@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
-import { Select, Loader, Space, Container, AppShell, Button, Grid, NavLink, Image, Group, Text } from "@mantine/core";
+import { Select, Container, AppShell, Button, Grid, NavLink, Image, Group, Text } from "@mantine/core";
 import TranslateForm from "./TranslateForm";
 import logo from "./assets/logo.png"
+import form1 from "./forms/form1.json"
+import form2 from "./forms/form2.json"
 
 const FormSelector = () => {
     const languageOptions = [
@@ -80,29 +82,15 @@ const FormSelector = () => {
         { value: "uz", label: "Uzbek" },
         { value: "vi", label: "Vietnamese" },
         { value: "cy", label: "Welsh" },
-      ]      
-
-    const [selectedForm, setSelectedForm] = useState("form2")
+      ]     
+    
+    const [selectedForm, setSelectedForm] = useState("form1")
     const [targetLanguage, setTargetLanguage] = useState("en")
-    const [formSchema, setFormSchema] = useState(null)
-    const [loading, setLoading] = useState(false)
-
-    useEffect(() => {
-        const fetchSchema = async () => {
-            setLoading(true)
-            try {
-                const response = await fetch(`src/forms/form2.json`)
-                const schema = await response.json()
-                setFormSchema(schema)
-            } catch(error) {
-                console.error("Error loading form schema:", error)
-                setFormSchema(null)
-            }
-            setLoading(false)
-        }
-
-        fetchSchema()
-    }, [selectedForm])
+    const [formSchema, setFormSchema] = useState(form1)
+    const handleFormChange = (formName) => {
+        setSelectedForm(formName)
+        setFormSchema(() => (formName === "form1" ? form1 : form2))
+    }
 
     return (
         <AppShell
@@ -121,8 +109,8 @@ const FormSelector = () => {
             </AppShell.Header>
 
             <AppShell.Navbar p="md">
-                <NavLink key="1" active={ selectedForm === "form1" } label="Form 1" onClick={() => setSelectedForm("form1")} color="#3b943b" />
-                <NavLink key="2" active={ selectedForm === "form2" } label="Form 2" onClick={() => setSelectedForm("form2")} color="#3b943b" />
+                <NavLink key="1" active={ selectedForm === "form1" } label="Form 1" onClick={() => handleFormChange("form1")} color="#3b943b" />
+                <NavLink key="2" active={ selectedForm === "form2" } label="Form 2" onClick={() => handleFormChange("form2")} color="#3b943b" />
             </AppShell.Navbar>
 
             <AppShell.Main>
@@ -138,8 +126,7 @@ const FormSelector = () => {
                     <Grid.Col span={9}></Grid.Col>
                     <Grid.Col span={12}>
                         <Container size="xs" pt={20} pb={60}>
-                            {loading && <Loader mt="md" />}
-                            {formSchema && !loading && <TranslateForm formSchema={formSchema} targetLanguage={targetLanguage} />}
+                            {formSchema && <TranslateForm key={selectedForm} formSchema={formSchema} targetLanguage={targetLanguage} />}
                         </Container>
                     </Grid.Col>
                 </Grid>
