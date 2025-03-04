@@ -91,7 +91,7 @@ const FormSelector = () => {
         const fetchSchema = async () => {
             setLoading(true)
             try {
-                const response = await fetch("form2.json")
+                const response = await fetch("../form2.json")
                 console.log(response)
                 const schema = await response.json()
                 setFormSchema(schema)
