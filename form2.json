@@ -1,0 +1,6 @@
+[
+  { "name": "satisfaction", "label": "How satisfied are you?", "type": "radio", "options": ["Very Satisfied", "Satisfied", "Neutral", "Dissatisfied", "Very Dissatisfied"] },
+  { "name": "improvements", "label": "What would you improve?", "type": "checkbox", "options": ["Customer Service", "Product Quality", "Delivery Speed", "Pricing"] }
+]
+
+  
