@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 
 const RenderDocument = ({ text="your mother", targetLanguage="es" }) => {
     const [translatedText, setTranslatedText] = useState("");
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const translateText = async () => {
@@ -13,6 +14,8 @@ const RenderDocument = ({ text="your mother", targetLanguage="es" }) => {
                 setTranslatedText(translatedText)
             } catch (error) {
                 console.error("Error loading or translating text:", error)
+            } finally {
+                setLoading(false)
             }
         }
     
@@ -20,6 +23,10 @@ const RenderDocument = ({ text="your mother", targetLanguage="es" }) => {
         if (targetLanguage === "en") setTranslatedText(text)
         translateText();
     }, [targetLanguage])
+
+    if (loading) {
+        return <p>Loading document...</p>
+    }
     
     return <Text>{translatedText}</Text>
 }
