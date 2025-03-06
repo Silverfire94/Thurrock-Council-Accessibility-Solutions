@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
-import { Select, Container, AppShell, Button, Grid, NavLink, Image, Group, Text } from "@mantine/core";
+import { Select, Loader, Space, Container, AppShell, Button, Grid, NavLink, Image, Group, Text, Anchor } from "@mantine/core";
 import TranslateForm from "./TranslateForm";
 import logo from "./assets/logo.png"
+import RenderDocument from "./RenderDocument";
 import form1 from "./forms/form1.json"
 import form2 from "./forms/form2.json"
+// import doc1 from "./documents/doc1.txt"
+// import doc2 from "./documents/doc2.txt"
 
-const FormSelector = () => {
+const NavLayout = () => {
     const languageOptions = [
         { value: "af", label: "Afrikaans" },
         { value: "sq", label: "Albanian" },
@@ -82,35 +85,76 @@ const FormSelector = () => {
         { value: "uz", label: "Uzbek" },
         { value: "vi", label: "Vietnamese" },
         { value: "cy", label: "Welsh" },
-      ]     
+    ]
     
-    const [selectedForm, setSelectedForm] = useState("form1")
+    const [selectedPage, setSelectedPage] = useState("forms") // Current page loaded
+
+    const [selectedForm, setSelectedForm] = useState("form1") // Current form selected from navbar
+    const [selectedDoc, setSelectedDoc] = useState("doc1") // Current document selected from navbar
+
     const [targetLanguage, setTargetLanguage] = useState("en")
+
     const [formSchema, setFormSchema] = useState(form1)
+    const [docText, setDocText] = useState("")
+
+    // useEffect(() => {
+    //     const fetchDocument = async () => {
+    //         try {
+    //             const response = await fetch(`${selectedDoc}.txt`)
+    //             const text = await response.text()
+    //             setDocText(text)
+    //         } catch(error) {
+    //             console.error("Error loading document:", error)
+    //             setDocText(null)
+    //         }
+    //     }
+
+    //     if (selectedPage==="docs") fetchDocument()
+    // }, [selectedDoc])
+  
     const handleFormChange = (formName) => {
         setSelectedForm(formName)
         setFormSchema(() => (formName === "form1" ? form1 : form2))
     }
 
+    const handleDocumentChange = async (docName) => {
+        setSelectedDoc(docName)
+        try {
+            const response = await fetch(`${selectedDoc}.txt`)
+            const text = await response.text()
+            setDocText(text)
+        } catch(error) {
+            console.error("Error loading document:", error)
+            setDocText(null)
+        }
+    }
+
     return (
-        <AppShell
-            header={{ height: 60 }}
-            navbar={{
-                width: 200,
-                breakpoint: "sm"
-            }}
-            padding="xl"
-        >
+        <AppShell header={{ height: 60 }} navbar={{width: 200, breakpoint: "sm"}} padding="xl">
+
             <AppShell.Header>
                 <Group h="100%" px="md">
                     <Image src={logo} alt="Logo" h={30} w="auto" fit="contain" />
                     <Text c="white" size="xl">thurrock.gov.uk</Text>
+                    <Space />
+                    <Anchor c="white" onClick={() => setSelectedPage("forms")} style={{ fontWeight: selectedPage==="forms" ? "bold" : "normal" }}>Forms</Anchor>
+                    <Anchor c="white" onClick={() => setSelectedPage("docs")} style={{ fontWeight: selectedPage==="docs" ? "bold" : "normal" }}>Documents</Anchor>
                 </Group>
             </AppShell.Header>
 
             <AppShell.Navbar p="md">
-                <NavLink key="1" active={ selectedForm === "form1" } label="Form 1" onClick={() => handleFormChange("form1")} color="#3b943b" />
-                <NavLink key="2" active={ selectedForm === "form2" } label="Form 2" onClick={() => handleFormChange("form2")} color="#3b943b" />
+                {selectedPage==="forms" && 
+                    <>
+                        <NavLink key="1" active={ selectedForm === "form1" } label="Form 1" onClick={() => handleFormChange("form1")} color="#3b943b" />
+                        <NavLink key="2" active={ selectedForm === "form2" } label="Form 2" onClick={() => handleFormChange("form2")} color="#3b943b" />
+                    </>
+                }
+                {selectedPage==="docs" &&
+                    <>
+                        <NavLink key="1" active={ selectedDoc === "doc1" } label="Doc 1" onClick={() => handleDocumentChange("doc1")} color="#3b943b" />
+                        <NavLink key="2" active={ selectedDoc === "doc2" } label="Doc 2" onClick={() => handleDocumentChange("doc2")} color="#3b943b" />
+                    </>
+                }
             </AppShell.Navbar>
 
             <AppShell.Main>
@@ -126,25 +170,15 @@ const FormSelector = () => {
                     <Grid.Col span={9}></Grid.Col>
                     <Grid.Col span={12}>
                         <Container size="xs" pt={20} pb={60}>
-                            {formSchema && <TranslateForm key={selectedForm} formSchema={formSchema} targetLanguage={targetLanguage} />}
+                            {selectedPage==="forms" && formSchema && <TranslateForm key={selectedForm} formSchema={formSchema} targetLanguage={targetLanguage} />}
+                            {selectedPage==="docs" && selectedDoc && <RenderDocument key={selectedDoc} text={docText} targetLanguage={targetLanguage} />}
                         </Container>
                     </Grid.Col>
                 </Grid>
-
-                {/* <Select
-                    label="Select a Form"
-                    value={selectedForm}
-                    onChange={setSelectedForm}
-                    data={[
-                    { value: "form1", label: "Form 1" },
-                    { value: "form2", label: "Form 2" },
-                    ]}
-                /> */}
-
             </AppShell.Main>
 
         </AppShell>
     )
 }
 
-export default FormSelector
+export default NavLayout
