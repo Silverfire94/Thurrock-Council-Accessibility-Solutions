@@ -5,8 +5,8 @@ import logo from "./assets/logo.png"
 import RenderDocument from "./RenderDocument";
 import form1 from "./forms/form1.json"
 import form2 from "./forms/form2.json"
-import doc1 from "./documents/doc1.txt"
-import doc2 from "./documents/doc2.txt"
+// import doc1 from "./documents/doc1.txt"
+// import doc2 from "./documents/doc2.txt"
 
 const NavLayout = () => {
     const languageOptions = [
@@ -85,7 +85,7 @@ const NavLayout = () => {
         { value: "uz", label: "Uzbek" },
         { value: "vi", label: "Vietnamese" },
         { value: "cy", label: "Welsh" },
-    ]      
+    ]
     
     const [selectedPage, setSelectedPage] = useState("forms") // Current page loaded
 
@@ -95,7 +95,7 @@ const NavLayout = () => {
     const [targetLanguage, setTargetLanguage] = useState("en")
 
     const [formSchema, setFormSchema] = useState(form1)
-    const [docText, setDocText] = useState(doc1)
+    const [docText, setDocText] = useState("")
 
     // useEffect(() => {
     //     const fetchDocument = async () => {
@@ -117,16 +117,15 @@ const NavLayout = () => {
         setFormSchema(() => (formName === "form1" ? form1 : form2))
     }
 
-    const handleDocumentChange = (docName) => {
+    const handleDocumentChange = async (docName) => {
         setSelectedDoc(docName)
-        if (docName === "doc1") {
-            fetch(doc1)
-                .then((response) => response.text())
-                .then((text) => setDocText(text))
-        } else {
-            fetch(doc2)
-                .then((response) => response.text())
-                .then((text) => setDocText(text))
+        try {
+            const response = await fetch(`${selectedDoc}.txt`)
+            const text = await response.text()
+            setDocText(text)
+        } catch(error) {
+            console.error("Error loading document:", error)
+            setDocText(null)
         }
     }
 
@@ -152,8 +151,8 @@ const NavLayout = () => {
                 }
                 {selectedPage==="docs" &&
                     <>
-                        <NavLink key="1" active={ selectedDoc === "doc1" } label="Doc 1" onClick={() => setSelectedDoc("doc1")} color="#3b943b" />
-                        <NavLink key="2" active={ selectedDoc === "doc2" } label="Doc 2" onClick={() => setSelectedDoc("doc2")} color="#3b943b" />
+                        <NavLink key="1" active={ selectedDoc === "doc1" } label="Doc 1" onClick={() => handleDocumentChange("doc1")} color="#3b943b" />
+                        <NavLink key="2" active={ selectedDoc === "doc2" } label="Doc 2" onClick={() => handleDocumentChange("doc2")} color="#3b943b" />
                     </>
                 }
             </AppShell.Navbar>
@@ -172,7 +171,7 @@ const NavLayout = () => {
                     <Grid.Col span={12}>
                         <Container size="xs" pt={20} pb={60}>
                             {selectedPage==="forms" && formSchema && <TranslateForm key={selectedForm} formSchema={formSchema} targetLanguage={targetLanguage} />}
-                            {selectedPage==="docs" && selectedDoc && <RenderDocument key={selectedDoc} text={selectedDoc} targetLanguage={targetLanguage} />}
+                            {selectedPage==="docs" && selectedDoc && <RenderDocument key={selectedDoc} text={docText} targetLanguage={targetLanguage} />}
                         </Container>
                     </Grid.Col>
                 </Grid>
