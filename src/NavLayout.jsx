@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Select, Loader, Space, Container, AppShell, Button, Grid, NavLink, Image, Group, Text, Anchor } from "@mantine/core";
+import { Select, Space, Container, AppShell, Grid, NavLink, Image, Group, Text, Anchor } from "@mantine/core";
 import TranslateForm from "./TranslateForm";
 import logo from "./assets/logo.png"
 import RenderDocument from "./RenderDocument";
@@ -116,7 +116,7 @@ const NavLayout = () => {
             setLoading(false)
         }
 
-        if (selectedPage==="docs") fetchDocument()
+        fetchDocument()
     }, [selectedDoc])
 
     return (
@@ -143,6 +143,7 @@ const NavLayout = () => {
                     <>
                         <NavLink key="1" active={ selectedDoc === "doc1" } label="Doc 1" onClick={() => setSelectedDoc("doc1")} color="#3b943b" />
                         <NavLink key="2" active={ selectedDoc === "doc2" } label="Doc 2" onClick={() => setSelectedDoc("doc2")} color="#3b943b" />
+                        <NavLink key="3" active={ selectedDoc === "doc3" } label="Doc 3" onClick={() => setSelectedDoc("doc3")} color="#3b943b" />
                     </>
                 }
             </AppShell.Navbar>

@@ -1,15 +1,15 @@
 import { Text } from "@mantine/core"
 import { Translator } from "./Translator"
 import { useEffect, useState } from "react"
+import TextSimplificator from "./TextSimplificator";
 
-const RenderDocument = ({ text="your mother", targetLanguage="es" }) => {
+const RenderDocument = ({ text, targetLanguage="es" }) => {
     const [translatedText, setTranslatedText] = useState("");
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const translateText = async () => {
             try {
-                console.log(text)
                 const translatedText = await Translator(targetLanguage, text) ?? "err"
                 setTranslatedText(translatedText)
             } catch (error) {
@@ -28,7 +28,12 @@ const RenderDocument = ({ text="your mother", targetLanguage="es" }) => {
         return <p>Loading document...</p>
     }
     
-    return <Text>{translatedText}</Text>
+    return (
+        <>
+            <TextSimplificator text={text} targetLanguage={targetLanguage}/>
+            <Text>{translatedText}</Text>
+        </>
+    )
 }
 
 export default RenderDocument
