@@ -2,6 +2,7 @@ import { Text } from "@mantine/core"
 import { Translator } from "./Translator"
 import { useEffect, useState } from "react"
 import TextSimplificator from "./TextSimplificator";
+import TTS from "./TTS";
 
 const RenderDocument = ({ text, targetLanguage="es" }) => {
     const [translatedText, setTranslatedText] = useState("");
@@ -31,6 +32,7 @@ const RenderDocument = ({ text, targetLanguage="es" }) => {
     return (
         <>
             <TextSimplificator text={text} targetLanguage={targetLanguage}/>
+            <TTS text={text} targetLanguage={targetLanguage} />
             <Text>{translatedText}</Text>
         </>
     )
