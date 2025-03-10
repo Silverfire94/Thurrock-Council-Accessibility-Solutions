@@ -2,6 +2,7 @@ import { TextInput, Checkbox, Radio, Stack, Group, Button, NumberInput, Select, 
 import { useForm } from '@mantine/form'
 import TextSimplificator from "./TextSimplificator"
 import TTS from "./TTS"
+import AudioRecorder from './AudioRecorder'
 
 const FormGenerator2 = ({ formSchema, targetLanguage }) => {
     const form = useForm({
@@ -62,6 +63,7 @@ const FormGenerator2 = ({ formSchema, targetLanguage }) => {
                                         data={field.data}
                                         {...form.getInputProps(field.name)}
                                     />
+                                    <AudioRecorder></AudioRecorder>
 
                                     </div>
                                 )
