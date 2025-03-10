@@ -57,7 +57,6 @@ const FormGenerator2 = ({ formSchema, targetLanguage }) => {
                                         data={field.data}
                                         {...form.getInputProps(field.name)}
                                     />
-                                    <AudioRecorder></AudioRecorder>
 
                                     </div>
                                 )
