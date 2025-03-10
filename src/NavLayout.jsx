@@ -1,12 +1,10 @@
 import { useState, useEffect } from "react";
-import { Select, Loader, Space, Container, AppShell, Button, Grid, NavLink, Image, Group, Text, Anchor } from "@mantine/core";
+import { Select, Space, Container, AppShell, Grid, NavLink, Image, Group, Text, Anchor } from "@mantine/core";
 import TranslateForm from "./TranslateForm";
 import logo from "./assets/logo.png"
 import RenderDocument from "./RenderDocument";
 import form1 from "./forms/form1.json"
 import form2 from "./forms/form2.json"
-// import doc1 from "./documents/doc1.txt"
-// import doc2 from "./documents/doc2.txt"
 
 const NavLayout = () => {
     const languageOptions = [
@@ -95,39 +93,31 @@ const NavLayout = () => {
     const [targetLanguage, setTargetLanguage] = useState("en")
 
     const [formSchema, setFormSchema] = useState(form1)
-    const [docText, setDocText] = useState("")
+    const [docText, setDocText] = useState(null)
 
-    // useEffect(() => {
-    //     const fetchDocument = async () => {
-    //         try {
-    //             const response = await fetch(`${selectedDoc}.txt`)
-    //             const text = await response.text()
-    //             setDocText(text)
-    //         } catch(error) {
-    //             console.error("Error loading document:", error)
-    //             setDocText(null)
-    //         }
-    //     }
+    const [loading, setLoading] = useState(false)
 
-    //     if (selectedPage==="docs") fetchDocument()
-    // }, [selectedDoc])
-  
     const handleFormChange = (formName) => {
         setSelectedForm(formName)
         setFormSchema(() => (formName === "form1" ? form1 : form2))
     }
 
-    const handleDocumentChange = async (docName) => {
-        setSelectedDoc(docName)
-        try {
-            const response = await fetch(`${selectedDoc}.txt`)
-            const text = await response.text()
-            setDocText(text)
-        } catch(error) {
-            console.error("Error loading document:", error)
-            setDocText(null)
+    useEffect(() => {
+        const fetchDocument = async () => {
+            setLoading(true)
+            try {
+                const response = await fetch(`/${selectedDoc}.txt`)
+                const text = await response.text()
+                setDocText(text)
+            } catch(error) {
+                console.error("Error loading document:", error)
+                setDocText(null)
+            }
+            setLoading(false)
         }
-    }
+
+        fetchDocument()
+    }, [selectedDoc])
 
     return (
         <AppShell header={{ height: 60 }} navbar={{width: 200, breakpoint: "sm"}} padding="xl">
@@ -151,8 +141,9 @@ const NavLayout = () => {
                 }
                 {selectedPage==="docs" &&
                     <>
-                        <NavLink key="1" active={ selectedDoc === "doc1" } label="Doc 1" onClick={() => handleDocumentChange("doc1")} color="#3b943b" />
-                        <NavLink key="2" active={ selectedDoc === "doc2" } label="Doc 2" onClick={() => handleDocumentChange("doc2")} color="#3b943b" />
+                        <NavLink key="1" active={ selectedDoc === "doc1" } label="Doc 1" onClick={() => setSelectedDoc("doc1")} color="#3b943b" />
+                        <NavLink key="2" active={ selectedDoc === "doc2" } label="Doc 2" onClick={() => setSelectedDoc("doc2")} color="#3b943b" />
+                        <NavLink key="3" active={ selectedDoc === "doc3" } label="Doc 3" onClick={() => setSelectedDoc("doc3")} color="#3b943b" />
                     </>
                 }
             </AppShell.Navbar>
@@ -170,8 +161,8 @@ const NavLayout = () => {
                     <Grid.Col span={9}></Grid.Col>
                     <Grid.Col span={12}>
                         <Container size="xs" pt={20} pb={60}>
-                            {selectedPage==="forms" && formSchema && <TranslateForm key={selectedForm} formSchema={formSchema} targetLanguage={targetLanguage} />}
-                            {selectedPage==="docs" && selectedDoc && <RenderDocument key={selectedDoc} text={docText} targetLanguage={targetLanguage} />}
+                            {selectedPage==="forms" && formSchema && !loading && <TranslateForm key={selectedForm} formSchema={formSchema} targetLanguage={targetLanguage} />}
+                            {selectedPage==="docs" && selectedDoc && !loading && <RenderDocument key={selectedDoc} text={docText} targetLanguage={targetLanguage} />}
                         </Container>
                     </Grid.Col>
                 </Grid>

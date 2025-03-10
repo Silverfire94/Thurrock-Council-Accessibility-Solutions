@@ -26,30 +26,24 @@ const FormGenerator2 = ({ formSchema, targetLanguage }) => {
                             case "text":
                                 return (
                                     <div key={field.name}>           
-                                    <TextSimplificator text = {field.label} targetLanguage={targetLanguage} />
-                                    <TTS  text = {field.label} targetLanguage={targetLanguage} />
-                                    
-                                     
-                                    <TextInput
+                                        <TTS  text = {field.label} targetLanguage={targetLanguage} />
+                                        <TextInput
 
-                                
-                                        label={field.label}
-                                        {...form.getInputProps(field.name)} 
-                                    />
-                                    </div>
                                     
+                                            label={field.label}
+                                            {...form.getInputProps(field.name)} 
+                                        />
+                                    </div>
                                 )
                             case "number":
                                 return (
-
                                     <div key={field.name}>               
-                                    <TextSimplificator text = {field.label} targetLanguage={targetLanguage} />
-                                    <TTS  text = {field.label} targetLanguage={targetLanguage} />
-                                    <NumberInput
-                                        // key={field.name}
-                                        label={field.label}
-                                        {...form.getInputProps(field.name)}
-                                    />
+                                        <TTS  text = {field.label} targetLanguage={targetLanguage} />
+                                        <NumberInput
+                                            // key={field.name}
+                                            label={field.label}
+                                            {...form.getInputProps(field.name)}
+                                        />
                                     </div> 
                                 )
                             case "select":
@@ -72,19 +66,15 @@ const FormGenerator2 = ({ formSchema, targetLanguage }) => {
                                     <div key={field.name}>
                                         
                                         <label id="label">{field.label}
-                                        <TextSimplificator text = {field.label} targetLanguage={targetLanguage} />
                                         <TTS  text = {field.label} targetLanguage={targetLanguage} />
-
-                                    
                                         </label>
 
                                         <Radio.Group {...form.getInputProps(field.name)}>
                                             <Stack gap={8}>
                                                 {field.options.map((option,index) => (
                                                     <div key = {index}>
-                                                    <TextSimplificator text = {option} targetLanguage={targetLanguage} />
-                                                    <TTS  text = {option} targetLanguage={targetLanguage} />
-                                                    <Radio key={option} value={option} label={option} color="#3b943b" />
+                                                        <TTS  text = {option} targetLanguage={targetLanguage} />
+                                                        <Radio key={option} value={option} label={option} color="#3b943b" />
                                                     </div>
                                                 ))}
                                             </Stack>
@@ -94,29 +84,27 @@ const FormGenerator2 = ({ formSchema, targetLanguage }) => {
                             case "checkbox":
                                 return (
                                     <div key={field.name}>
-                                        <TextSimplificator text = {field.label} targetLanguage={targetLanguage} />
                                         <TTS  text = {field.label} targetLanguage={targetLanguage} />
                                         <label>{field.label}</label>
                                         <Group mt="xs">
                                             {field.options.map((option) => (
                                                 <div key = {option}>
-                                                    <TextSimplificator text = {option} targetLanguage={targetLanguage} />
                                                     <TTS  text = {option} targetLanguage={targetLanguage} />
-                                                <Checkbox
-                                                    key={option}
-                                                    color="#3b943b"
-                                                    label={option}
-                                                    checked={form.values[field.name].includes(option)}
-                                                    onChange={(event) => {
-                                                    const { checked } = event.target;
-                                                    form.setFieldValue(
-                                                        field.name,
-                                                        checked
-                                                        ? [...form.values[field.name], option]
-                                                        : form.values[field.name].filter((v) => v !== option)
-                                                    );
-                                                    }}
-                                                />
+                                                    <Checkbox
+                                                        key={option}
+                                                        color="#3b943b"
+                                                        label={option}
+                                                        checked={form.values[field.name].includes(option)}
+                                                        onChange={(event) => {
+                                                        const { checked } = event.target;
+                                                        form.setFieldValue(
+                                                            field.name,
+                                                            checked
+                                                            ? [...form.values[field.name], option]
+                                                            : form.values[field.name].filter((v) => v !== option)
+                                                        );
+                                                        }}
+                                                    />
                                                  </div>
                                             ))}
                                         </Group>
