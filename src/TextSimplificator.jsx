@@ -72,13 +72,15 @@ import { Translator } from "./Translator";
 
 const TextSimplificator = ({ text, targetLanguage }) => {
   const [simplifiedText, setSimplifiedText] = useState(""); 
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
+  const [showText, setShowText] = useState(false);
 
   const callLambdaFunction = async (textToSimplify) => {
+    setShowText(!showText)
+    if(showText) return;
     if (simplifiedText) {
       setSimplifiedText(""); 
     }
-
     try {
       setLoading(true);
       
@@ -123,7 +125,7 @@ const TextSimplificator = ({ text, targetLanguage }) => {
         {loading ? "Simplifying..." : "Simplify Text"}
       </button>
 
-      {simplifiedText && (
+      {showText && (
         <div style={{ marginTop: "10px", padding: "10px", border: "1px solid #ddd", background: "#f9f9f9" }}>
           <strong>Simplified Text:</strong>
           <div>{simplifiedText}</div>
