@@ -76,34 +76,22 @@ const TextSimplificator = ({ text, targetLanguage }) => {
 
   const callLambdaFunction = async (textToSimplify) => {
     if (simplifiedText) {
-      setSimplifiedText(""); // ✅ Reset previous results instead of setting to false
-      return;
+      setSimplifiedText(""); 
     }
 
     try {
       setLoading(true);
       
-      const apiUrl = "https://w1x9sft0lg.execute-api.eu-west-2.amazonaws.com/dev/simplify"; // API Gateway URL
+      const apiUrl = "https://w1x9sft0lg.execute-api.eu-west-2.amazonaws.com/dev/simplify";
 
-      // const requestBody = {
-      //   anthropic_version: "bedrock-2023-05-31", // ✅ Required for Claude 3 API
-      //   messages: [
-      //     {
-      //       role: "user",
-      //       content: `Simplify the following text: ${textToSimplify}. Do not include introductions or extra words, just return the simplified version.`
-      //     }
-      //   ],
-      //   max_tokens: 512, // ✅ Keep within Claude 3 limits
-      //   temperature: 0.7,
-      //   top_p: 0.9
-      // };
+
 
       const response = await fetch(apiUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ prompt: `Simplify the following text. Do not include any introduction, explanations, or extra words—just return the simplified version, the text is the following: ${textToSimplify}` }),
+        body: JSON.stringify({ prompt: `Simplify the following text within 150 words.Do not provide an explanation, just give a summary. the text is the following: ${textToSimplify}` }),
       });
 
       if (!response.ok) {
