@@ -33,6 +33,7 @@ const FormGenerator2 = ({ formSchema, targetLanguage }) => {
                                             label={field.label}
                                             {...form.getInputProps(field.name)} 
                                         />
+                                        <AudioRecorder targetLanguage ={targetLanguage} />
                                     </div>
                                 )
                             case "number":
