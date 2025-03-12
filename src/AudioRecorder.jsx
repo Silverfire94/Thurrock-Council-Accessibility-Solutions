@@ -80,7 +80,6 @@ const languageToAWSTranscribeMapping = {
 };
 
 const AudioRecorder = ({targetLanguage, whenResultReady }) => {
-  console.log(targetLanguage)
   const [isRecording, setIsRecording] = useState(false);
   const [audioURL, setAudioURL] = useState('');
   const [isUploading, setIsUploading] = useState(false);
@@ -209,7 +208,6 @@ const AudioRecorder = ({targetLanguage, whenResultReady }) => {
 
       const transcriptText = await getTranscriptResponse.json();
 
-      console.log(transcriptText.transcript)
       setResult(transcriptText.transcript)
 
       if (whenResultReady) {
@@ -272,7 +270,6 @@ if (languageToAWSTranscribeMapping[targetLanguage] !== "") {
     const err = async () =>{
       let baba = await Translator(targetLanguage, "Sorry this is not supported") ?? "err"
       setErrorMessage(baba)
-      console.log("error message: ", errorMessage)
     }
     err()
     return <div>
