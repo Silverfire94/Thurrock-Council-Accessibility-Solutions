@@ -1,4 +1,4 @@
-
+import { IconVolume as Icon } from "@tabler/icons-react";
 import { ActionIcon } from "@mantine/core";
 import { useState } from "react";
 
@@ -97,7 +97,7 @@ const TTS = ({ text, targetLanguage, size="input-sm"}) => {
   return (
     <>
       <ActionIcon size={size} variant="subtle" color="#3b943b" onClick={() => callLambda()} >
-        H
+        <Icon stroke={1.5} />
       </ActionIcon>
     </>
   );  
