@@ -1,7 +1,8 @@
-
+import { IconVolume as Icon } from "@tabler/icons-react";
+import { ActionIcon } from "@mantine/core";
 import { useState } from "react";
 
-const TTS = ({ text, targetLanguage }) => {
+const TTS = ({ text, targetLanguage, size="input-sm"}) => {
   const awsPollyLanguages = {
     "arb": "Arabic",
     "ar-AE": "Arabic (Gulf)",
@@ -184,23 +185,11 @@ const TTS = ({ text, targetLanguage }) => {
     }
   };
 
-
-
-  if (langCode[targetLanguage]) {
-    return (
-      <div>
-        <button onClick={() => callLambda()}>HEAR</button>
-      </div>
-    );  
-  }
-  else {
-    return (
-      <div>
-        <button disabled>Hear</button>
-      </div>
-    )
-  }
-  
+  return (
+    <ActionIcon size={size} variant="subtle" color="#3b943b" {...!langCode[targetLanguage] && disabled} onClick={() => callLambda()} >
+      <Icon stroke={1.5} />
+    </ActionIcon>
+  );  
 };
 
 export default TTS;

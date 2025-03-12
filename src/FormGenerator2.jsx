@@ -29,85 +29,99 @@ const FormGenerator2 = ({ formSchema, targetLanguage }) => {
         <Box mx="auto">
             <form onSubmit={form.onSubmit(handleSubmit)}>
                 <Stack gap="md">
+                        <AudioRecorder 
+                            targetLanguage={targetLanguage} 
+                            whenResultReady={(result) => handleTranscriptionResult(field.name, result)} 
+                        />
                     {formSchema.map((field => {
                         // let label = field.label
                         switch (field.type) {
                             case "text":
                                 return (
                                     <div key={field.name}>           
-                                        <TTS  text = {field.label} targetLanguage={targetLanguage} />
-                                        
                                         <TextInput
-                        label={field.label}
-                        placeholder="Your placeholder text here"
-                        {...form.getInputProps(field.name)}
-                    />
-                    <AudioRecorder 
-                        targetLanguage={targetLanguage} 
-                        whenResultReady={(result) => handleTranscriptionResult(field.name, result)} 
-                    />
+                                            label={field.label}
+                                            placeholder="Your placeholder text here"
+                                            {...form.getInputProps(field.name)}
+                                            inputContainer={(children) => (
+                                                <Group align="flex-start">
+                                                    {children}
+                                                    <TTS text = {field.label} targetLanguage={targetLanguage}/>
+                                                </Group>
+                                            )}
+                                        />
                                     </div>
                                 )
                             case "number":
                                 return (
                                     <div key={field.name}>               
-                                        <TTS  text = {field.label} targetLanguage={targetLanguage} />
+                                        
                                         <NumberInput
                                             // key={field.name}
                                             label={field.label}
                                             {...form.getInputProps(field.name)}
+                                            inputContainer={(children) => (
+                                                <Group align="flex-start">
+                                                    {children}
+                                                    <TTS  text = {field.label} targetLanguage={targetLanguage} />
+                                                </Group>
+                                            )}
                                         />
                                     </div> 
                                 )
                             case "select":
                                 return (
                                     <div key={field.name}>              
-                                    <TextSimplificator text = {field.label} targetLanguage={targetLanguage} />
-                                    <TTS  text = {field.label} targetLanguage={targetLanguage} />
-                                    <Select
-                                        // key={field.name}
-                                        label={field.label}
-                                        data={field.data}
-                                        {...form.getInputProps(field.name)}
-                                    />
+                                        <Select
+                                            // key={field.name}
+                                            label={field.label}
+                                            data={field.data}
+                                            {...form.getInputProps(field.name)}
+                                            inputContainer={(children) => (
+                                                <Group align="flex-start">
+                                                    {children}
+                                                    <TTS  text = {field.label} targetLanguage={targetLanguage} />
+                                                </Group>
+                                            )}
+                                        />
 
                                     </div>
                                 )
                             case "radio":
                                 return (
-                                    <div key={field.name}>
-                                        
-                                        <label id="label">{field.label}
-                                        <TTS  text = {field.label} targetLanguage={targetLanguage} />
-                                        </label>
+                                    <Radio.Group 
+                                        key={field.name} 
+                                        label={
+                                            <Group>
+                                                {field.label}
+                                                <TTS text={field.label} targetLanguage={targetLanguage} size="md"/>
+                                            </Group>
+                                        } 
+                                        {...form.getInputProps(field.name)}
+                                    >
 
-                                        <Radio.Group {...form.getInputProps(field.name)}>
-                                            <Stack gap={8}>
-                                                {field.options.map((option,index) => (
-                                                    <div key = {index}>
-                                                        <TTS  text = {option} targetLanguage={targetLanguage} />
-                                                        <Radio key={option} value={option} label={option} color="#3b943b" />
-                                                    </div>
-                                                ))}
-                                            </Stack>
-                                        </Radio.Group>
-                                    </div>
+                                        <Group mt="xs">
+                                            {field.options.map((option,index) => (
+                                                <Group key={index}>
+                                                    <Radio key={option} value={option} label={option} color="#3b943b" />
+                                                    <TTS  text = {option} targetLanguage={targetLanguage} size="md"/>
+                                                </Group>
+                                            ))}
+                                        </Group>
+                                    </Radio.Group>
                                 )
                             case "checkbox":
                                 return (
-                                    <div key={field.name}>
-                                        <TTS  text = {field.label} targetLanguage={targetLanguage} />
-                                        <label>{field.label}</label>
-                                        <Group mt="xs">
-                                            {field.options.map((option) => (
-                                                <div key = {option}>
-                                                    <TTS  text = {option} targetLanguage={targetLanguage} />
-                                                    <Checkbox
-                                                        key={option}
-                                                        color="#3b943b"
-                                                        label={option}
-                                                        checked={form.values[field.name].includes(option)}
-                                                        onChange={(event) => {
+                                <Checkbox.Group key={field.name} label={<Group>{field.label} <TTS  text = {field.label} targetLanguage={targetLanguage} size="md"/></Group>}>
+                                    <Group mt="xs">
+                                        {field.options.map((option) => (
+                                            <Group key = {option}>
+                                                <Checkbox
+                                                    key={option}
+                                                    color="#3b943b"
+                                                    label={option}
+                                                    checked={form.values[field.name].includes(option)}
+                                                    onChange={(event) => {
                                                         const { checked } = event.target;
                                                         form.setFieldValue(
                                                             field.name,
@@ -115,12 +129,13 @@ const FormGenerator2 = ({ formSchema, targetLanguage }) => {
                                                             ? [...form.values[field.name], option]
                                                             : form.values[field.name].filter((v) => v !== option)
                                                         );
-                                                        }}
-                                                    />
-                                                 </div>
-                                            ))}
-                                        </Group>
-                                    </div>
+                                                    }}
+                                                />
+                                                <TTS  text = {option} targetLanguage={targetLanguage} size="md"/>
+                                                </Group>
+                                        ))}
+                                    </Group>
+                                </Checkbox.Group>
                                 )
                             default:
                                 return null;

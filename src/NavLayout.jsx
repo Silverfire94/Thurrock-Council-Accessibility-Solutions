@@ -160,7 +160,7 @@ const NavLayout = () => {
                     </Grid.Col>
                     <Grid.Col span={9}></Grid.Col>
                     <Grid.Col span={12}>
-                        <Container size="xs" pt={20} pb={60}>
+                        <Container size="sm" pt={20} pb={60}>
                             {selectedPage==="forms" && formSchema && !loading && <TranslateForm key={selectedForm} formSchema={formSchema} targetLanguage={targetLanguage} />}
                             {selectedPage==="docs" && selectedDoc && !loading && <RenderDocument key={selectedDoc} text={docText} targetLanguage={targetLanguage} />}
                         </Container>
