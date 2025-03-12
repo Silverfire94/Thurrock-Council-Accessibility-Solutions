@@ -1,4 +1,5 @@
 
+import { ActionIcon } from "@mantine/core";
 import { useState } from "react";
 
 const TTS = ({ text, targetLanguage }) => {
@@ -94,9 +95,11 @@ const TTS = ({ text, targetLanguage }) => {
 
 
   return (
-    <div>
-      <button onClick={() => callLambda()}>HEAR</button>
-    </div>
+    <>
+      <ActionIcon size="input-sm" variant="filled" onClick={() => callLambda()} >
+        H
+      </ActionIcon>
+    </>
   );  
 };
 
