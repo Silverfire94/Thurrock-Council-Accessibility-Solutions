@@ -50,14 +50,108 @@ const TTS = ({ text, targetLanguage, size="input-sm"}) => {
     "zh-TW": "Chinese (Traditional)",
     "bn-IN": "Bengali (India)"
   };
+
+  const langCode = {
+    "af": "",  
+    "sq": "",  
+    "am": "",  
+    "ar": "arb",  
+    "ar-AE": "ar-AE",  
+    "hy": "",  
+    "az": "",  
+    "bn": "",  
+    "bs": "",  
+    "bg": "",  
+    "ca": "ca-ES",  
+    "zh": "cmn-CN",  
+    "zh-TW": "yue-CN",  
+    "hr": "",  
+    "cs": "cs-CZ",  
+    "da": "da-DK",  
+    "fa-AF": "",  
+    "nl": "nl-NL",  
+    "nl-BE": "nl-BE",  
+    "en": "en-US",  
+    "en-AU": "en-AU",  
+    "en-GB": "en-GB",  
+    "en-IN": "en-IN",  
+    "en-NZ": "en-NZ",  
+    "en-SG": "en-SG",  
+    "en-ZA": "en-ZA",  
+    "en-GB-WLS": "en-GB-WLS",  
+    "et": "",  
+    "fa": "",  
+    "tl": "",  
+    "fi": "fi-FI",  
+    "fr": "fr-FR",  
+    "fr-CA": "fr-CA",  
+    "fr-BE": "fr-BE",  
+    "ka": "",  
+    "de": "de-DE",  
+    "de-AT": "de-AT",  
+    "de-CH": "de-CH",  
+    "el": "",  
+    "gu": "",  
+    "ht": "",  
+    "ha": "",  
+    "he": "",  
+    "hi": "hi-IN",  
+    "hu": "",  
+    "is": "is-IS",  
+    "id": "",  
+    "ga": "",  
+    "it": "it-IT",  
+    "ja": "ja-JP",  
+    "kn": "",  
+    "kk": "",  
+    "ko": "ko-KR",  
+    "lv": "",  
+    "lt": "",  
+    "mk": "",  
+    "ms": "",  
+    "ml": "",  
+    "mt": "",  
+    "mr": "",  
+    "mn": "",  
+    "no": "nb-NO",  
+    "ps": "",  
+    "pl": "pl-PL",  
+    "pt": "pt-BR",  
+    "pt-PT": "pt-PT",  
+    "pa": "",  
+    "ro": "ro-RO",  
+    "ru": "ru-RU",  
+    "sr": "",  
+    "si": "",  
+    "sk": "",  
+    "sl": "",  
+    "so": "",  
+    "es": "es-ES",  
+    "es-MX": "es-MX",  
+    "es-US": "es-US",  
+    "sw": "",  
+    "sv": "sv-SE",  
+    "ta": "",  
+    "te": "",  
+    "th": "",  
+    "tr": "tr-TR",  
+    "uk": "",  
+    "ur": "",  
+    "uz": "",  
+    "vi": "",  
+    "cy": "cy-GB"  
+  }
+
   
   function  getSpeakerRegion(code){
     const key = Object.keys(awsPollyLanguages).find(k => k.includes(code));
     return key;
-}
+  }
 
   const callLambda = async () => {
-    const apiUrl = "https://cxx2cg4e8a.execute-api.eu-west-2.amazonaws.com/test/ttsLambda"; 
+    const apiUrl = "https://cxx2cg4e8a.execute-api.eu-west-2.amazonaws.com/test/ttsLambda";
+
+    console.log(targetLanguage)
 
     const requestData = {
         text: text,
@@ -89,17 +183,12 @@ const TTS = ({ text, targetLanguage, size="input-sm"}) => {
     } catch (error) {
         console.error("Error calling Lambda:", error);
     }
-};
-
-
-
+  };
 
   return (
-    <>
-      <ActionIcon size={size} variant="subtle" color="#3b943b" onClick={() => callLambda()} >
-        <Icon stroke={1.5} />
-      </ActionIcon>
-    </>
+    <ActionIcon size={size} variant="subtle" color="#3b943b" {...!langCode[targetLanguage] && disabled} onClick={() => callLambda()} >
+      <Icon stroke={1.5} />
+    </ActionIcon>
   );  
 };
 
