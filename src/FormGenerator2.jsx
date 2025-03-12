@@ -89,58 +89,53 @@ const FormGenerator2 = ({ formSchema, targetLanguage }) => {
                                 )
                             case "radio":
                                 return (
-                                    <div key={field.name}>
-                                        <Group>
-                                            <label id="label">
+                                    <Radio.Group 
+                                        key={field.name} 
+                                        label={
+                                            <Group>
                                                 {field.label}
-                                            </label>
-                                            <TTS text={field.label} targetLanguage={targetLanguage} />
-                                        </Group>
-                                        <Radio.Group {...form.getInputProps(field.name)}>
-                                            <Group mt="xs">
-                                                {field.options.map((option,index) => (
-                                                    <div key = {index}>
-                                                        <Group>
-                                                            <Radio key={option} value={option} label={option} color="#3b943b" />
-                                                            <TTS  text = {option} targetLanguage={targetLanguage} />
-                                                        </Group>
-                                                    </div>
-                                                ))}
+                                                <TTS text={field.label} targetLanguage={targetLanguage} />
                                             </Group>
-                                        </Radio.Group>
-                                    </div>
+                                        } 
+                                        {...form.getInputProps(field.name)}
+                                    >
+
+                                        <Group mt="xs">
+                                            {field.options.map((option,index) => (
+                                                <Group key={index}>
+                                                    <Radio key={option} value={option} label={option} color="#3b943b" />
+                                                    <TTS  text = {option} targetLanguage={targetLanguage} />
+                                                </Group>
+                                            ))}
+                                        </Group>
+                                    </Radio.Group>
                                 )
                             case "checkbox":
                                 return (
-                                    <div key={field.name}>
-                                        <Group>
-                                            <label>{field.label}</label>
-                                            <TTS  text = {field.label} targetLanguage={targetLanguage} />
-                                        </Group>
-
-                                        <Group mt="xs">
-                                            {field.options.map((option) => (
-                                                <Group key = {option}>
-                                                    <Checkbox
-                                                        key={option}
-                                                        color="#3b943b"
-                                                        label={option}
-                                                        checked={form.values[field.name].includes(option)}
-                                                        onChange={(event) => {
-                                                            const { checked } = event.target;
-                                                            form.setFieldValue(
-                                                                field.name,
-                                                                checked
-                                                                ? [...form.values[field.name], option]
-                                                                : form.values[field.name].filter((v) => v !== option)
-                                                            );
-                                                        }}
-                                                    />
-                                                    <TTS  text = {option} targetLanguage={targetLanguage} />
-                                                 </Group>
-                                            ))}
-                                        </Group>
-                                    </div>
+                                <Checkbox.Group key={field.name} label={<Group>{field.label} <TTS  text = {field.label} targetLanguage={targetLanguage} /></Group>}>
+                                    <Group mt="xs">
+                                        {field.options.map((option) => (
+                                            <Group key = {option}>
+                                                <Checkbox
+                                                    key={option}
+                                                    color="#3b943b"
+                                                    label={option}
+                                                    checked={form.values[field.name].includes(option)}
+                                                    onChange={(event) => {
+                                                        const { checked } = event.target;
+                                                        form.setFieldValue(
+                                                            field.name,
+                                                            checked
+                                                            ? [...form.values[field.name], option]
+                                                            : form.values[field.name].filter((v) => v !== option)
+                                                        );
+                                                    }}
+                                                />
+                                                <TTS  text = {option} targetLanguage={targetLanguage} />
+                                                </Group>
+                                        ))}
+                                    </Group>
+                                </Checkbox.Group>
                                 )
                             default:
                                 return null;
