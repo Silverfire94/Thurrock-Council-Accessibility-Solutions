@@ -1,504 +1,5 @@
-// import React, { useState, useRef } from 'react';
-
-// const AudioRecorder = () => {
-//   const [isRecording, setIsRecording] = useState(false);
-//   const [audioURL, setAudioURL] = useState('');
-//   const mediaRecorderRef = useRef(null);
-//   const audioChunksRef = useRef([]);
-
-//   const startRecording = async () => {
-//     // Reset audio chunks
-//     audioChunksRef.current = [];
-    
-//     try {
-//       // Request microphone access
-//       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      
-//       // Create new media recorder instance
-//       const mediaRecorder = new MediaRecorder(stream);
-//       mediaRecorderRef.current = mediaRecorder;
-      
-//       // Event handler for when data is available
-//       mediaRecorder.ondataavailable = (event) => {
-//         if (event.data.size > 0) {
-//           audioChunksRef.current.push(event.data);
-//         }
-//       };
-      
-//       // Event handler for when recording stops
-//       mediaRecorder.onstop = () => {
-//         // Combine chunks into a single blob
-//         const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/wav' });
-        
-//         // Create URL for the audio blob
-//         const audioUrl = URL.createObjectURL(audioBlob);
-//         setAudioURL(audioUrl);
-//       };
-      
-//       // Start recording
-//       mediaRecorder.start();
-//       setIsRecording(true);
-      
-//     } catch (error) {
-//       console.error('Error accessing microphone:', error);
-//     }
-//   };
-
-//   const stopRecording = () => {
-//     // Only stop if we are recording
-//     if (mediaRecorderRef.current && isRecording) {
-//       mediaRecorderRef.current.stop();
-//       setIsRecording(false);
-      
-//       // Stop all audio tracks
-//       mediaRecorderRef.current.stream.getTracks().forEach(track => track.stop());
-//     }
-//   };
-
-//   const API_GATEWAY_URL = "https://57tyy8mto1.execute-api.eu-west-2.amazonaws.com/stt/";
-
-//  const uploadAudio = async (file) => {
-//   const fileName = `${Date.now()}.wav`;
-
-//   const response = await fetch(API_GATEWAY_URL, {
-//     method: "POST",
-//     headers: { "Content-Type": "application/json" },
-//     body: JSON.stringify({ operation: "upload", fileName }),
-//   });
-
-//   const { uploadURL } = await response.json();
-
-//   await fetch(uploadURL, {
-//     method: "PUT",
-//     body: file,
-//     headers: { "Content-Type": "audio/wav" },
-//   });
-
-//   return fileName;
-// };
-
-
-
-//   return (
-//     <div className="audio-recorder">
-//       <h2>Audio Recorder</h2>
-      
-//       <div className="controls">
-//         {!isRecording ? (
-//           <button 
-//             onClick={startRecording} 
-//             className="record-button"
-//           >
-//             Start Recording
-//           </button>
-//         ) : (
-//           <button 
-//             onClick={stopRecording}
-//             className="stop-button"
-//           >
-//             Stop Recording
-//           </button>
-//         )}
-//       </div>
-      
-//       {audioURL && (
-//         <div className="audio-playback">
-//           <h3>Recording Preview:</h3>
-//           <audio src={audioURL} controls />
-//           <p>
-//             <a href={audioURL} download="recording.wav">
-//               Download Recording
-//             </a>
-//           </p>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default AudioRecorder;
-
-
-// import React, { useState, useRef } from 'react';
-
-// const AudioRecorder = () => {
-//   const [isRecording, setIsRecording] = useState(false);
-//   const [audioURL, setAudioURL] = useState('');
-//   const [isUploading, setIsUploading] = useState(false);
-//   const [uploadStatus, setUploadStatus] = useState('');
-//   const mediaRecorderRef = useRef(null);
-//   const audioChunksRef = useRef([]);
-//   const audioBlobRef = useRef(null);
-  
-//   const startRecording = async () => {
-//     // Reset audio chunks
-//     audioChunksRef.current = [];
-//     setAudioURL('');
-//     setUploadStatus('');
-    
-//     try {
-//       // Request microphone access
-//       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-//       // Create new media recorder instance
-//       const mediaRecorder = new MediaRecorder(stream);
-//       mediaRecorderRef.current = mediaRecorder;
-      
-//       // Event handler for when data is available
-//       mediaRecorder.ondataavailable = (event) => {
-//         if (event.data.size > 0) {
-//           audioChunksRef.current.push(event.data);
-//         }
-//       };
-      
-//       // Event handler for when recording stops
-//       mediaRecorder.onstop = () => {
-//         // Combine chunks into a single blob
-//         const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/wav' });
-//         // Save the blob for later use
-//         audioBlobRef.current = audioBlob;
-//         // Create URL for the audio blob
-//         const audioUrl = URL.createObjectURL(audioBlob);
-//         setAudioURL(audioUrl);
-//       };
-      
-//       // Start recording
-//       mediaRecorder.start();
-//       setIsRecording(true);
-//     } catch (error) {
-//       console.error('Error accessing microphone:', error);
-//     }
-//   };
-  
-//   const stopRecording = () => {
-//     // Only stop if we are recording
-//     if (mediaRecorderRef.current && isRecording) {
-//       mediaRecorderRef.current.stop();
-//       setIsRecording(false);
-//       // Stop all audio tracks
-//       mediaRecorderRef.current.stream.getTracks().forEach(track => track.stop());
-//     }
-//   };
-  
-//   const API_GATEWAY_URL = "https://57tyy8mto1.execute-api.eu-west-2.amazonaws.com/stt/";
-  
-//   const handleUpload = async () => {
-//     if (!audioBlobRef.current) {
-//       setUploadStatus('No recording available to upload');
-//       return;
-//     }
-    
-//     setIsUploading(true);
-//     setUploadStatus('Uploading...');
-    
-//     try {
-//       const fileName = await uploadAudio(audioBlobRef.current);
-//       setUploadStatus(`Upload successful! File name: ${fileName}`);
-      
-//       // Optional: You can now trigger transcription or other processing
-//       // const transcription = await getTranscription(fileName);
-      
-//     } catch (error) {
-//       console.error('Error uploading audio:', error);
-//       setUploadStatus(`Upload failed: ${error.message}`);
-//     } finally {
-//       setIsUploading(false);
-//     }
-//   };
-  
-//   const uploadAudio = async (audioBlob) => {
-//     const fileName = `${Date.now()}.wav`;
-//     const response = await fetch(API_GATEWAY_URL, {
-//       method: "POST",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify({ operation: "upload", fileName }),
-//     });
-    
-//     const { uploadURL } = await response.json();
-    
-//     await fetch(uploadURL, {
-//       method: "PUT",
-//       body: audioBlob,
-//       headers: { "Content-Type": "audio/wav" },
-//     });
-    
-//     return fileName;
-//   };
-  
-//   return (
-//     <div className="audio-recorder">
-//       <h2>Audio Recorder</h2>
-      
-//       <div className="controls">
-//         {!isRecording ? (
-//           <button
-//             onClick={startRecording}
-//             className="record-button"
-//             disabled={isUploading}
-//           >
-//             Start Recording
-//           </button>
-//         ) : (
-//           <button
-//             onClick={stopRecording}
-//             className="stop-button"
-//           >
-//             Stop Recording
-//           </button>
-//         )}
-//       </div>
-      
-//       {audioURL && (
-//         <div className="audio-playback">
-//           <h3>Recording Preview:</h3>
-//           <audio src={audioURL} controls />
-          
-//           <div className="actions">
-//             <p>
-//               <a href={audioURL} download="recording.wav">
-//                 Download Recording
-//               </a>
-//             </p>
-            
-//             <button 
-//               onClick={handleUpload} 
-//               disabled={isUploading || !audioURL}
-//               className="upload-button"
-//             >
-//               {isUploading ? 'Uploading...' : 'Upload Recording'}
-//             </button>
-            
-//             {uploadStatus && (
-//               <p className="status-message">{uploadStatus}</p>
-//             )}
-//           </div>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default AudioRecorder;
-
-// import React, { useState, useRef } from 'react';
-
-// const AudioRecorder = () => {
-//   const [isRecording, setIsRecording] = useState(false);
-//   const [audioURL, setAudioURL] = useState('');
-//   const [isUploading, setIsUploading] = useState(false);
-//   const [uploadStatus, setUploadStatus] = useState('');
-//   const mediaRecorderRef = useRef(null);
-//   const audioChunksRef = useRef([]);
-//   const audioBlobRef = useRef(null);
-  
-//   const startRecording = async () => {
-//     // Reset audio chunks
-//     audioChunksRef.current = [];
-//     setAudioURL('');
-//     setUploadStatus('');
-    
-//     try {
-//       // Request microphone access
-//       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-//       // Create new media recorder instance
-//       const mediaRecorder = new MediaRecorder(stream);
-//       mediaRecorderRef.current = mediaRecorder;
-      
-//       // Event handler for when data is available
-//       mediaRecorder.ondataavailable = (event) => {
-//         if (event.data.size > 0) {
-//           audioChunksRef.current.push(event.data);
-//         }
-//       };
-      
-//       // Event handler for when recording stops
-//       mediaRecorder.onstop = () => {
-//         // Combine chunks into a single blob
-//         const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/wav' });
-//         // Save the blob for later use
-//         audioBlobRef.current = audioBlob;
-//         // Create URL for the audio blob
-//         const audioUrl = URL.createObjectURL(audioBlob);
-//         setAudioURL(audioUrl);
-//       };
-      
-//       // Start recording
-//       mediaRecorder.start();
-//       setIsRecording(true);
-//     } catch (error) {
-//       console.error('Error accessing microphone:', error);
-//     }
-//   };
-  
-//   const stopRecording = () => {
-//     // Only stop if we are recording
-//     if (mediaRecorderRef.current && isRecording) {
-//       mediaRecorderRef.current.stop();
-//       setIsRecording(false);
-//       // Stop all audio tracks
-//       mediaRecorderRef.current.stream.getTracks().forEach(track => track.stop());
-//     }
-//   };
-  
-//   // Option 1: Use a CORS proxy if available
-//   // This is for development only - don't use in production!
-
-//   const API_GATEWAY_URL = "https://57tyy8mto1.execute-api.eu-west-2.amazonaws.com/stt/";
-  
-//   const handleUpload = async () => {
-//     if (!audioBlobRef.current) {
-//       setUploadStatus('No recording available to upload');
-//       return;
-//     }
-    
-//     setIsUploading(true);
-//     setUploadStatus('Uploading...');
-    
-//     try {
-//       // Option 1: Upload via direct S3 presigned URL (recommended)
-//       // This bypasses API Gateway CORS issues
-//       const formData = new FormData();
-//       const fileName = `recording-${Date.now()}.wav`;
-//       formData.append('file', audioBlobRef.current, fileName);
-      
-//       setUploadStatus('Preparing audio file for upload...');
-      
-//       // Display file details for debug
-//       setUploadStatus(`Audio file ready: ${audioBlobRef.current.size} bytes`);
-      
-//       // Option 2: Save locally as fallback (if API Gateway doesn't work)
-//       const downloadLink = document.createElement('a');
-//       downloadLink.href = URL.createObjectURL(audioBlobRef.current);
-//       downloadLink.download = fileName;
-      
-//       setUploadStatus(`API connection blocked by CORS. Click below to download the audio file for manual upload.`);
-      
-//       // Add a download button to the UI
-//       const downloadContainer = document.createElement('div');
-//       downloadContainer.className = 'download-container';
-      
-//       const downloadButton = document.createElement('button');
-//       downloadButton.innerText = 'Download for Manual Upload';
-//       downloadButton.onclick = () => {
-//         downloadLink.click();
-//       };
-      
-//       downloadContainer.appendChild(downloadButton);
-      
-//       // Add to the status message area
-//       const statusElement = document.querySelector('.status-message');
-//       if (statusElement) {
-//         statusElement.appendChild(downloadContainer);
-//       }
-      
-//     } catch (error) {
-//       console.error('Error handling audio:', error);
-//       setUploadStatus(`Upload failed: ${error.message}`);
-//     } finally {
-//       setIsUploading(false);
-//     }
-//   };
-  
-//   return (
-//     <div className="audio-recorder">
-//       <h2>Audio Recorder</h2>
-      
-//       <div className="controls">
-//         {!isRecording ? (
-//           <button
-//             onClick={startRecording}
-//             className="record-button"
-//             disabled={isUploading}
-//           >
-//             Start Recording
-//           </button>
-//         ) : (
-//           <button
-//             onClick={stopRecording}
-//             className="stop-button"
-//           >
-//             Stop Recording
-//           </button>
-//         )}
-//       </div>
-      
-//       {audioURL && (
-//         <div className="audio-playback">
-//           <h3>Recording Preview:</h3>
-//           <audio src={audioURL} controls />
-          
-//           <div className="actions">
-//             <p>
-//               <a href={audioURL} download="recording.wav">
-//                 Download Recording
-//               </a>
-//             </p>
-            
-//             <button 
-//               onClick={handleUpload} 
-//               disabled={isUploading || !audioURL}
-//               className="upload-button"
-//             >
-//               {isUploading ? 'Uploading...' : 'Prepare for Upload'}
-//             </button>
-            
-//             {uploadStatus && (
-//               <p className="status-message">{uploadStatus}</p>
-//             )}
-//           </div>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default AudioRecorder;
-
-// const handleUpload = async () => {
-//   if (!audioBlobRef.current) {
-//     setUploadStatus("No recording available to upload");
-//     return;
-//   }
-
-//   setIsUploading(true);
-//   setUploadStatus("Preparing upload...");
-
-//   try {
-//     const fileName = `recording-${Date.now()}.wav`;
-
-//     // ✅ Step 1: Request Pre-signed URL from API Gateway
-//     const response = await fetch(API_GATEWAY_URL, {
-//       method: "POST",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify({ fileName, operation: "upload" }),
-//     });
-
-//     if (!response.ok) throw new Error("Failed to get upload URL");
-
-//     const { uploadURL } = await response.json();
-
-//     // ✅ Step 2: Upload to S3 using the pre-signed URL
-//     const s3UploadResponse = await fetch(uploadURL, {
-//       method: "PUT",
-//       body: audioBlobRef.current,
-//       headers: { "Content-Type": "audio/wav" },
-//     });
-
-//     if (!s3UploadResponse.ok) throw new Error("Upload to S3 failed");
-
-//     setUploadStatus("Upload successful!");
-//   } catch (error) {
-//     console.error("Upload error:", error);
-//     setUploadStatus(`Upload failed: ${error.message}`);
-//   } finally {
-//     setIsUploading(false);
-//   }
-// };
-
-// export default AudioRecorder;
-
-
 import React, { useState, useRef } from 'react';
-
+import { Translator } from './Translator';
 const API_GATEWAY_URL = "https://exrezmrbw1.execute-api.eu-west-2.amazonaws.com/stt";
 const languageToAWSTranscribeMapping = {
   "af": "",
@@ -578,16 +79,17 @@ const languageToAWSTranscribeMapping = {
   "cy": "en-WL",
 };
 
-const AudioRecorder = ({targetLanguage }) => {
+const AudioRecorder = ({targetLanguage, whenResultReady }) => {
   console.log(targetLanguage)
   const [isRecording, setIsRecording] = useState(false);
   const [audioURL, setAudioURL] = useState('');
   const [isUploading, setIsUploading] = useState(false);
   const [uploadStatus, setUploadStatus] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
   const audioBlobRef = useRef(null);
-
+  const [sttResult, setResult] = useState("null");
         
   const sleep = ms => new Promise(r => setTimeout(r, ms));  
 
@@ -708,6 +210,11 @@ const AudioRecorder = ({targetLanguage }) => {
       const transcriptText = await getTranscriptResponse.json();
 
       console.log(transcriptText.transcript)
+      setResult(transcriptText.transcript)
+
+      if (whenResultReady) {
+        whenResultReady(transcriptText.transcript);
+      }
 
       setUploadStatus("Upload successful!");
     } catch (error) {
@@ -718,6 +225,10 @@ const AudioRecorder = ({targetLanguage }) => {
     }
   };
 
+
+
+
+if (languageToAWSTranscribeMapping[targetLanguage] !== "") {
   return (
     <div className="audio-recorder">
       <h2>Audio Recorder</h2>
@@ -740,11 +251,11 @@ const AudioRecorder = ({targetLanguage }) => {
           <audio src={audioURL} controls />
 
           <div className="actions">
-            <p>
+            {/* <p>
               <a href={audioURL} download="recording.wav">
                 Download Recording
               </a>
-            </p>
+            </p> */}
 
             <button onClick={handleUpload} disabled={isUploading || !audioURL} className="upload-button">
               {isUploading ? 'Uploading...' : 'Upload to Cloud'}
@@ -756,6 +267,22 @@ const AudioRecorder = ({targetLanguage }) => {
       )}
     </div>
   );
+  }
+  else {
+    const err = async () =>{
+      let baba = await Translator(targetLanguage, "Sorry this is not supported") ?? "err"
+      setErrorMessage(baba)
+      console.log("error message: ", errorMessage)
+    }
+    err()
+    return <div>
+      <p>{errorMessage}</p>
+        
+        
+    
+    </div>
+  }
+ 
 };
 
 export default AudioRecorder;

@@ -3,8 +3,17 @@ import { useForm } from '@mantine/form'
 import TextSimplificator from "./TextSimplificator"
 import TTS from "./TTS"
 import AudioRecorder from './AudioRecorder'
+import React, { useState } from 'react';
 
 const FormGenerator2 = ({ formSchema, targetLanguage }) => {
+
+    const [transcriptionText, setTranscriptionText] = useState('');
+
+    
+    const handleTranscriptionResult = (fieldName, result) => {
+        form.setFieldValue(fieldName, result);
+    };
+
     const form = useForm({
         initialValues: formSchema.reduce((acc, field) => {
             acc[field.name] = field.type === "checkbox" ? [] : "";
@@ -27,13 +36,16 @@ const FormGenerator2 = ({ formSchema, targetLanguage }) => {
                                 return (
                                     <div key={field.name}>           
                                         <TTS  text = {field.label} targetLanguage={targetLanguage} />
+                                        
                                         <TextInput
-
-                                    
-                                            label={field.label}
-                                            {...form.getInputProps(field.name)} 
-                                        />
-                                        <AudioRecorder targetLanguage ={targetLanguage} />
+                        label={field.label}
+                        placeholder="Your placeholder text here"
+                        {...form.getInputProps(field.name)}
+                    />
+                    <AudioRecorder 
+                        targetLanguage={targetLanguage} 
+                        whenResultReady={(result) => handleTranscriptionResult(field.name, result)} 
+                    />
                                     </div>
                                 )
                             case "number":
