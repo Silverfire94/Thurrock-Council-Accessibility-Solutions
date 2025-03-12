@@ -2,7 +2,7 @@
 import { ActionIcon } from "@mantine/core";
 import { useState } from "react";
 
-const TTS = ({ text, targetLanguage }) => {
+const TTS = ({ text, targetLanguage, size="input-sm"}) => {
   const awsPollyLanguages = {
     "arb": "Arabic",
     "ar-AE": "Arabic (Gulf)",
@@ -96,7 +96,7 @@ const TTS = ({ text, targetLanguage }) => {
 
   return (
     <>
-      <ActionIcon size="input-sm" variant="filled" onClick={() => callLambda()} >
+      <ActionIcon size={size} variant="subtle" color="#3b943b" onClick={() => callLambda()} >
         H
       </ActionIcon>
     </>
