@@ -44,10 +44,7 @@ const FormGenerator2 = ({ formSchema, targetLanguage }) => {
                                                 <Group align="flex-start">
                                                     {children}
                                                     <TTS text = {field.label} targetLanguage={targetLanguage}/>
-                                                    <AudioRecorder 
-                                        targetLanguage={targetLanguage} 
-                                        whenResultReady={(result) => handleTranscriptionResult(field.name, result)} 
-                        />
+                                                    <AudioRecorder targetLanguage={targetLanguage} whenResultReady={(result) => handleTranscriptionResult(field.name, result)} />
                                                 </Group>
                                             )}
                                         />
@@ -95,7 +92,7 @@ const FormGenerator2 = ({ formSchema, targetLanguage }) => {
                                         label={
                                             <Group>
                                                 {field.label}
-                                                <TTS text={field.label} targetLanguage={targetLanguage} size="md"/>
+                                                <TTS text={field.label + ". " + field.options.join('. ')} targetLanguage={targetLanguage} size="md"/>
                                             </Group>
                                         } 
                                         {...form.getInputProps(field.name)}
@@ -105,7 +102,7 @@ const FormGenerator2 = ({ formSchema, targetLanguage }) => {
                                             {field.options.map((option,index) => (
                                                 <Group key={index}>
                                                     <Radio key={option} value={option} label={option} color="#3b943b" />
-                                                    <TTS  text = {option} targetLanguage={targetLanguage} size="md"/>
+                                                    {/* <TTS  text = {option} targetLanguage={targetLanguage} size="md"/> */}
                                                 </Group>
                                             ))}
                                         </Group>
@@ -113,7 +110,8 @@ const FormGenerator2 = ({ formSchema, targetLanguage }) => {
                                 )
                             case "checkbox":
                                 return (
-                                <Checkbox.Group key={field.name} label={<Group>{field.label} <TTS  text = {field.label} targetLanguage={targetLanguage} size="md"/></Group>}>
+                                    
+                                <Checkbox.Group key={field.name} label={<Group>{field.label} <TTS  text={field.label + ". " + field.options.join('. ')} targetLanguage={targetLanguage} size="md"/></Group>}>
                                     <Group mt="xs">
                                         {field.options.map((option) => (
                                             <Group key = {option}>
@@ -132,7 +130,7 @@ const FormGenerator2 = ({ formSchema, targetLanguage }) => {
                                                         );
                                                     }}
                                                 />
-                                                <TTS  text = {option} targetLanguage={targetLanguage} size="md"/>
+                                                {/* <TTS  text = {option} targetLanguage={targetLanguage} size="md"/> */}
                                                 </Group>
                                         ))}
                                     </Group>

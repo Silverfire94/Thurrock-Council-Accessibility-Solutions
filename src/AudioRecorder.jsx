@@ -1,5 +1,8 @@
 import React, { useState, useRef } from 'react';
 import { Translator } from './Translator';
+import { ActionIcon, Group } from '@mantine/core';
+import { IconMicrophone, IconPlayerStop, IconCloudUpload } from '@tabler/icons-react';
+
 const API_GATEWAY_URL = "https://exrezmrbw1.execute-api.eu-west-2.amazonaws.com/stt";
 const languageToAWSTranscribeMapping = {
   "af": "",
@@ -79,7 +82,7 @@ const languageToAWSTranscribeMapping = {
   "cy": "en-WL",
 };
 
-const AudioRecorder = ({targetLanguage, whenResultReady }) => {
+const AudioRecorder = ({targetLanguage, whenResultReady, size="input-sm" }) => {
   const [isRecording, setIsRecording] = useState(false);
   const [audioURL, setAudioURL] = useState('');
   const [isUploading, setIsUploading] = useState(false);
@@ -229,42 +232,24 @@ const AudioRecorder = ({targetLanguage, whenResultReady }) => {
 
 if (languageToAWSTranscribeMapping[targetLanguage] !== "") {
   return (
-    <div className="audio-recorder">
-      <h2>Audio Recorder</h2>
-
-      <div className="controls">
-        {!isRecording ? (
-          <button onClick={startRecording} className="record-button" disabled={isUploading}>
-            Start Recording
-          </button>
-        ) : (
-          <button onClick={stopRecording} className="stop-button">
-            Stop Recording
-          </button>
-        )}
-      </div>
+    <>  
+      {!isRecording ? (
+        <ActionIcon size={size} color="#3b943b" variant="subtle" onClick={startRecording} className="record-button" disabled={isUploading}>
+          <IconMicrophone stroke={1.5} />
+        </ActionIcon>
+      ) : (
+        <ActionIcon size={size} color="#3b943b" variant="subtle" onClick={stopRecording} className="stop-button">
+          <IconPlayerStop stroke={1.5} />
+        </ActionIcon>
+      )}
 
       {audioURL && (
-        <div className="audio-playback">
-          <h3>Recording Preview:</h3>
-          <audio src={audioURL} controls />
-
-          <div className="actions">
-            {/* <p>
-              <a href={audioURL} download="recording.wav">
-                Download Recording
-              </a>
-            </p> */}
-
-            <button onClick={handleUpload} disabled={isUploading || !audioURL} className="upload-button">
-              {isUploading ? 'Uploading...' : 'Upload to Cloud'}
-            </button>
-
-            {uploadStatus && <p className="status-message">{uploadStatus}</p>}
-          </div>
-        </div>
+        // uploadStatus && <p className="status-message">{uploadStatus}</p>
+        <ActionIcon size={size} color="#3b943b" variant='subtle' onClick={handleUpload} loading={isUploading || !audioURL} className="upload-button">
+          <IconCloudUpload stroke={1.5} />
+        </ActionIcon>
       )}
-    </div>
+    </>
   );
   }
   else {
@@ -273,12 +258,8 @@ if (languageToAWSTranscribeMapping[targetLanguage] !== "") {
       setErrorMessage(baba)
     }
     err()
-    return <div>
-      <p>{errorMessage}</p>
+    return ( <p>{errorMessage}</p> )
         
-        
-    
-    </div>
   }
  
 };
