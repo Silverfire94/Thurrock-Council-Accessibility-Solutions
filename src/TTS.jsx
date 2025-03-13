@@ -1,6 +1,8 @@
-import { IconVolume as Icon } from "@tabler/icons-react";
+import { IconVolume, IconPlayerPause } from "@tabler/icons-react";
 import { ActionIcon } from "@mantine/core";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+let init = false;
 
 const TTS = ({ text, targetLanguage, size="input-sm"}) => {
   const awsPollyLanguages = {
@@ -142,52 +144,74 @@ const TTS = ({ text, targetLanguage, size="input-sm"}) => {
     "cy": "cy-GB"  
   }
 
+  const [audio, setAudio] = useState(null);
+  const [playing, setPlaying] = useState(false);
+
+  useEffect(() => {
+    const callLambda = async () => {
+      const apiUrl = "https://cxx2cg4e8a.execute-api.eu-west-2.amazonaws.com/test/ttsLambda";
+  
+      // console.log(targetLanguage)
+  
+      const requestData = {
+          text: text,
+          language: targetLanguage,
+      };
+  
+      try {
+          const response = await fetch(apiUrl, {
+              method: "POST",
+              mode: "cors",
+              headers: {
+                  "Content-Type": "application/json",
+        
+              },
+              body: JSON.stringify(requestData),
+          });
+  
+          const data = await response.json();
+    
+  
+          if (data.audioBase64) {
+            const newAudio = new Audio(`data:audio/mp3;base64,${data.audioBase64}`);
+              setAudio(newAudio);
+          } else {
+              console.error("No audio received:", data);
+          }
+      } catch (error) {
+          console.error("Error calling Lambda:", error);
+      }
+    };
+
+    callLambda();
+
+    return () => {
+      if (audio) {
+        audio.pause();
+        audio.currentTime = 0;
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+    if (audio) {
+      audio.addEventListener("ended", () => setPlaying(false))
+    }
+  }, [audio])
   
   function  getSpeakerRegion(code){
     const key = Object.keys(awsPollyLanguages).find(k => k.includes(code));
     return key;
   }
 
-  const callLambda = async () => {
-    const apiUrl = "https://cxx2cg4e8a.execute-api.eu-west-2.amazonaws.com/test/ttsLambda";
-
-    console.log(targetLanguage)
-
-    const requestData = {
-        text: text,
-        language: targetLanguage,
-    };
-
-  
-   
-    try {
-        const response = await fetch(apiUrl, {
-            method: "POST",
-            mode: "cors",
-            headers: {
-                "Content-Type": "application/json",
-      
-            },
-            body: JSON.stringify(requestData),
-        });
-
-        const data = await response.json();
-   
-
-        if (data.audioBase64) {
-            const audio = new Audio(`data:audio/mp3;base64,${data.audioBase64}`);
-            audio.play();
-        } else {
-            console.error("No audio received:", data);
-        }
-    } catch (error) {
-        console.error("Error calling Lambda:", error);
-    }
-  };
+  const toggleAudio = () => {
+    audio && playing ? audio.pause() : audio.play()
+    setPlaying(!playing)
+  }
 
   return (
-    <ActionIcon size={size} variant="subtle" color="#3b943b" disabled={!langCode[targetLanguage]} onClick={() => callLambda()} >
-      <Icon stroke={1.5} />
+    <ActionIcon size={size} variant="subtle" color="#3b943b" disabled={!langCode[targetLanguage]} onClick={() => toggleAudio()} >
+        {playing ? <IconPlayerPause stroke={1.5} /> : <IconVolume stroke={1.5} />}
     </ActionIcon>
   );  
 };
