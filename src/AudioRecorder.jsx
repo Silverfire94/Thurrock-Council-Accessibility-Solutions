@@ -230,7 +230,7 @@ const AudioRecorder = ({targetLanguage, whenResultReady }) => {
 if (languageToAWSTranscribeMapping[targetLanguage] !== "") {
   return (
     <div className="audio-recorder">
-      <h2>Audio Recorder</h2>
+  
 
       <div className="controls">
         {!isRecording ? (
