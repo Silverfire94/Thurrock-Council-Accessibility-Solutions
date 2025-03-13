@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { Translator } from "./Translator"
-import FormGenerator2 from "./FormGenerator2"
+import FormGenerator from "./FormGenerator"
 
 const TranslateForm = ({ formSchema, targetLanguage = "es" }) => {
     const [translatedSchema, setTranslatedSchema] = useState([]);
@@ -35,7 +35,7 @@ const TranslateForm = ({ formSchema, targetLanguage = "es" }) => {
       return <p>Loading form...</p>;
     }
   
-    return <FormGenerator2 formSchema={translatedSchema} targetLanguage={targetLanguage}/>;
+    return <FormGenerator formSchema={translatedSchema} targetLanguage={targetLanguage}/>;
   };
   
   export default TranslateForm;

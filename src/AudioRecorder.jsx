@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Translator } from './Translator';
-import { ActionIcon, Group } from '@mantine/core';
+import { ActionIcon } from '@mantine/core';
 import { IconMicrophone, IconPlayerStop, IconCloudUpload } from '@tabler/icons-react';
 
 const API_GATEWAY_URL = "https://exrezmrbw1.execute-api.eu-west-2.amazonaws.com/stt";

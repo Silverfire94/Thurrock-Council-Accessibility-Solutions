@@ -1,14 +1,10 @@
 import { TextInput, Checkbox, Radio, Stack, Group, Button, NumberInput, Select, Box } from '@mantine/core'
 import { useForm } from '@mantine/form'
-import TextSimplificator from "./TextSimplificator"
 import TTS from "./TTS"
 import AudioRecorder from './AudioRecorder'
 import React, { useState } from 'react';
 
-const FormGenerator2 = ({ formSchema, targetLanguage }) => {
-
-    const [transcriptionText, setTranscriptionText] = useState('');
-
+const FormGenerator = ({ formSchema, targetLanguage }) => {
     
     const handleTranscriptionResult = (fieldName, result) => {
         form.setFieldValue(fieldName, result);
@@ -147,4 +143,4 @@ const FormGenerator2 = ({ formSchema, targetLanguage }) => {
     )
 }
 
-export default FormGenerator2
+export default FormGenerator
