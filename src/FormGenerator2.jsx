@@ -29,10 +29,7 @@ const FormGenerator2 = ({ formSchema, targetLanguage }) => {
         <Box mx="auto">
             <form onSubmit={form.onSubmit(handleSubmit)}>
                 <Stack gap="md">
-                        <AudioRecorder 
-                            targetLanguage={targetLanguage} 
-                            whenResultReady={(result) => handleTranscriptionResult(field.name, result)} 
-                        />
+                        
                     {formSchema.map((field => {
                         // let label = field.label
                         switch (field.type) {
@@ -47,6 +44,10 @@ const FormGenerator2 = ({ formSchema, targetLanguage }) => {
                                                 <Group align="flex-start">
                                                     {children}
                                                     <TTS text = {field.label} targetLanguage={targetLanguage}/>
+                                                    <AudioRecorder 
+                                        targetLanguage={targetLanguage} 
+                                        whenResultReady={(result) => handleTranscriptionResult(field.name, result)} 
+                        />
                                                 </Group>
                                             )}
                                         />

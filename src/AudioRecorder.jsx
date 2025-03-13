@@ -207,6 +207,7 @@ const AudioRecorder = ({targetLanguage, whenResultReady }) => {
 
 
       const transcriptText = await getTranscriptResponse.json();
+     
 
       setResult(transcriptText.transcript)
 
