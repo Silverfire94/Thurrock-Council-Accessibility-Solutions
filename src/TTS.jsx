@@ -186,7 +186,7 @@ const TTS = ({ text, targetLanguage, size="input-sm"}) => {
   };
 
   return (
-    <ActionIcon size={size} variant="subtle" color="#3b943b" {...!langCode[targetLanguage] && disabled} onClick={() => callLambda()} >
+    <ActionIcon size={size} variant="subtle" color="#3b943b" disabled={!langCode[targetLanguage]} onClick={() => callLambda()} >
       <Icon stroke={1.5} />
     </ActionIcon>
   );  
