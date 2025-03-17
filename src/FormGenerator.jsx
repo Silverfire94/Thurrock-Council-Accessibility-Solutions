@@ -1,7 +1,7 @@
 import { TextInput, Checkbox, Radio, Stack, Group, Button, NumberInput, Select, Box } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import TTS from "./TTS"
-import AudioRecorder from './AudioRecorder'
+import AudioRecorder, {CheckCompatibility} from './AudioRecorder'
 import React, { useState, useEffect } from 'react';
 
 const FormGenerator = ({ formSchema, targetLanguage }) => {
@@ -11,8 +11,6 @@ const FormGenerator = ({ formSchema, targetLanguage }) => {
         if (prevLang !== targetLanguage) {
             form.reset();
             setPrevLang(targetLanguage);
-            // form.setFieldValue("name", "test")
-            // form.getValues
         }
     }, [targetLanguage])
     
@@ -33,6 +31,8 @@ const FormGenerator = ({ formSchema, targetLanguage }) => {
 
     return (
         <Box mx="auto">
+            <CheckCompatibility lang={targetLanguage}/>
+                
             <form onSubmit={form.onSubmit(handleSubmit)}>
                 <Stack gap="md">
                         
