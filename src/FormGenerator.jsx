@@ -37,60 +37,51 @@ const FormGenerator = ({ formSchema, targetLanguage }) => {
                 <Stack gap="md">
                         
                     {formSchema.map((field => {
-                        // let label = field.label
                         switch (field.type) {
                             case "text":
-                                return (
-                                    <div key={field.name}>           
-                                        <TextInput  
-                                            label={field.label}
-                                            placeholder="Your placeholder text here"
-                                            {...form.getInputProps(field.name)}
-                                            inputContainer={(children) => (
-                                                <Group align="flex-start">
-                                                    {children}
-                                                    <TTS text = {field.label} targetLanguage={targetLanguage}/>
-                                                    <AudioRecorder targetLanguage={targetLanguage} whenResultReady={(result) => handleTranscriptionResult(field.name, result)} />
-                                                </Group>
-                                            )}
-                                        />
-                                    </div>
+                                return (        
+                                    <TextInput  
+                                        key={field.name}
+                                        label={field.label}
+                                        {...form.getInputProps(field.name)}
+                                        inputContainer={(children) => (
+                                            <Group align="flex-start">
+                                                {children}
+                                                <TTS text = {field.label} targetLanguage={targetLanguage}/>
+                                                <AudioRecorder targetLanguage={targetLanguage} whenResultReady={(result) => handleTranscriptionResult(field.name, result)} />
+                                            </Group>
+                                        )}
+                                    />
                                 )
                             case "number":
                                 return (
-                                    <div key={field.name}>               
-                                        
-                                        <NumberInput
-                                            // key={field.name}
-                                            min={1}
-                                            label={field.label}
-                                            {...form.getInputProps(field.name)}
-                                            inputContainer={(children) => (
-                                                <Group align="flex-start">
-                                                    {children}
-                                                    <TTS  text = {field.label} targetLanguage={targetLanguage} />
-                                                </Group>
-                                            )}
-                                        />
-                                    </div> 
+                                    <NumberInput
+                                        key={field.name}
+                                        min={1}
+                                        label={field.label}
+                                        {...form.getInputProps(field.name)}
+                                        inputContainer={(children) => (
+                                            <Group align="flex-start">
+                                                {children}
+                                                <TTS  text = {field.label} targetLanguage={targetLanguage} />
+                                            </Group>
+                                        )}
+                                    />
                                 )
                             case "select":
-                                return (
-                                    <div key={field.name}>              
-                                        <Select
-                                            // key={field.name}
-                                            label={field.label}
-                                            data={field.data}
-                                            {...form.getInputProps(field.name)}
-                                            inputContainer={(children) => (
-                                                <Group align="flex-start">
-                                                    {children}
-                                                    <TTS  text = {field.label} targetLanguage={targetLanguage} />
-                                                </Group>
-                                            )}
-                                        />
-
-                                    </div>
+                                return (         
+                                    <Select
+                                        key={field.name}
+                                        label={field.label}
+                                        data={field.data}
+                                        {...form.getInputProps(field.name)}
+                                        inputContainer={(children) => (
+                                            <Group align="flex-start">
+                                                {children}
+                                                <TTS  text = {field.label} targetLanguage={targetLanguage} />
+                                            </Group>
+                                        )}
+                                    />
                                 )
                             case "radio":
                                 return (
@@ -109,7 +100,6 @@ const FormGenerator = ({ formSchema, targetLanguage }) => {
                                             {field.options.map((option,index) => (
                                                 <Group key={index}>
                                                     <Radio key={option} value={option} label={option} color="#3b943b" />
-                                                    {/* <TTS  text = {option} targetLanguage={targetLanguage} size="md"/> */}
                                                 </Group>
                                             ))}
                                         </Group>
@@ -117,39 +107,28 @@ const FormGenerator = ({ formSchema, targetLanguage }) => {
                                 )
                             case "checkbox":
                                 return (
-                                    <div key={field.name}>
-                                    <Group mb="xs">
-                                        <div>{field.label}</div>
-                                        <TTS text={field.label + ". " + field.options.join('. ')} targetLanguage={targetLanguage} size="md"/>
-                                    </Group>
-
-                                    <Group mt="xs">
-                                        {field.options.map((option) => (
-                                            <Group key={option}>
+                                    <Checkbox.Group
+                                        key={field.name}
+                                        label={
+                                            <Group>
+                                                {field.label}
+                                                <TTS text={field.label + ". " + field.options.join('. ')} targetLanguage={targetLanguage} size="md"/>
+                                            </Group>
+                                        }
+                                        value={form.values[field.name]}
+                                        onChange={(value) => form.setFieldValue(field.name, value)}
+                                    >
+                                        <Group mt="xs">
+                                            {field.options.map((option) => (
                                                 <Checkbox
                                                     key={option}
                                                     color="#3b943b"
                                                     label={option}
-                                                    checked={form.values[field.name]?.includes(option)}
-                                                    onChange={(event) => {
-                                                        const { checked } = event.currentTarget;
-                                                        let currentValues = form.values[field.name] || [];
-                                                        if(prevLang !== targetLanguage){
-                                                            setPrevLang(targetLanguage)
-                                                            currentValues = [];
-                                                        }
-                                                        form.setFieldValue(
-                                                            field.name,
-                                                            checked
-                                                                ? [...currentValues, option]
-                                                                : currentValues.filter((v) => v !== option)
-                                                        );
-                                                    }}
+                                                    value={option}
                                                 />
-                                            </Group>
                                             ))}
                                         </Group>
-                                    </div>
+                                    </Checkbox.Group>
                                 )
                             default:
                                 return null;
