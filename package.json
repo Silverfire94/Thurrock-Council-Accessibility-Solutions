@@ -14,7 +14,7 @@
     "@mantine/core": "^7.16.2",
     "@mantine/form": "^7.16.2",
     "@mantine/hooks": "^7.16.2",
-    "@tabler/icons-react": "^3.31.0",
+    "@tabler/icons-react": "^3.18.0",
     "aws-amplify": "^6.12.2",
     "aws-sdk": "^2.1692.0",
     "espeak-ng": "^1.0.2",
