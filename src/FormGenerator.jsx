@@ -2,9 +2,19 @@ import { TextInput, Checkbox, Radio, Stack, Group, Button, NumberInput, Select, 
 import { useForm } from '@mantine/form'
 import TTS from "./TTS"
 import AudioRecorder from './AudioRecorder'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const FormGenerator = ({ formSchema, targetLanguage }) => {
+    const [prevLang, setPrevLang] = useState("en");
+
+    useEffect(() => {
+        if (prevLang !== targetLanguage) {
+            form.reset();
+            setPrevLang(targetLanguage);
+            // form.setFieldValue("name", "test")
+            // form.getValues
+        }
+    }, [targetLanguage])
     
     const handleTranscriptionResult = (fieldName, result) => {
         form.setFieldValue(fieldName, result);
@@ -12,7 +22,7 @@ const FormGenerator = ({ formSchema, targetLanguage }) => {
 
     const form = useForm({
         initialValues: formSchema.reduce((acc, field) => {
-            acc[field.name] = field.type === "checkbox" ? [] : "";
+            acc[field.name] = field.type === "checkbox" ? [] : (field.type === "select" ? null : "");
             return acc;
         }, {})
     })
@@ -32,7 +42,7 @@ const FormGenerator = ({ formSchema, targetLanguage }) => {
                             case "text":
                                 return (
                                     <div key={field.name}>           
-                                        <TextInput
+                                        <TextInput  
                                             label={field.label}
                                             placeholder="Your placeholder text here"
                                             {...form.getInputProps(field.name)}
@@ -52,6 +62,7 @@ const FormGenerator = ({ formSchema, targetLanguage }) => {
                                         
                                         <NumberInput
                                             // key={field.name}
+                                            min={1}
                                             label={field.label}
                                             {...form.getInputProps(field.name)}
                                             inputContainer={(children) => (
@@ -106,31 +117,39 @@ const FormGenerator = ({ formSchema, targetLanguage }) => {
                                 )
                             case "checkbox":
                                 return (
-                                    
-                                <Checkbox.Group key={field.name} label={<Group>{field.label} <TTS  text={field.label + ". " + field.options.join('. ')} targetLanguage={targetLanguage} size="md"/></Group>}>
+                                    <div key={field.name}>
+                                    <Group mb="xs">
+                                        <div>{field.label}</div>
+                                        <TTS text={field.label + ". " + field.options.join('. ')} targetLanguage={targetLanguage} size="md"/>
+                                    </Group>
+
                                     <Group mt="xs">
                                         {field.options.map((option) => (
-                                            <Group key = {option}>
+                                            <Group key={option}>
                                                 <Checkbox
                                                     key={option}
                                                     color="#3b943b"
                                                     label={option}
-                                                    checked={form.values[field.name].includes(option)}
+                                                    checked={form.values[field.name]?.includes(option)}
                                                     onChange={(event) => {
-                                                        const { checked } = event.target;
+                                                        const { checked } = event.currentTarget;
+                                                        let currentValues = form.values[field.name] || [];
+                                                        if(prevLang !== targetLanguage){
+                                                            setPrevLang(targetLanguage)
+                                                            currentValues = [];
+                                                        }
                                                         form.setFieldValue(
                                                             field.name,
                                                             checked
-                                                            ? [...form.values[field.name], option]
-                                                            : form.values[field.name].filter((v) => v !== option)
+                                                                ? [...currentValues, option]
+                                                                : currentValues.filter((v) => v !== option)
                                                         );
                                                     }}
                                                 />
-                                                {/* <TTS  text = {option} targetLanguage={targetLanguage} size="md"/> */}
-                                                </Group>
-                                        ))}
-                                    </Group>
-                                </Checkbox.Group>
+                                            </Group>
+                                            ))}
+                                        </Group>
+                                    </div>
                                 )
                             default:
                                 return null;
