@@ -5,6 +5,7 @@ import logo from "./assets/logo.png"
 import RenderDocument from "./RenderDocument";
 import form1 from "./forms/form1.json"
 import form2 from "./forms/form2.json"
+import form3 from "./forms/form3.json"
 
 const NavLayout = () => {
     const languageOptions = [
@@ -57,7 +58,7 @@ const NavLayout = () => {
         { value: "mt", label: "Maltese" },
         { value: "mr", label: "Marathi" },
         { value: "mn", label: "Mongolian" },
-        { value: "no", label: "Norwegian (Bokmål)" },
+        { value: "no", label: "Norwegian (BokmÃ¥l)" },
         { value: "ps", label: "Pashto" },
         { value: "pl", label: "Polish" },
         { value: "pt", label: "Portuguese (Brazil)" },
@@ -99,7 +100,19 @@ const NavLayout = () => {
 
     const handleFormChange = (formName) => {
         setSelectedForm(formName)
-        setFormSchema(() => (formName === "form1" ? form1 : form2))
+        // setFormSchema(() => (formName === "form1" ? form1 : form2))
+        setFormSchema(() => {
+            switch(formName) {
+                case "form1":
+                    return form1
+                case "form2":
+                    return form2
+                case "form3":
+                    return form3
+                default:
+                    return form1
+            }
+        })
     }
 
     useEffect(() => {
@@ -137,6 +150,7 @@ const NavLayout = () => {
                     <>
                         <NavLink key="1" active={ selectedForm === "form1" } label="Form 1" onClick={() => handleFormChange("form1")} color="#3b943b" />
                         <NavLink key="2" active={ selectedForm === "form2" } label="Form 2" onClick={() => handleFormChange("form2")} color="#3b943b" />
+                        <NavLink key="3" active={ selectedForm === "form3" } label="Form 3" onClick={() => handleFormChange("form3")} color="#3b943b" />
                     </>
                 }
                 {selectedPage==="docs" &&

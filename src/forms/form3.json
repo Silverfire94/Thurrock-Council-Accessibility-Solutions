@@ -1,0 +1,40 @@
+[
+    {
+        "name": "Business rates- occupying a property", 
+        "label": "Business rates- occupying a property", 
+        "type" : "header" 
+    },
+    {
+        "name": "Property you are occupying", 
+        "label": "Property you are occupying", 
+        "type" : "plaintext" 
+    },
+    {
+        "name": "propertyReferenceNumber",
+        "label": "Property reference number used by Thurrock Council as billing authority, if known",
+        "type": "text"
+    },
+    {
+        "name": "occupancyStatus",
+        "label": "Are you occupying the property as its owner, a leaseholder, a tenant or a licence holder?",
+        "type": "radio",
+        "options": ["Owner", "Leaseholder", "Tenant", "Licence holder"]
+    },
+    {
+        "name": "address",
+        "label": "Enter the street name or postcode of the address",
+        "type": "text"
+    },
+    {
+        "name": "addressHelp",
+        "label": "Can't find the address?",
+        "type": "link"
+    },
+    {
+        "name": "movingFromAnotherProperty",
+        "label": "Is your business moving from another property in Thurrock?",
+        "type": "radio",
+        "options": ["Yes", "No"]
+    }
+
+]
