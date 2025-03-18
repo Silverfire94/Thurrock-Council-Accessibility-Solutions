@@ -82,6 +82,21 @@ const languageToAWSTranscribeMapping = {
   "cy": "en-WL",
 };
 
+export const CheckCompatibility = ({lang}) => {
+  const [message, setMessage] = useState("");
+  if (languageToAWSTranscribeMapping[lang] !== "") {
+    return;
+  }
+  const err = async () =>{
+    let baba = await Translator(lang, "Sorry this is not supported") ?? "err"
+    setMessage(baba)
+  }
+  err()
+  return (
+    <p>{message}</p>
+  )
+}
+
 const AudioRecorder = ({targetLanguage, whenResultReady, size="input-sm" }) => {
   const [isRecording, setIsRecording] = useState(false);
   const [audioURL, setAudioURL] = useState('');
@@ -230,38 +245,42 @@ const AudioRecorder = ({targetLanguage, whenResultReady, size="input-sm" }) => {
 
 
 
-if (languageToAWSTranscribeMapping[targetLanguage] !== "") {
-  return (
-    <>  
-      {!isRecording ? (
-        <ActionIcon size={size} color="#3b943b" variant="subtle" onClick={startRecording} className="record-button" disabled={isUploading}>
-          <IconMicrophone stroke={1.5} />
-        </ActionIcon>
-      ) : (
-        <ActionIcon size={size} color="#3b943b" variant="subtle" onClick={stopRecording} className="stop-button">
-          <IconPlayerStop stroke={1.5} />
-        </ActionIcon>
-      )}
+  if (languageToAWSTranscribeMapping[targetLanguage] !== "") {
+    return (
+      <>  
+        {!isRecording ? (
+          <ActionIcon size={size} color="#3b943b" variant="subtle" onClick={startRecording} className="record-button" disabled={isUploading}>
+            <IconMicrophone stroke={1.5} />
+          </ActionIcon>
+        ) : (
+          <ActionIcon size={size} color="#3b943b" variant="subtle" onClick={stopRecording} className="stop-button">
+            <IconPlayerStop stroke={1.5} />
+          </ActionIcon>
+        )}
 
-      {audioURL && (
-        // uploadStatus && <p className="status-message">{uploadStatus}</p>
-        <ActionIcon size={size} color="#3b943b" variant='subtle' onClick={handleUpload} loading={isUploading || !audioURL} className="upload-button">
-          <IconCloudUpload stroke={1.5} />
-        </ActionIcon>
-      )}
-    </>
-  );
+        {audioURL && (
+          // uploadStatus && <p className="status-message">{uploadStatus}</p>
+          <ActionIcon size={size} color="#3b943b" variant='subtle' onClick={handleUpload} loading={isUploading || !audioURL} className="upload-button">
+            <IconCloudUpload stroke={1.5} />
+          </ActionIcon>
+        )}
+      </>
+    );
   }
   else {
-    const err = async () =>{
-      let baba = await Translator(targetLanguage, "Sorry this is not supported") ?? "err"
-      setErrorMessage(baba)
-    }
-    err()
-    return ( <p>{errorMessage}</p> )
+    // const err = async () =>{
+    //   let baba = await Translator(targetLanguage, "Sorry this is not supported") ?? "err"
+    //   setErrorMessage(baba)
+    // }
+    // err()
+    return (
+      <ActionIcon size={size} color="#3b943b" variant="subtle" data-disabled onClick={startRecording} className="record-button" disabled={isUploading}>
+        <IconMicrophone stroke={1.5} />
+      </ActionIcon>
+    )
         
   }
  
 };
 
-export default AudioRecorder;
+export default AudioRecorder

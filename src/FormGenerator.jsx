@@ -1,7 +1,7 @@
-import { TextInput, Checkbox, Radio, Stack, Group, Button, NumberInput, Select, Box } from '@mantine/core'
+import { TextInput, Checkbox, Radio, Stack, Group, Button, NumberInput, Select, Box, Text } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import TTS from "./TTS"
-import AudioRecorder from './AudioRecorder'
+import AudioRecorder, {CheckCompatibility} from './AudioRecorder'
 import React, { useState, useEffect } from 'react';
 
 const FormGenerator = ({ formSchema, targetLanguage }) => {
@@ -11,8 +11,6 @@ const FormGenerator = ({ formSchema, targetLanguage }) => {
         if (prevLang !== targetLanguage) {
             form.reset();
             setPrevLang(targetLanguage);
-            // form.setFieldValue("name", "test")
-            // form.getValues
         }
     }, [targetLanguage])
     
@@ -33,11 +31,30 @@ const FormGenerator = ({ formSchema, targetLanguage }) => {
 
     return (
         <Box mx="auto">
+            <CheckCompatibility lang={targetLanguage}/>
+                
             <form onSubmit={form.onSubmit(handleSubmit)}>
                 <Stack gap="md">
                         
                     {formSchema.map((field => {
                         switch (field.type) {
+                            case "header":
+                                return (
+                                <Text key={field.name} size="xl" >
+                                    {field.label}
+                                    <TTS text = {field.label} targetLanguage={targetLanguage}/>
+                                </Text>
+                                )
+
+
+                            case "plaintext":
+                                return (
+                                <Text key={field.name} size="md" >
+                                    {field.label}
+                                    <TTS text = {field.label} targetLanguage={targetLanguage}/>
+                                </Text>
+                                )
+
                             case "text":
                                 return (        
                                     <TextInput  
