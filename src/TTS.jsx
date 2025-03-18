@@ -159,25 +159,25 @@ const TTS = ({ text, targetLanguage, size="input-sm"}) => {
       };
   
       try {
-          const response = await fetch(apiUrl, {
-              method: "POST",
-              mode: "cors",
-              headers: {
-                  "Content-Type": "application/json",
-        
-              },
-              body: JSON.stringify(requestData),
-          });
+        const response = await fetch(apiUrl, {
+            method: "POST",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+      
+            },
+            body: JSON.stringify(requestData),
+        });
+
+        const data = await response.json();
   
-          const data = await response.json();
-    
-  
-          if (data.audioBase64) {
-            const newAudio = new Audio(`data:audio/mp3;base64,${data.audioBase64}`);
-              setAudio(newAudio);
-          } else {
-              console.error("No audio received:", data);
-          }
+
+        if (data.audioBase64) {
+          const newAudio = new Audio(`data:audio/mp3;base64,${data.audioBase64}`);
+            setAudio(newAudio);
+        } else {
+            console.error("No audio received:", data);
+        }
       } catch (error) {
           console.error("Error calling Lambda:", error);
       }
@@ -191,7 +191,7 @@ const TTS = ({ text, targetLanguage, size="input-sm"}) => {
         audio.currentTime = 0;
       }
     }
-  }, [])
+  }, [text, targetLanguage])
 
   useEffect(() => {
     if (audio) {
