@@ -1,10 +1,12 @@
 import { IconVolume, IconPlayerPause } from "@tabler/icons-react";
 import { ActionIcon } from "@mantine/core";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { Translator } from "./Translator"
+// import React from "react";
 
-let init = false;
+// let init = false;
 
-const TTS = ({ text, targetLanguage, size="input-sm"}) => {
+const TTS = ({ text, targetLanguage, size="input-sm", change}) => {
   const awsPollyLanguages = {
     "arb": "Arabic",
     "ar-AE": "Arabic (Gulf)",
@@ -144,22 +146,39 @@ const TTS = ({ text, targetLanguage, size="input-sm"}) => {
     "cy": "cy-GB"  
   }
 
-  const [audio, setAudio] = useState(null);
+  // const [audio, setAudio] = useState(null);
+  const audioRef = useRef(null);
   const [playing, setPlaying] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
+
+  // useEffect(() => {
+  //   setAudio(null);
+  //   setPlaying(false);
+  // }, [change])
+  
+  useEffect(() => {
+    if(audioRef.current){
+      audioRef.current.pause();
+    }
+  }, [])
 
   useEffect(() => {
+    setIsDisabled(true)
+    audioRef.current = null;
+    setPlaying(false);
     const callLambda = async () => {
       const apiUrl = "https://cxx2cg4e8a.execute-api.eu-west-2.amazonaws.com/test/ttsLambda";
   
       // console.log("Target language: ", targetLanguage)
       // console.log("Text: ", text)
   
-      const requestData = {
-          text: text,
-          language: targetLanguage,
-      };
-  
       try {
+        const translatedText = await Translator(targetLanguage, text) ?? "err"
+        const requestData = {
+          text: translatedText,
+          language: targetLanguage,
+        };
+
         const response = await fetch(apiUrl, {
             method: "POST",
             mode: "cors",
@@ -175,7 +194,8 @@ const TTS = ({ text, targetLanguage, size="input-sm"}) => {
 
         if (data.audioBase64) {
           const newAudio = new Audio(`data:audio/mp3;base64,${data.audioBase64}`);
-            setAudio(newAudio);
+          audioRef.current = newAudio;
+          setIsDisabled(false)
         } else {
             console.error("No audio received:", data);
         }
@@ -184,21 +204,23 @@ const TTS = ({ text, targetLanguage, size="input-sm"}) => {
       }
     };
 
-    callLambda();
+    if (langCode[targetLanguage]) {
+      callLambda();
+    }
 
     return () => {
-      if (audio) {
-        audio.pause();
-        audio.currentTime = 0;
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
       }
     }
-  }, [text, targetLanguage])
+  }, [change, text, targetLanguage])
 
   useEffect(() => {
-    if (audio) {
-      audio.addEventListener("ended", () => setPlaying(false))
+    if (audioRef.current) {
+      audioRef.current.addEventListener("ended", () => setPlaying(false))
     }
-  }, [audio])
+  }, [audioRef.current])
   
   function  getSpeakerRegion(code){
     const key = Object.keys(awsPollyLanguages).find(k => k.includes(code));
@@ -206,12 +228,12 @@ const TTS = ({ text, targetLanguage, size="input-sm"}) => {
   }
 
   const toggleAudio = () => {
-    audio && playing ? audio.pause() : audio.play()
+    audioRef.current && playing ? audioRef.current.pause() : audioRef.current.play()
     setPlaying(!playing)
   }
-
+  //!langCode[targetLanguage]
   return (
-    <ActionIcon size={size} variant="subtle" color="#3b943b" disabled={!langCode[targetLanguage]} onClick={() => toggleAudio()} >
+    <ActionIcon size={size} variant="subtle" color="#3b943b" disabled={isDisabled} onClick={() => toggleAudio()} >
         {playing ? <IconPlayerPause stroke={1.5} /> : <IconVolume stroke={1.5} />}
     </ActionIcon>
   );  

@@ -3,6 +3,7 @@ import { type Schema } from '../amplify/data/resource';
 
 export async function Translator(language: string, text:string) {
     const client = generateClient<Schema>();
+    console.log(text)
 
     const { data } = await client.queries.translate({
         sourceLanguage: "en",

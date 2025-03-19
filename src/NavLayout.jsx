@@ -91,6 +91,8 @@ const NavLayout = () => {
     const [selectedForm, setSelectedForm] = useState("form1") // Current form selected from navbar
     const [selectedDoc, setSelectedDoc] = useState("doc1") // Current document selected from navbar
 
+    const [change, setChange] = useState(0)
+
     const [targetLanguage, setTargetLanguage] = useState("en")
 
     const [formSchema, setFormSchema] = useState(form1)
@@ -130,7 +132,13 @@ const NavLayout = () => {
         }
 
         fetchDocument()
+        setChange(change + 1)
     }, [selectedDoc])
+
+    useEffect(() => {
+        setChange(change + 1)
+    }, [selectedPage, selectedForm])
+
 
     return (
         <AppShell header={{ height: 60 }} navbar={{width: 200, breakpoint: "sm"}} padding="xl">
@@ -176,7 +184,7 @@ const NavLayout = () => {
                     <Grid.Col span={12}>
                         <Container size="sm" pt={20} pb={60}>
                             {selectedPage==="forms" && formSchema && !loading && <TranslateForm key={selectedForm} formSchema={formSchema} targetLanguage={targetLanguage} />}
-                            {selectedPage==="docs" && selectedDoc && !loading && <RenderDocument key={selectedDoc} text={docText} targetLanguage={targetLanguage} />}
+                            {selectedPage==="docs" && selectedDoc && !loading && <RenderDocument key={selectedDoc} text={docText} targetLanguage={targetLanguage} change={change}/>}
                         </Container>
                     </Grid.Col>
                 </Grid>

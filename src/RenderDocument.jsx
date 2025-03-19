@@ -4,14 +4,14 @@ import { useEffect, useState } from "react"
 import TextSimplificator from "./TextSimplificator";
 import TTS from "./TTS";
 
-const RenderDocument = ({ text, targetLanguage="es" }) => {
+const RenderDocument = ({ text, targetLanguage="es", change }) => {
     const [translatedText, setTranslatedText] = useState("");
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const translateText = async () => {
             try {
-                const translatedText = await Translator(targetLanguage, text) ?? "err"
+                const translatedText = await Translator(targetLanguage, text) ?? "dik and balls"
                 setTranslatedText(translatedText)
             } catch (error) {
                 console.error("Error loading or translating text:", error)
@@ -32,7 +32,7 @@ const RenderDocument = ({ text, targetLanguage="es" }) => {
     return (
         <>
             <TextSimplificator text={text} targetLanguage={targetLanguage}/>
-            <TTS text={translatedText} targetLanguage={targetLanguage} />
+            <TTS text={text} targetLanguage={targetLanguage} change={change} />
             <Text>{translatedText}</Text>
         </>
     )
