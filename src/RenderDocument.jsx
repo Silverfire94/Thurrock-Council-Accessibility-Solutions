@@ -32,7 +32,7 @@ const RenderDocument = ({ text, targetLanguage="es" }) => {
     return (
         <>
             <TextSimplificator text={text} targetLanguage={targetLanguage}/>
-            <TTS text={text} targetLanguage={targetLanguage} />
+            <TTS text={translatedText} targetLanguage={targetLanguage} />
             <Text>{translatedText}</Text>
         </>
     )

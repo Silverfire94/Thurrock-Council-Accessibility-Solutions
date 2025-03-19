@@ -151,7 +151,8 @@ const TTS = ({ text, targetLanguage, size="input-sm"}) => {
     const callLambda = async () => {
       const apiUrl = "https://cxx2cg4e8a.execute-api.eu-west-2.amazonaws.com/test/ttsLambda";
   
-      // console.log(targetLanguage)
+      // console.log("Target language: ", targetLanguage)
+      // console.log("Text: ", text)
   
       const requestData = {
           text: text,
