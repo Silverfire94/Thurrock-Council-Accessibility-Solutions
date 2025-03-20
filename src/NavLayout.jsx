@@ -178,6 +178,7 @@ const NavLayout = () => {
                             data={languageOptions}
                             value={targetLanguage}
                             onChange={setTargetLanguage}
+                            allowDeselect = {false}
                         />
                     </Grid.Col>
                     <Grid.Col span={9}></Grid.Col>
