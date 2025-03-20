@@ -11,7 +11,7 @@ const RenderDocument = ({ text, targetLanguage="es", change }) => {
     useEffect(() => {
         const translateText = async () => {
             try {
-                const translatedText = await Translator(targetLanguage, text) ?? "dik and balls"
+                const translatedText = await Translator(targetLanguage, text) ?? "err"
                 setTranslatedText(translatedText)
             } catch (error) {
                 console.error("Error loading or translating text:", error)
