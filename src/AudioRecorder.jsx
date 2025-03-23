@@ -113,9 +113,7 @@ const AudioRecorder = ({targetLanguage, whenResultReady, size="input-sm" }) => {
 
   const startRecording = async () => {
 
-    // if (languageToAWSTranscribeMapping[targetLanguage] === "")
-    //   return;
-    // }
+   
     
     audioChunksRef.current = [];
     setAudioURL('');
@@ -165,8 +163,6 @@ const AudioRecorder = ({targetLanguage, whenResultReady, size="input-sm" }) => {
     try {
       const fileName = `recording-${Date.now()}.wav`;
   
-
-      // ✅ Step 1: Request Pre-signed URL from API Gateway
       const response = await fetch(API_GATEWAY_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -179,7 +175,7 @@ const AudioRecorder = ({targetLanguage, whenResultReady, size="input-sm" }) => {
 
       const { uploadURL } = await response.json();
 
-      // ✅ Step 2: Upload to S3 using the pre-signed URL
+  
       const s3UploadResponse = await fetch(uploadURL, {
         method: "PUT",
         body: audioBlobRef.current,
@@ -259,7 +255,7 @@ const AudioRecorder = ({targetLanguage, whenResultReady, size="input-sm" }) => {
         )}
 
         {audioURL && (
-          // uploadStatus && <p className="status-message">{uploadStatus}</p>
+
           <ActionIcon size={size} color="#3b943b" variant='subtle' onClick={handleUpload} loading={isUploading || !audioURL} className="upload-button">
             <IconCloudUpload stroke={1.5} />
           </ActionIcon>
@@ -268,11 +264,7 @@ const AudioRecorder = ({targetLanguage, whenResultReady, size="input-sm" }) => {
     );
   }
   else {
-    // const err = async () =>{
-    //   let baba = await Translator(targetLanguage, "Sorry this is not supported") ?? "err"
-    //   setErrorMessage(baba)
-    // }
-    // err()
+   
     return (
       <ActionIcon size={size} color="#3b943b" variant="subtle" data-disabled onClick={startRecording} className="record-button" disabled={isUploading}>
         <IconMicrophone stroke={1.5} />

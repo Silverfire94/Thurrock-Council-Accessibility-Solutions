@@ -2,9 +2,7 @@ import { IconVolume, IconPlayerPause } from "@tabler/icons-react";
 import { ActionIcon } from "@mantine/core";
 import { useState, useEffect, useRef } from "react";
 import { Translator } from "./Translator"
-// import React from "react";
 
-// let init = false;
 
 const TTS = ({ text, targetLanguage, size="input-sm", change}) => {
   const awsPollyLanguages = {
@@ -146,15 +144,12 @@ const TTS = ({ text, targetLanguage, size="input-sm", change}) => {
     "cy": "cy-GB"  
   }
 
-  // const [audio, setAudio] = useState(null);
+
   const audioRef = useRef(null);
   const [playing, setPlaying] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
 
-  // useEffect(() => {
-  //   setAudio(null);
-  //   setPlaying(false);
-  // }, [change])
+
   
   useEffect(() => {
     if(audioRef.current){
@@ -169,8 +164,7 @@ const TTS = ({ text, targetLanguage, size="input-sm", change}) => {
     const callLambda = async () => {
       const apiUrl = "https://cxx2cg4e8a.execute-api.eu-west-2.amazonaws.com/test/ttsLambda";
   
-      // console.log("Target language: ", targetLanguage)
-      // console.log("Text: ", text)
+     
   
       try {
         const translatedText = await Translator(targetLanguage, text) ?? "err"
@@ -231,7 +225,7 @@ const TTS = ({ text, targetLanguage, size="input-sm", change}) => {
     audioRef.current && playing ? audioRef.current.pause() : audioRef.current.play()
     setPlaying(!playing)
   }
-  //!langCode[targetLanguage]
+
   return (
     <ActionIcon size={size} variant="subtle" color="#3b943b" disabled={isDisabled} onClick={() => toggleAudio()} >
         {playing ? <IconPlayerPause stroke={1.5} /> : <IconVolume stroke={1.5} />}
