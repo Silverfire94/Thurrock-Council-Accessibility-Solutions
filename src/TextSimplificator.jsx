@@ -1,5 +1,3 @@
-
-
 import { useState } from "react";
 import { Translator } from "./Translator";
 
@@ -18,8 +16,6 @@ const TextSimplificator = ({ text, targetLanguage }) => {
       setLoading(true);
       
       const apiUrl = "https://w1x9sft0lg.execute-api.eu-west-2.amazonaws.com/dev/simplify";
-
-
 
       const response = await fetch(apiUrl, {
         method: "POST",
