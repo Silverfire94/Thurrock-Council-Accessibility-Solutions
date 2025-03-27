@@ -142,7 +142,7 @@ const AudioRecorder = ({targetLanguage, whenResultReady, size="input-sm" }) => {
       console.error('Error accessing microphone:', error);
     }
   };
-
+  // code snippet taken and modified from https://www.reddit.com/r/npm/comments/1f9r5h6/npm_library_for_recording_audio_both_webmobile/
   const stopRecording = () => {
     if (mediaRecorderRef.current && isRecording) {
       mediaRecorderRef.current.stop();
